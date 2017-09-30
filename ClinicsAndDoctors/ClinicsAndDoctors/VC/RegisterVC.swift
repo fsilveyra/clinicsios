@@ -9,10 +9,14 @@
 import UIKit
 
 class RegisterVC: UIViewController {
-
+    
+    
+    @IBAction func BackView(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        CreateGradienBackGround(view: view)
         // Do any additional setup after loading the view.
     }
 

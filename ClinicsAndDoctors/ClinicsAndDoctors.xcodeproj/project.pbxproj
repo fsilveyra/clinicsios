@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A3D240B64E48CB872579258 /* Pods_ClinicsAndDoctors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 839FDBBA2E4CB8A100DEE2F6 /* Pods_ClinicsAndDoctors.framework */; };
+		FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */; };
+		FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */; };
+		FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854201F7F8B2000B758A4 /* RegisterVC.swift */; };
+		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
 		FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */; };
 		FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018E1F7DF69F00C51A0D /* ViewController.swift */; };
 		FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201901F7DF69F00C51A0D /* Main.storyboard */; };
@@ -16,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4BA06CFE8EB60E32718BC28A /* Pods-ClinicsAndDoctors.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClinicsAndDoctors.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClinicsAndDoctors/Pods-ClinicsAndDoctors.release.xcconfig"; sourceTree = "<group>"; };
+		839FDBBA2E4CB8A100DEE2F6 /* Pods_ClinicsAndDoctors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClinicsAndDoctors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		88C2140DBF9C26EC10DCF08A /* Pods-ClinicsAndDoctors.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClinicsAndDoctors.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClinicsAndDoctors/Pods-ClinicsAndDoctors.debug.xcconfig"; sourceTree = "<group>"; };
+		FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginWithEmailVC.swift; path = VC/LoginWithEmailVC.swift; sourceTree = "<group>"; };
+		FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordVC.swift; path = VC/ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		FB4854201F7F8B2000B758A4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = VC/RegisterVC.swift; sourceTree = "<group>"; };
+		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
 		FBE201891F7DF69F00C51A0D /* ClinicsAndDoctors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicsAndDoctors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBE2018E1F7DF69F00C51A0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3D240B64E48CB872579258 /* Pods_ClinicsAndDoctors.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31E9BFAC841487F6718F609C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88C2140DBF9C26EC10DCF08A /* Pods-ClinicsAndDoctors.debug.xcconfig */,
+				4BA06CFE8EB60E32718BC28A /* Pods-ClinicsAndDoctors.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A441180926470B459AA69617 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				839FDBBA2E4CB8A100DEE2F6 /* Pods_ClinicsAndDoctors.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FBE201801F7DF69F00C51A0D = {
 			isa = PBXGroup;
 			children = (
 				FBE2018B1F7DF69F00C51A0D /* ClinicsAndDoctors */,
 				FBE2018A1F7DF69F00C51A0D /* Products */,
+				31E9BFAC841487F6718F609C /* Pods */,
+				A441180926470B459AA69617 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +88,51 @@
 		FBE2018B1F7DF69F00C51A0D /* ClinicsAndDoctors */ = {
 			isa = PBXGroup;
 			children = (
+				FBE201A41F7DFA5000C51A0D /* Images */,
+				FBE201A31F7DF6D300C51A0D /* Models */,
+				FBE201A21F7DF6C800C51A0D /* CellC */,
+				FBE201A11F7DF6BB00C51A0D /* VC */,
 				FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */,
 				FBE2018E1F7DF69F00C51A0D /* ViewController.swift */,
 				FBE201901F7DF69F00C51A0D /* Main.storyboard */,
-				FBE201961F7DF69F00C51A0D /* Assets.xcassets */,
 				FBE201981F7DF69F00C51A0D /* LaunchScreen.storyboard */,
+				FBE201961F7DF69F00C51A0D /* Assets.xcassets */,
 				FBE2019B1F7DF69F00C51A0D /* Info.plist */,
 				FBE201931F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld */,
 			);
 			path = ClinicsAndDoctors;
+			sourceTree = "<group>";
+		};
+		FBE201A11F7DF6BB00C51A0D /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */,
+				FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */,
+				FB4854201F7F8B2000B758A4 /* RegisterVC.swift */,
+				FB4854221F7F8D4F00B758A4 /* HomeVC.swift */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		FBE201A21F7DF6C800C51A0D /* CellC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CellC;
+			sourceTree = "<group>";
+		};
+		FBE201A31F7DF6D300C51A0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		FBE201A41F7DFA5000C51A0D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +142,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBE2019E1F7DF69F00C51A0D /* Build configuration list for PBXNativeTarget "ClinicsAndDoctors" */;
 			buildPhases = (
+				C5303175BC9175C3EF682555 /* [CP] Check Pods Manifest.lock */,
 				FBE201851F7DF69F00C51A0D /* Sources */,
 				FBE201861F7DF69F00C51A0D /* Frameworks */,
 				FBE201871F7DF69F00C51A0D /* Resources */,
+				D14FCB254615D72E883C643D /* [CP] Embed Pods Frameworks */,
+				46653A9C7623237670F5CB13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,14 +206,90 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		46653A9C7623237670F5CB13 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClinicsAndDoctors/Pods-ClinicsAndDoctors-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5303175BC9175C3EF682555 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClinicsAndDoctors-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D14FCB254615D72E883C643D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ClinicsAndDoctors/Pods-ClinicsAndDoctors-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AELog/AELog.framework",
+				"${BUILT_PRODUCTS_DIR}/ARSLineProgress/ARSLineProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Argo/Argo.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Runes/Runes.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AELog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ARSLineProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Argo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Runes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClinicsAndDoctors/Pods-ClinicsAndDoctors-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FBE201851F7DF69F00C51A0D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
+				FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */,
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
+				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
+				FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */,
+				FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +412,7 @@
 		};
 		FBE2019F1F7DF69F00C51A0D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88C2140DBF9C26EC10DCF08A /* Pods-ClinicsAndDoctors.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SRD773KQ35;
@@ -278,6 +426,7 @@
 		};
 		FBE201A01F7DF69F00C51A0D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BA06CFE8EB60E32718BC28A /* Pods-ClinicsAndDoctors.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = SRD773KQ35;
@@ -308,6 +457,7 @@
 				FBE201A01F7DF69F00C51A0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -9,13 +9,20 @@
 import UIKit
 
 class LoginWithEmailVC: UIViewController {
-
+    @IBOutlet weak var emailTf: UITextField!
+    @IBOutlet weak var passwordTf: UITextField!
+    @IBOutlet weak var loginBt: UIButton!
+    @IBAction func BackView(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        CreateGradienBackGround(view: view)
+        loginBt.layer.cornerRadius = 3
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

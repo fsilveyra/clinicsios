@@ -9,10 +9,16 @@
 import UIKit
 
 class ForgotPasswordVC: UIViewController {
-
+    @IBOutlet weak var phoneTf: UITextField!
+    @IBOutlet weak var recoverBt: UIButton!
+    @IBAction func BackView(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        CreateGradienBackGround(view: view)
+        recoverBt.layer.cornerRadius = 3
         // Do any additional setup after loading the view.
     }
 
