@@ -46,10 +46,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myMap.isUserInteractionEnabled = true
                 self.myTableView.alpha = 0
                 self.myTableView.isUserInteractionEnabled = false
-                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
+
                 self.view.sendSubview(toBack: self.myTableView)
                 self.view.bringSubview(toFront: self.myMap)
             })
+
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
         }
         else {
             UIView.animate(withDuration: 0.5, animations: {
@@ -57,10 +59,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
                 self.myTableView.isUserInteractionEnabled = true
-                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
+
                 self.view.sendSubview(toBack: self.myMap)
                 self.view.bringSubview(toFront: self.myTableView)
             })
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
         }
     }
     
