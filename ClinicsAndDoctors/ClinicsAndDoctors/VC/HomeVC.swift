@@ -34,6 +34,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         InitLocation()
         // Do any additional setup after loading the view.
     }
+    /*
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }*/
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
         if myMap.alpha==0 {
