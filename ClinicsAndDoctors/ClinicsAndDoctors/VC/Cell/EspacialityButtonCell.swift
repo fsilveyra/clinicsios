@@ -9,5 +9,9 @@
 import UIKit
 
 class EspacialityButtonCell: UICollectionViewCell {
+    @IBOutlet weak var especialityButton:UIButton!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }
