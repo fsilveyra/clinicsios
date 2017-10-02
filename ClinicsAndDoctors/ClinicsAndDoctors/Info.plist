@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Clinics&amp;Doctors</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,10 +20,14 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Clinics and Doctor need access to your Camera for set your avatar in Perfil</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Clinics and Doctor need access to your Photo Library for set your avatar in Perfil</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -30,6 +36,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -43,11 +51,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Clinics and Doctor need access to your Photo Library for set your avatar in Perfil</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Clinics and Doctor need access to your Camera for set your avatar in Perfil</string>
 </dict>
 </plist>
