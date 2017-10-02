@@ -17,4 +17,7 @@ pod 'SwiftMessages'
 #pod 'AlamofireObjectMapper', '~> 4.0'
 pod 'Argo'
 pod 'AELog'
+#pod 'IHKeyboardAvoiding'
+pod 'SideMenu'
+pod 'TPKeyboardAvoiding'
 end

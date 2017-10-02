@@ -9,7 +9,9 @@
 import UIKit
 
 class RegisterVC: UIViewController {
-    
+    @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var plussImage: UIButton!
+    @IBOutlet weak var registerBt: UIButton!
     
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -17,6 +19,10 @@ class RegisterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: view)
+        //self.navigationController?.navigationBar.isHidden = false
+        avatarImage.layer.cornerRadius = avatarImage.frame.width/2
+        plussImage.layer.cornerRadius = plussImage.frame.width/2
+        registerBt.layer.cornerRadius = 4
         // Do any additional setup after loading the view.
     }
 
@@ -24,7 +30,11 @@ class RegisterVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

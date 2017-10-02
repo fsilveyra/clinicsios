@@ -17,8 +17,9 @@ class ForgotPasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         CreateGradienBackGround(view: view)
-        recoverBt.layer.cornerRadius = 3
+        recoverBt.layer.cornerRadius = 4
         // Do any additional setup after loading the view.
     }
 
@@ -27,6 +28,10 @@ class ForgotPasswordVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

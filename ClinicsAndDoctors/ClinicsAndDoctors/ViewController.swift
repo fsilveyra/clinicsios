@@ -16,8 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         CreateGradienBackGround(view:self.view)
         self.navigationController?.navigationBar.isHidden = true
-        loginBt.layer.cornerRadius = 3
-        facebookBt.layer.cornerRadius = 3
+        loginBt.layer.cornerRadius = 4
+        facebookBt.layer.cornerRadius = 4
         let attribRegBut : [String: Any] = [
             NSFontAttributeName : UIFont.systemFont(ofSize: 14),
             NSForegroundColorAttributeName : UIColor.white,

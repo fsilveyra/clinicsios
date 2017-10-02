@@ -98,6 +98,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         super.didReceiveMemoryWarning()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     // MARK: - TableView Delegates

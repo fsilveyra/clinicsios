@@ -18,9 +18,20 @@ class LoginWithEmailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
+        
         CreateGradienBackGround(view: view)
-        loginBt.layer.cornerRadius = 3
+        loginBt.layer.cornerRadius = 4
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,6 +39,10 @@ class LoginWithEmailVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
