@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SideMenu
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MKMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var especialitysCollection:UICollectionView!
@@ -18,19 +19,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var currentMilles = 100
     var locationManager = CLLocationManager()
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
-    
+    var currentSelectedEspec = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
         self.navigationController?.navigationBar.isHidden = false
         let smallLogoView = UIImageView.init(image: UIImage(named:"smallLogo"))
         self.navigationItem.titleView = smallLogoView
-        myMap.alpha = 0
+        myMap.alpha = 1
+        myTableView.alpha = 0
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
         separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
+        SideMenuManager.menuPresentMode = .menuSlideIn
+        SideMenuManager.menuFadeStatusBar = false
         InitLocation()
         // Do any additional setup after loading the view.
     }
@@ -46,12 +51,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myMap.isUserInteractionEnabled = true
                 self.myTableView.alpha = 0
                 self.myTableView.isUserInteractionEnabled = false
-
+                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
                 self.view.sendSubview(toBack: self.myTableView)
                 self.view.bringSubview(toFront: self.myMap)
             })
-
-            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
         }
         else {
             UIView.animate(withDuration: 0.5, animations: {
@@ -59,11 +62,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
                 self.myTableView.isUserInteractionEnabled = true
-
+                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
                 self.view.sendSubview(toBack: self.myMap)
                 self.view.bringSubview(toFront: self.myTableView)
             })
-            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
         }
     }
     
@@ -72,6 +74,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         //print("Value of Slider: \(currentMilles)")
         
         //let header =  tableView.dequeueReusableCell(withIdentifier: "SliderMillesCell") as! SliderMillesCell
+        
+    }
+    
+    @IBAction func SelectEspeciality(_ sender: AnyObject){
+        let button = sender as! UIButton
+        currentSelectedEspec = button.tag
+        print("Especiliality pos: \(currentSelectedEspec)")
+        //especialitysCollection.reloadData()
+        
+        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+            if button != cell.especialityBt{
+                cell.subButtonView.alpha = 0
+            }
+            else {
+                cell.subButtonView.alpha = 1
+            }
+        }
     }
     
     func InitLocation(){
@@ -141,7 +160,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = especialitysCollection.dequeueReusableCell(withReuseIdentifier: "EspacialityButtonCell", for: indexPath) as! EspacialityButtonCell
-        cell.especialityButton.setTitle(especialitysArr[indexPath.row], for: .normal)
+        cell.especialityBt.setTitle(especialitysArr[indexPath.row], for: .normal)
+        if currentSelectedEspec != indexPath.row {
+            cell.subButtonView.alpha = 0
+        }
+        cell.especialityBt.tag = indexPath.row
+        cell.especialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
+        
         return cell
     }
     
@@ -150,7 +175,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             return CGSize(width: 100, height: 50)
         }
         else {
-            return CGSize(width: 20, height: 50)
+            return CGSize(width: 40, height: 50)
         }
         
     }
@@ -162,7 +187,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-
+    
     /*
     // MARK: - Navigation
 

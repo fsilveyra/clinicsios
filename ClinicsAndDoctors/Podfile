@@ -18,6 +18,6 @@ pod 'SwiftMessages'
 pod 'Argo'
 pod 'AELog'
 #pod 'IHKeyboardAvoiding'
-#pod 'SideMenu'
+pod 'SideMenu'
 pod 'TPKeyboardAvoiding'
 end

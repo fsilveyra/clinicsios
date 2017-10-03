@@ -15,6 +15,7 @@
 		FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */; };
 		FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854201F7F8B2000B758A4 /* RegisterVC.swift */; };
 		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
+		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */; };
 		FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018E1F7DF69F00C51A0D /* ViewController.swift */; };
 		FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201901F7DF69F00C51A0D /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordVC.swift; path = VC/ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		FB4854201F7F8B2000B758A4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = VC/RegisterVC.swift; sourceTree = "<group>"; };
 		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
+		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FBE201891F7DF69F00C51A0D /* ClinicsAndDoctors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicsAndDoctors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBE2018E1F7DF69F00C51A0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */,
 				FB4854201F7F8B2000B758A4 /* RegisterVC.swift */,
 				FB4854221F7F8D4F00B758A4 /* HomeVC.swift */,
+				FB6766BC1F8433790039C122 /* LeftMenuVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
+				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
 				FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */,
 				FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */,
 			);
