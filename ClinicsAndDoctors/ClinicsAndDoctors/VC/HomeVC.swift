@@ -46,23 +46,25 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
         if myMap.alpha==0 {
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
+            
             UIView.animate(withDuration: 0.5, animations: {
                 self.myMap.alpha = 1
                 self.myMap.isUserInteractionEnabled = true
                 self.myTableView.alpha = 0
                 self.myTableView.isUserInteractionEnabled = false
-                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
                 self.view.sendSubview(toBack: self.myTableView)
                 self.view.bringSubview(toFront: self.myMap)
             })
         }
         else {
+            self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
+
             UIView.animate(withDuration: 0.5, animations: {
                 self.myMap.alpha = 0
                 self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
                 self.myTableView.isUserInteractionEnabled = true
-                self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
                 self.view.sendSubview(toBack: self.myMap)
                 self.view.bringSubview(toFront: self.myTableView)
             })
