@@ -47,7 +47,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBAction func ShowMapOrListView(_sender:AnyObject){
         if myMap.alpha==0 {
             self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
-            
+
             UIView.animate(withDuration: 0.5, animations: {
                 self.myMap.alpha = 1
                 self.myMap.isUserInteractionEnabled = true
