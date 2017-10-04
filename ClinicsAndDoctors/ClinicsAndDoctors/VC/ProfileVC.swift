@@ -9,11 +9,43 @@
 import UIKit
 
 class ProfileVC: UIViewController {
-
+    @IBOutlet weak var avatarIm:UIImageView!
+    @IBOutlet weak var nameTf:UITextField!
+    @IBOutlet weak var mobileTf:UITextField!
+    @IBOutlet weak var emailTf:UITextField!
+    @IBOutlet weak var changePasswordBt:UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        CreateGradienBackGround(view: self.view)
+        self.navigationController?.navigationBar.isHidden = false
+        avatarIm.layer.cornerRadius = avatarIm.frame.width/2
+        let attribRegBut : [String: Any] = [
+            NSFontAttributeName : UIFont.systemFont(ofSize: 15),
+            NSForegroundColorAttributeName : UIColor.white,
+            NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue]
+        let attributeString = NSMutableAttributedString(string: "Change Password",
+                                                        attributes: attribRegBut)
+        changePasswordBt.setAttributedTitle(attributeString, for: .normal)
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func BackView(_ sender: AnyObject){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func EditFields(_ sender: AnyObject){
+        if !nameTf.isEnabled {
+            nameTf.isEnabled = true
+            mobileTf.isEnabled = true
+            emailTf.isEnabled = true
+            self.navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "ok-green-icon")
+        }
+        else{
+            nameTf.isEnabled = false
+            mobileTf.isEnabled = false
+            emailTf.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "icon_edit")
+        }
     }
 
     override func didReceiveMemoryWarning() {

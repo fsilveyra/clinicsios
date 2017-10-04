@@ -12,6 +12,7 @@ class LoginWithEmailVC: UIViewController {
     @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginBt: UIButton!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -47,14 +48,15 @@ class LoginWithEmailVC: UIViewController {
         self.view.endEditing(true)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.appDelegate.loggout = true
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

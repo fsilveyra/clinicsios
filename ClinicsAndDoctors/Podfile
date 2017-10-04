@@ -20,4 +20,5 @@ pod 'AELog'
 #pod 'IHKeyboardAvoiding'
 pod 'SideMenu'
 pod 'TPKeyboardAvoiding'
+pod 'GoogleMaps'
 end

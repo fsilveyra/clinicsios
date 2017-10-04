@@ -16,6 +16,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var myMap:MKMapView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currentMilles = 100
     var locationManager = CLLocationManager()
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
@@ -39,6 +40,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         InitLocation()
         // Do any additional setup after loading the view.
     }
+    
     /*
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
