@@ -9,7 +9,18 @@
 import UIKit
 
 class CustomInfoVIew: UIView {
-
+    @IBOutlet weak var clinicNameLb:UILabel!
+    @IBOutlet weak var numberDoctorsLb:UILabel!
+    @IBOutlet weak var millLb:UILabel!
+    @IBOutlet weak var ratingLb:UILabel!
+    @IBOutlet weak var contentView:UIView!
+    @IBOutlet weak var callBt:UIButton!
+    @IBOutlet weak var infoBt:UIButton!
+    @IBOutlet weak var ratingIm:UIImageView!
+    
+    class func instanceFromNib() -> UIView {
+        return UINib(nibName: "CustomInfoVIewX", bundle: nil).instantiate(withOwner: self, options: nil).first as! UIView
+    }
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

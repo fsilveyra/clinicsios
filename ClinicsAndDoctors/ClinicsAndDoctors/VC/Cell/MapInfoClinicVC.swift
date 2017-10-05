@@ -9,7 +9,15 @@
 import UIKit
 
 class MapInfoClinicVC: UIViewController {
-
+    @IBOutlet weak var clinicNameLb:UILabel!
+    @IBOutlet weak var numberDoctorsLb:UILabel!
+    @IBOutlet weak var millLb:UILabel!
+    @IBOutlet weak var ratingLb:UILabel!
+    @IBOutlet weak var contentView:UIView!
+    @IBOutlet weak var callBt:UIButton!
+    @IBOutlet weak var infoBt:UIButton!
+    @IBOutlet weak var ratingIm:UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

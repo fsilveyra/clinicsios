@@ -7,20 +7,35 @@
 //
 
 import UIKit
-import MapKit
+//import MapKit
 import CoreLocation
 import SideMenu
+import GoogleMaps
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MKMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        print("result")
+    }
+    
     @IBOutlet weak var especialitysCollection:UICollectionView!
-    @IBOutlet weak var myMap:MKMapView!
+    @IBOutlet weak var myMap:GMSMapView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
+    @IBOutlet weak var locationBt:UIButton!
+    @IBOutlet weak var searchBt:UIButton!
+    
+    var searchController:UISearchController!
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currentMilles = 100
     var locationManager = CLLocationManager()
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
     var currentSelectedEspec = 0
+    var viewSearch: UIView! = nil
+    var myPoint:GMSMarker?
+    var infoView:CustomInfoVIew!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
@@ -34,10 +49,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+        locationBt.layer.cornerRadius = 6
         SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
         SideMenuManager.menuPresentMode = .menuSlideIn
         SideMenuManager.menuFadeStatusBar = false
         InitLocation()
+        ShowClinicsMarkerInMap()
         // Do any additional setup after loading the view.
     }
     
@@ -45,6 +62,39 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
     }*/
+    // MARK: - @IBActions
+    @IBAction func ShowSearchBar(){
+        searchController = UISearchController.init(searchResultsController: nil)
+        searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
+        //searchController.searchBar.barTintColor = .clear
+        searchController.searchBar.tintColor = .white
+        searchController.searchResultsUpdater = self
+        self.definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.showsCancelButton = true
+        searchController.searchBar.delegate = self
+        searchController.delegate = self
+        
+        //searchController.searchBar.cance
+        self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchBt.frame.height))
+        //searchController.searchBar.frame.size.height = viewSearch.frame.height
+        //searchController.searchBar.frame.size.width = viewSearch.frame.width
+        
+        viewSearch.addSubview(searchController.searchBar)
+        UIView.animate(withDuration: 0.5) {
+            self.view.addSubview(self.viewSearch)
+            self.view.bringSubview(toFront: self.viewSearch)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Stop doing the search stuff
+        // and clear the text in the search bar
+        self.viewSearch.removeFromSuperview()
+        searchController = nil
+        // You could also change the position, frame etc of the searchBar
+    }
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
         if myMap.alpha==0 {
@@ -52,11 +102,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
             UIView.animate(withDuration: 0.5, animations: {
                 self.myMap.alpha = 1
+                self.locationBt.alpha = 1
                 self.myMap.isUserInteractionEnabled = true
                 self.myTableView.alpha = 0
                 self.myTableView.isUserInteractionEnabled = false
                 self.view.sendSubview(toBack: self.myTableView)
                 self.view.bringSubview(toFront: self.myMap)
+                self.view.bringSubview(toFront: self.locationBt)
             })
         }
         else {
@@ -64,10 +116,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
             UIView.animate(withDuration: 0.5, animations: {
                 self.myMap.alpha = 0
+                self.locationBt.alpha = 0
                 self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
                 self.myTableView.isUserInteractionEnabled = true
                 self.view.sendSubview(toBack: self.myMap)
+                self.view.sendSubview(toBack: self.locationBt)
                 self.view.bringSubview(toFront: self.myTableView)
             })
         }
@@ -97,8 +151,26 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
+    @IBAction func ShowMyLocation(_ sende: AnyObject){
+        if myPoint==nil{
+            myPoint = GMSMarker.init(position: (locationManager.location?.coordinate)!)
+            myPoint?.title = "My Location"
+            myPoint?.icon = #imageLiteral(resourceName: "icon_location")
+            myPoint?.map = myMap
+        }
+        else {
+            myPoint?.position = (locationManager.location?.coordinate)!
+        }
+        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, zoom: 14.0)
+        myMap.animate(to: camera)
+    }
+    
+    // MARK: - Initialization
+    
     func InitLocation(){
-        self.myMap.showsUserLocation = true
+        self.myMap.isMyLocationEnabled = false
+        self.myMap.settings.compassButton = true
+        self.myMap.settings.myLocationButton = false
         //self.myMap.lo
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
@@ -122,6 +194,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
+    func ShowClinicsMarkerInMap(){
+        let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.135, longitude: -75.19))
+        pinClinic.title = "River Clinic"
+        pinClinic.icon = #imageLiteral(resourceName: "pin_clinic")
+        pinClinic.map = myMap
+        
+        let pinClinic1 = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.131, longitude: -75.195))
+        pinClinic1.title = "Infinix Clinic"
+        pinClinic1.icon = #imageLiteral(resourceName: "pinInfinix")
+        pinClinic1.map = myMap
+        
+        let pinClinic2 = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.139, longitude: -75.18))
+        pinClinic2.title = "Infi Health Clinic"
+        pinClinic2.icon = #imageLiteral(resourceName: "pinInfiHealth")
+        pinClinic2.map = myMap
+    }
+    
     
     
     override func didReceiveMemoryWarning() {
@@ -132,6 +221,54 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         return .lightContent
     }
     
+    // MARK: - Google Maps Delegates
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        if marker != self.myPoint {
+            self.infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
+            self.infoView.contentView.layer.cornerRadius = 5
+            self.infoView.clinicNameLb.text = marker.title
+            //infoView.center = myMap.projection.point(for: marker.position)
+            self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
+            /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+                let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
+                let position = GMSCameraUpdate.setTarget(camera)
+                mapView.animate(with: position)
+               })*/
+            return infoView
+        }
+        
+        return nil
+    }
+    /*
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        return true
+    }*/
+    
+    // MARK: - Location Manager Delegates
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last
+        let eventDate = location?.timestamp
+        let latitude = location?.coordinate.latitude
+        let longitude = location?.coordinate.longitude
+        let currentLocation = CLLocationCoordinate2D.init(latitude: latitude!, longitude: longitude!)
+        let howRecent = eventDate?.timeIntervalSinceNow
+        if fabs(howRecent!) < 15 {
+            let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 14.0)
+            myMap.animate(to: camera)
+            if myPoint==nil{
+                myPoint = GMSMarker.init(position: currentLocation)
+                myPoint?.title = "My Location"
+                myPoint?.icon = #imageLiteral(resourceName: "icon_location")
+                myPoint?.map = myMap
+            }
+            else {
+                myPoint?.position = currentLocation
+            }
+        }
+    }
     
     // MARK: - TableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -191,6 +328,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    // MARK: - Search Controller
     
     /*
     // MARK: - Navigation
