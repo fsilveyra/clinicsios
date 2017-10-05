@@ -23,7 +23,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var separetorView:UIView!
     @IBOutlet weak var locationBt:UIButton!
     @IBOutlet weak var searchBt:UIButton!
-    
+
+    var myPoint: GMSMarker? {
+        didSet{
+            ShowClinicsMarkerInMap()
+        }
+    }
     var searchController:UISearchController!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -32,7 +37,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
-    var myPoint:GMSMarker?
+
     var infoView:CustomInfoVIew!
     
     
@@ -54,7 +59,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         SideMenuManager.menuPresentMode = .menuSlideIn
         SideMenuManager.menuFadeStatusBar = false
         InitLocation()
-        ShowClinicsMarkerInMap()
+
         // Do any additional setup after loading the view.
     }
     
@@ -193,19 +198,31 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.locationManager.startUpdatingLocation()
         }
     }
-    
+
+    func generateRandomMarker() -> GMSMarker{
+
+        let deltax = Double(arc4random()) / Double(UInt32.max)
+        let valx = ((deltax * 20.0) - 10.0) * 0.001
+        let deltay = Double(arc4random()) / Double(UInt32.max)
+        let valy = ((deltay * 20.0) - 10.0) * 0.001
+
+        let p = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: (myPoint?.position.latitude)! + valx,
+                                                                             longitude: (myPoint?.position.longitude)! + valy))
+        return p
+    }
+
     func ShowClinicsMarkerInMap(){
-        let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.135, longitude: -75.19))
+        let pinClinic = generateRandomMarker()
         pinClinic.title = "River Clinic"
         pinClinic.icon = #imageLiteral(resourceName: "pin_clinic")
         pinClinic.map = myMap
         
-        let pinClinic1 = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.131, longitude: -75.195))
+        let pinClinic1 = generateRandomMarker()
         pinClinic1.title = "Infinix Clinic"
         pinClinic1.icon = #imageLiteral(resourceName: "pinInfinix")
         pinClinic1.map = myMap
         
-        let pinClinic2 = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: 20.139, longitude: -75.18))
+        let pinClinic2 = generateRandomMarker()
         pinClinic2.title = "Infi Health Clinic"
         pinClinic2.icon = #imageLiteral(resourceName: "pinInfiHealth")
         pinClinic2.map = myMap
@@ -247,7 +264,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }*/
     
     // MARK: - Location Manager Delegates
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last
         let eventDate = location?.timestamp
@@ -256,13 +273,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let currentLocation = CLLocationCoordinate2D.init(latitude: latitude!, longitude: longitude!)
         let howRecent = eventDate?.timeIntervalSinceNow
         if fabs(howRecent!) < 15 {
-            let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 14.0)
-            myMap.animate(to: camera)
+
             if myPoint==nil{
                 myPoint = GMSMarker.init(position: currentLocation)
                 myPoint?.title = "My Location"
                 myPoint?.icon = #imageLiteral(resourceName: "icon_location")
                 myPoint?.map = myMap
+
+                let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 14.0)
+                myMap.animate(to: camera)
             }
             else {
                 myPoint?.position = currentLocation
