@@ -11,13 +11,13 @@
 		FB02285A1F8675F500853B1B /* CustomInfoVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0228591F8675F500853B1B /* CustomInfoVIew.swift */; };
 		FB02285E1F8676C700853B1B /* CustomInfoVIewX.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */; };
 		FB3E548F1F81B64900DF65BA /* EspacialityButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3E548E1F81B64900DF65BA /* EspacialityButtonCell.swift */; };
-		FB4587161F85E89500E7EA1B /* MapInfoClinicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4587151F85E89500E7EA1B /* MapInfoClinicVC.swift */; };
 		FB4600571F81D6D100C258E5 /* DoctorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4600561F81D6D100C258E5 /* DoctorCell.swift */; };
 		FB4600591F8206CD00C258E5 /* SliderMillesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */; };
 		FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */; };
 		FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */; };
 		FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854201F7F8B2000B758A4 /* RegisterVC.swift */; };
 		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
+		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
 		FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */; };
@@ -35,13 +35,13 @@
 		FB0228591F8675F500853B1B /* CustomInfoVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomInfoVIew.swift; path = VC/Cell/CustomInfoVIew.swift; sourceTree = "<group>"; };
 		FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CustomInfoVIewX.xib; path = VC/Cell/CustomInfoVIewX.xib; sourceTree = "<group>"; };
 		FB3E548E1F81B64900DF65BA /* EspacialityButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EspacialityButtonCell.swift; path = VC/Cell/EspacialityButtonCell.swift; sourceTree = "<group>"; };
-		FB4587151F85E89500E7EA1B /* MapInfoClinicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapInfoClinicVC.swift; path = VC/Cell/MapInfoClinicVC.swift; sourceTree = "<group>"; };
 		FB4600561F81D6D100C258E5 /* DoctorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorCell.swift; path = VC/Cell/DoctorCell.swift; sourceTree = "<group>"; };
 		FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SliderMillesCell.swift; path = VC/Cell/SliderMillesCell.swift; sourceTree = "<group>"; };
 		FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginWithEmailVC.swift; path = VC/LoginWithEmailVC.swift; sourceTree = "<group>"; };
 		FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordVC.swift; path = VC/ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		FB4854201F7F8B2000B758A4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = VC/RegisterVC.swift; sourceTree = "<group>"; };
 		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
+		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
 		FBE201891F7DF69F00C51A0D /* ClinicsAndDoctors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicsAndDoctors.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +128,7 @@
 				FB4854221F7F8D4F00B758A4 /* HomeVC.swift */,
 				FB6766BC1F8433790039C122 /* LeftMenuVC.swift */,
 				FB8004381F84A0050028C62E /* ProfileVC.swift */,
+				FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -138,7 +139,6 @@
 				FB3E548E1F81B64900DF65BA /* EspacialityButtonCell.swift */,
 				FB4600561F81D6D100C258E5 /* DoctorCell.swift */,
 				FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */,
-				FB4587151F85E89500E7EA1B /* MapInfoClinicVC.swift */,
 				FB0228591F8675F500853B1B /* CustomInfoVIew.swift */,
 				FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */,
 			);
@@ -315,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */,
 				FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */,
 				FB4600571F81D6D100C258E5 /* DoctorCell.swift in Sources */,
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
@@ -322,7 +323,6 @@
 				FB3E548F1F81B64900DF65BA /* EspacialityButtonCell.swift in Sources */,
 				FB4600591F8206CD00C258E5 /* SliderMillesCell.swift in Sources */,
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
-				FB4587161F85E89500E7EA1B /* MapInfoClinicVC.swift in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,

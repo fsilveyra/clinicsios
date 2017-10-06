@@ -71,18 +71,24 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBAction func ShowSearchBar(){
         searchController = UISearchController.init(searchResultsController: nil)
         searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
-        //searchController.searchBar.barTintColor = .clear
+        //searchController.searchBar.alpha = 1
+        //searchController.searchBar.isTranslucent = false
+        searchController.searchBar.placeholder = "Search doctors or clinics"
+        
         searchController.searchBar.tintColor = .white
         searchController.searchResultsUpdater = self
-        self.definesPresentationContext = true
-        searchController.dimsBackgroundDuringPresentation = false
+        
+        //self.definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.delegate = self
         searchController.delegate = self
         
         //searchController.searchBar.cance
-        self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchBt.frame.height))
+        self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
+        self.viewSearch.backgroundColor =  UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
+        //self.viewSearch.clipsToBounds = true
         //searchController.searchBar.frame.size.height = viewSearch.frame.height
         //searchController.searchBar.frame.size.width = viewSearch.frame.width
         
@@ -91,6 +97,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.view.addSubview(self.viewSearch)
             self.view.bringSubview(toFront: self.viewSearch)
         }
+        searchController.searchBar.becomeFirstResponder()
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -134,10 +142,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     @IBAction func SliderMoved(_ slider: UISlider){
         currentMilles =  lroundf(slider.value)
-        //print("Value of Slider: \(currentMilles)")
-        
-        //let header =  tableView.dequeueReusableCell(withIdentifier: "SliderMillesCell") as! SliderMillesCell
-        
     }
     
     @IBAction func SelectEspeciality(_ sender: AnyObject){
