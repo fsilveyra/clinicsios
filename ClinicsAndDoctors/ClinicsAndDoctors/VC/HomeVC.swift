@@ -96,7 +96,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         UIView.animate(withDuration: 0.5) {
             self.view.addSubview(self.viewSearch)
             self.view.bringSubview(toFront: self.viewSearch)
+            self.especialitysCollection.alpha = 0
         }
+        
         searchController.searchBar.becomeFirstResponder()
         
     }
@@ -106,6 +108,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         // and clear the text in the search bar
         self.viewSearch.removeFromSuperview()
         searchController = nil
+        self.especialitysCollection.alpha = 1
         // You could also change the position, frame etc of the searchBar
     }
     

@@ -588,9 +588,6 @@
                                                     <rect key="frame" x="349" y="29" width="15" height="13"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="arrowRight"/>
-                                                    <connections>
-                                                        <segue destination="Uj0-yo-EwR" kind="show" id="MWG-hy-N8O"/>
-                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Infinix Clinic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPh-bs-mQW">
                                                     <rect key="frame" x="215" y="18" width="78" height="13"/>
@@ -622,6 +619,7 @@
                                             <outlet property="start3" destination="e1p-fg-aUk" id="atZ-bb-Cxb"/>
                                             <outlet property="start4" destination="TK4-Ee-hHo" id="v8I-t1-xiZ"/>
                                             <outlet property="start5" destination="yrG-06-0UC" id="1gs-lw-QWn"/>
+                                            <segue destination="Uj0-yo-EwR" kind="show" id="fIw-tL-S8K"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
