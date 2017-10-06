@@ -1,23 +1,15 @@
 //
-//  MapInfoClinicVC.swift
+//  DoctorDetailVC.swift
 //  ClinicsAndDoctors
 //
-//  Created by Reinier Isalgue on 05/10/17.
+//  Created by Reinier Isalgue on 06/10/17.
 //  Copyright © 2017 InfinixSoft. All rights reserved.
 //
 
 import UIKit
 
-class MapInfoClinicVC: UIViewController {
-    @IBOutlet weak var clinicNameLb:UILabel!
-    @IBOutlet weak var numberDoctorsLb:UILabel!
-    @IBOutlet weak var millLb:UILabel!
-    @IBOutlet weak var ratingLb:UILabel!
-    @IBOutlet weak var contentView:UIView!
-    @IBOutlet weak var callBt:UIButton!
-    @IBOutlet weak var infoBt:UIButton!
-    @IBOutlet weak var ratingIm:UIImageView!
-    
+class DoctorDetailVC: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
