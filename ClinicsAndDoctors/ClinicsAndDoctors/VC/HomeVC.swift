@@ -246,7 +246,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.infoView.contentView.layer.cornerRadius = 5
             self.infoView.clinicNameLb.text = marker.title
             //infoView.center = myMap.projection.point(for: marker.position)
-            self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
+            //self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
             /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
                 let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
                 let position = GMSCameraUpdate.setTarget(camera)

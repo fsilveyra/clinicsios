@@ -194,7 +194,7 @@
 				TargetAttributes = {
 					FBE201881F7DF69F00C51A0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = EUARY92ECY;
+						DevelopmentTeam = SRD773KQ35;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -454,7 +454,7 @@
 			baseConfigurationReference = 88C2140DBF9C26EC10DCF08A /* Pods-ClinicsAndDoctors.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				DEVELOPMENT_TEAM = SRD773KQ35;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -469,7 +469,7 @@
 			baseConfigurationReference = 4BA06CFE8EB60E32718BC28A /* Pods-ClinicsAndDoctors.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				DEVELOPMENT_TEAM = SRD773KQ35;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
