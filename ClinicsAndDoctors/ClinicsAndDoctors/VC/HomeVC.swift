@@ -93,14 +93,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         //searchController.searchBar.frame.size.width = viewSearch.frame.width
         
         viewSearch.addSubview(searchController.searchBar)
-        UIView.animate(withDuration: 0.5) {
-            self.view.addSubview(self.viewSearch)
-            self.view.bringSubview(toFront: self.viewSearch)
-            self.especialitysCollection.alpha = 0
-        }
-        
+        self.view.addSubview(self.viewSearch)
+        self.view.bringSubview(toFront: self.viewSearch)
+        self.especialitysCollection.alpha = 0
         searchController.searchBar.becomeFirstResponder()
-        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
