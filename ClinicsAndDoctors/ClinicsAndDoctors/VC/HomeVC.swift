@@ -95,7 +95,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         viewSearch.addSubview(searchController.searchBar)
         self.view.addSubview(self.viewSearch)
         self.view.bringSubview(toFront: self.viewSearch)
-        self.especialitysCollection.alpha = 0
+
+        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+                cell.subButtonView.alpha = 0
+        }
+
         searchController.searchBar.becomeFirstResponder()
     }
     
@@ -104,7 +108,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         // and clear the text in the search bar
         self.viewSearch.removeFromSuperview()
         searchController = nil
-        self.especialitysCollection.alpha = 1
+
+        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+            if currentSelectedEspec != cell.especialityBt.tag{
+                cell.subButtonView.alpha = 0
+            }
+            else {
+                cell.subButtonView.alpha = 1
+            }
+        }
+
         // You could also change the position, frame etc of the searchBar
     }
     
