@@ -18,6 +18,7 @@
 		FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854201F7F8B2000B758A4 /* RegisterVC.swift */; };
 		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
 		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
+		FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
 		FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */; };
@@ -29,6 +30,7 @@
 		FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FBE201931F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld */; };
 		FBE201971F7DF69F00C51A0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE201961F7DF69F00C51A0D /* Assets.xcassets */; };
 		FBE2019A1F7DF69F00C51A0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201981F7DF69F00C51A0D /* LaunchScreen.storyboard */; };
+		FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC68A11F8BDE9400DC304A /* RatingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,7 @@
 		FB4854201F7F8B2000B758A4 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterVC.swift; path = VC/RegisterVC.swift; sourceTree = "<group>"; };
 		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
 		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
+		FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinincDetailVC.swift; path = VC/ClinincDetailVC.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
 		FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesVC.swift; path = VC/FavoritesVC.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		FBE201961F7DF69F00C51A0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBE201991F7DF69F00C51A0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBE2019B1F7DF69F00C51A0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBEC68A11F8BDE9400DC304A /* RatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RatingVC.swift; path = VC/RatingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 				FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */,
 				FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */,
 				FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */,
+				FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */,
+				FBEC68A11F8BDE9400DC304A /* RatingVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -338,6 +344,8 @@
 			files = (
 				FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */,
 				FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */,
+				FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */,
+				FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */,
 				FB4600571F81D6D100C258E5 /* DoctorCell.swift in Sources */,
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
 				FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */,

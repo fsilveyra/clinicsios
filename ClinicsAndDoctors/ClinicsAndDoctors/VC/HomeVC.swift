@@ -38,8 +38,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
 
-    var infoView:CustomInfoVIew!
-    
+    var infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
+    var tappedMarker = GMSMarker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,6 +186,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myMap.animate(to: camera)
     }
     
+    @IBAction func GoClinicDetails(_ sender: AnyObject){
+        print("goClinicDetails")
+        self.performSegue(withIdentifier: "goClinicDetails", sender: nil)
+    }
+    
     // MARK: - Initialization
     
     func InitLocation(){
@@ -258,26 +263,49 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         if marker != self.myPoint {
-            self.infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
+            return UIView()
+            /*self.infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
             self.infoView.contentView.layer.cornerRadius = 5
             self.infoView.clinicNameLb.text = marker.title
-            //infoView.center = myMap.projection.point(for: marker.position)
+            self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
+            self.infoView.isUserInteractionEnabled = true
+            self.infoView.center = myMap.projection.point(for: marker.position)
             //self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
             /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
                 let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
                 let position = GMSCameraUpdate.setTarget(camera)
                 mapView.animate(with: position)
                })*/
-            return infoView
+            return infoView*/
         }
         
         return nil
     }
-    /*
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        return true
-    }*/
+        if marker != self.myPoint {
+            tappedMarker = marker
+            self.infoView.removeFromSuperview()
+            self.infoView.contentView.layer.cornerRadius = 5
+            self.infoView.clinicNameLb.text = marker.title
+            self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
+            self.infoView.center = myMap.projection.point(for: marker.position)
+            self.view.addSubview(self.infoView)
+            self.view.bringSubview(toFront: especialitysCollection)
+            self.view.bringSubview(toFront: searchBt)
+            self.view.bringSubview(toFront: separetorView)
+            self.view.bringSubview(toFront: locationBt)
+        }
+        return false
+    }
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        self.infoView.center = myMap.projection.point(for: tappedMarker.position)
+    }
+    
+    // take care of the close event
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.infoView.removeFromSuperview()
+    }
     
     // MARK: - Location Manager Delegates
 

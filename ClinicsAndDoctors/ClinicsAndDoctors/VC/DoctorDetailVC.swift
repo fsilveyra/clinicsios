@@ -27,8 +27,8 @@ class DoctorDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
-        addFavoriteBt.layer.cornerRadius = 10
-        phoneBt.layer.cornerRadius = 10
+        addFavoriteBt.layer.cornerRadius = 5
+        phoneBt.layer.cornerRadius = 5
         doctorAvatarIm.layer.cornerRadius = doctorAvatarIm.frame.width/2
         
         // Do any additional setup after loading the view.

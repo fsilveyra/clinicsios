@@ -9,10 +9,16 @@
 import UIKit
 
 class RatingVC: UIViewController {
-
+    @IBOutlet weak var avatarClinicIm:UIImageView!
+    @IBOutlet weak var submitBt:UIButton!
+    @IBOutlet weak var titleLb:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        submitBt.layer.cornerRadius = 5
+        avatarClinicIm.layer.cornerRadius = avatarClinicIm.frame.width/2
+        avatarClinicIm.layer.borderColor = UIColor.darkGray.cgColor
+        
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +27,9 @@ class RatingVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func GoBack(_ sender: AnyObject){
+        self.navigationController?.popViewController(animated: true)
+    }
 
     /*
     // MARK: - Navigation

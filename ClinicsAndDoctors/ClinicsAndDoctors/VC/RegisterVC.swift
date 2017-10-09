@@ -22,7 +22,7 @@ class RegisterVC: UIViewController {
         //self.navigationController?.navigationBar.isHidden = false
         avatarImage.layer.cornerRadius = avatarImage.frame.width/2
         plussImage.layer.cornerRadius = plussImage.frame.width/2
-        registerBt.layer.cornerRadius = 4
+        registerBt.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
 

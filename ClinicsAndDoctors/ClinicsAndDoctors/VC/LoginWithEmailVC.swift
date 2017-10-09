@@ -22,7 +22,7 @@ class LoginWithEmailVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         CreateGradienBackGround(view: view)
-        loginBt.layer.cornerRadius = 4
+        loginBt.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
     
