@@ -11,14 +11,19 @@ import UIKit
 class DoctorDetailVC: UIViewController {
     @IBOutlet weak var loadingIm:UIImageView!
     @IBOutlet weak var doctorAvatarIm:UIImageView!
+    @IBOutlet weak var nameLb:UILabel!
     @IBOutlet weak var gentilizeLb:UILabel!
     @IBOutlet weak var addressLb:UILabel!
-    @IBOutlet weak var especialityBt:UIButton!
+    @IBOutlet weak var especialityLb:UILabel!
     @IBOutlet weak var distanceLb:UILabel!
-    @IBOutlet weak var ratingLb:UILabel!
     @IBOutlet weak var phoneBt:UIButton!
     @IBOutlet weak var addFavoriteBt:UIButton!
     @IBOutlet weak var rateView:UIView!
+    @IBOutlet weak var star1:UIButton!
+    @IBOutlet weak var star2:UIButton!
+    @IBOutlet weak var star3:UIButton!
+    @IBOutlet weak var star4:UIButton!
+    @IBOutlet weak var star5:UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
@@ -37,6 +42,14 @@ class DoctorDetailVC: UIViewController {
     // MARK: - Actions
     @IBAction func BackView(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func GoToClinicPage(_ sender: AnyObject){
+        print("GoToClinicPage")
+    }
+    
+    @IBAction func RateDoctor(_ sender: AnyObject){
+        print("RateDoctor")
     }
     
     @IBAction func ShowHideRateView(_ sender: AnyObject){

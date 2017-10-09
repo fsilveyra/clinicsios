@@ -9,7 +9,11 @@
 import UIKit
 
 class ReviewCell: UITableViewCell {
-
+    @IBOutlet weak var ReviewLb:UILabel!
+    @IBOutlet weak var nameLb:UILabel!
+    @IBOutlet weak var dateLb:UILabel!
+    @IBOutlet weak var avatarIm:UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

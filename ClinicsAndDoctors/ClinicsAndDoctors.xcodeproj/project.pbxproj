@@ -20,6 +20,9 @@
 		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
+		FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */; };
+		FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */; };
+		FB9FD27A1F8B03C600CDA54C /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */; };
 		FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */; };
 		FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018E1F7DF69F00C51A0D /* ViewController.swift */; };
 		FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201901F7DF69F00C51A0D /* Main.storyboard */; };
@@ -44,6 +47,11 @@
 		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
+		FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesVC.swift; path = VC/FavoritesVC.swift; sourceTree = "<group>"; };
+		FB9FD2751F8AFF7E00CDA54C /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.otf"; path = "../../../../../Movil/IOS/doc Swift/Fonts/Monserat/Montserrat-Medium.otf"; sourceTree = "<group>"; };
+		FB9FD2761F8B005100CDA54C /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Light.otf"; path = "../../../../../Movil/IOS/doc Swift/Fonts/Monserat/Montserrat-Light.otf"; sourceTree = "<group>"; };
+		FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewsVC.swift; path = VC/ReviewsVC.swift; sourceTree = "<group>"; };
+		FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewCell.swift; path = VC/Cell/ReviewCell.swift; sourceTree = "<group>"; };
 		FBE201891F7DF69F00C51A0D /* ClinicsAndDoctors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicsAndDoctors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBE2018E1F7DF69F00C51A0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +91,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB9FD2741F8AFF5700CDA54C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FB9FD2761F8B005100CDA54C /* Montserrat-Light.otf */,
+				FB9FD2751F8AFF7E00CDA54C /* Montserrat-Medium.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		FBE201801F7DF69F00C51A0D = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +121,7 @@
 		FBE2018B1F7DF69F00C51A0D /* ClinicsAndDoctors */ = {
 			isa = PBXGroup;
 			children = (
+				FB9FD2741F8AFF5700CDA54C /* Fonts */,
 				FBE201A41F7DFA5000C51A0D /* Images */,
 				FBE201A31F7DF6D300C51A0D /* Models */,
 				FBE201A21F7DF6C800C51A0D /* CellC */,
@@ -129,6 +147,8 @@
 				FB6766BC1F8433790039C122 /* LeftMenuVC.swift */,
 				FB8004381F84A0050028C62E /* ProfileVC.swift */,
 				FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */,
+				FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */,
+				FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -141,6 +161,7 @@
 				FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */,
 				FB0228591F8675F500853B1B /* CustomInfoVIew.swift */,
 				FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */,
+				FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */,
 			);
 			name = CellC;
 			sourceTree = "<group>";
@@ -321,12 +342,15 @@
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
 				FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */,
 				FB3E548F1F81B64900DF65BA /* EspacialityButtonCell.swift in Sources */,
+				FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */,
 				FB4600591F8206CD00C258E5 /* SliderMillesCell.swift in Sources */,
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
+				FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */,
 				FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */,
+				FB9FD27A1F8B03C600CDA54C /* ReviewCell.swift in Sources */,
 				FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */,
 				FB02285A1F8675F500853B1B /* CustomInfoVIew.swift in Sources */,
 			);
