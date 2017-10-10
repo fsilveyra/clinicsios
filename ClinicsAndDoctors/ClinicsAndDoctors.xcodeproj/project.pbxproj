@@ -19,6 +19,7 @@
 		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
 		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
 		FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */; };
+		FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FC4F51F8D36E20022720D /* ClinicCell.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
 		FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */; };
@@ -48,6 +49,7 @@
 		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
 		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
 		FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinincDetailVC.swift; path = VC/ClinincDetailVC.swift; sourceTree = "<group>"; };
+		FB5FC4F51F8D36E20022720D /* ClinicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinicCell.swift; path = VC/Cell/ClinicCell.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
 		FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesVC.swift; path = VC/FavoritesVC.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				FB3E548E1F81B64900DF65BA /* EspacialityButtonCell.swift */,
 				FB4600561F81D6D100C258E5 /* DoctorCell.swift */,
+				FB5FC4F51F8D36E20022720D /* ClinicCell.swift */,
 				FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */,
 				FB0228591F8675F500853B1B /* CustomInfoVIew.swift */,
 				FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */,
@@ -347,6 +350,7 @@
 				FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */,
 				FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */,
 				FB4600571F81D6D100C258E5 /* DoctorCell.swift in Sources */,
+				FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */,
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
 				FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */,
 				FB3E548F1F81B64900DF65BA /* EspacialityButtonCell.swift in Sources */,

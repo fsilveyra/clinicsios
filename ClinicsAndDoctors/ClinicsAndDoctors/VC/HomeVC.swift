@@ -103,25 +103,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         searchController.searchBar.becomeFirstResponder()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // Stop doing the search stuff
-        // and clear the text in the search bar
-        self.viewSearch.removeFromSuperview()
-        searchController = nil
-
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            if currentSelectedEspec != cell.especialityBt.tag{
-                cell.subButtonView.alpha = 0
-            }
-            else {
-                cell.subButtonView.alpha = 1
-            }
-        }
-
-        // You could also change the position, frame etc of the searchBar
-    }
+   
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
+        self.infoView.removeFromSuperview()
         if myMap.alpha==0 {
             self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
 
@@ -393,7 +378,28 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     // MARK: - Search Controller
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Stop doing the search stuff
+        // and clear the text in the search bar
+        self.viewSearch.removeFromSuperview()
+        searchController = nil
+        
+        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+            if currentSelectedEspec != cell.especialityBt.tag{
+                cell.subButtonView.alpha = 0
+            }
+            else {
+                cell.subButtonView.alpha = 1
+            }
+        }
+        func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+            print("touch")
+            if searchBar.text == "" {
+                self.viewSearch.removeFromSuperview()
+            }
+        }
+        // You could also change the position, frame etc of the searchBar
+    }
     /*
     // MARK: - Navigation
 

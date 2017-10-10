@@ -36,6 +36,7 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         print("Show Doctors")
         UIView.animate(withDuration: 0.5) {
             self.subView.center.x = self.doctorsBt.center.x
+            self.myTableView.reloadData()
         }
         
     }
@@ -44,6 +45,7 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         print("Show Clinics")
         UIView.animate(withDuration: 0.5) {
             self.subView.center.x = self.clinicsBt.center.x
+            self.myTableView.reloadData()
         }
     }
     
@@ -57,8 +59,14 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCellInFavorite", for: indexPath) as! DoctorCell
-        return cell
+        if self.subView.center.x == self.clinicsBt.center.x {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ClinicCell", for: indexPath) as! ClinicCell
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCellInFavorite", for: indexPath) as! DoctorCell
+            return cell
+        }
     }
     /*
     // MARK: - Navigation

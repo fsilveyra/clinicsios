@@ -9,9 +9,17 @@
 import UIKit
 
 class ClinicCell: UITableViewCell {
-
+    @IBOutlet weak var avatarIcon:UIImageView!
+    @IBOutlet weak var clinicNameLb:UILabel!
+    @IBOutlet weak var millesLb:UILabel!
+    @IBOutlet weak var start1:UIImageView!
+    @IBOutlet weak var start2:UIImageView!
+    @IBOutlet weak var start3:UIImageView!
+    @IBOutlet weak var start4:UIImageView!
+    @IBOutlet weak var start5:UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        avatarIcon.layer.cornerRadius = avatarIcon.frame.width/2
         // Initialization code
     }
 

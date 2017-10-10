@@ -57,6 +57,8 @@ class DoctorDetailVC: UIViewController {
             rateView.isHidden = false
             UIView.animate(withDuration: 0.5, animations: {
                 self.rateView.frame.origin.x -= self.rateView.frame.width
+            }, completion:{ _ in
+                self.view.bringSubview(toFront: self.rateView)
             })
         }
         else{
