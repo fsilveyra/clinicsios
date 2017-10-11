@@ -54,19 +54,18 @@ class DoctorDetailVC: UIViewController {
     
     @IBAction func ShowHideRateView(_ sender: AnyObject){
         if rateView.isHidden {
+             self.view.bringSubview(toFront: self.rateView)
             rateView.isHidden = false
             UIView.animate(withDuration: 0.5, animations: {
                 self.rateView.frame.origin.x -= self.rateView.frame.width
-            }, completion:{ _ in
-                self.view.bringSubview(toFront: self.rateView)
             })
         }
         else{
-            
             UIView.animate(withDuration: 0.5, animations: {
                 self.rateView.frame.origin.x += self.rateView.frame.width
             }, completion: { _ in
                 self.rateView.isHidden = true
+                self.view.sendSubview(toBack: self.rateView)
             })
         }
     }

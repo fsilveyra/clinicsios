@@ -41,6 +41,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
     var tappedMarker = GMSMarker()
     
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
@@ -63,10 +64,22 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         // Do any additional setup after loading the view.
     }
     
-    /*
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
-    }*/
+        myTableView.frame.origin.y = especialitysCollection.frame.maxY
+        myMap.frame.origin.y = especialitysCollection.frame.maxY
+        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
+        myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        myTableView.frame.origin.y = especialitysCollection.frame.maxY
+        myMap.frame.origin.y = especialitysCollection.frame.maxY
+        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
+        myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+    }
+    
     // MARK: - @IBActions
     @IBAction func ShowSearchBar(){
         searchController = UISearchController.init(searchResultsController: nil)
