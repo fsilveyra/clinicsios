@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import SwiftyJSON
+import NVActivityIndicatorView
 
 class ViewController: UIViewController {
     @IBOutlet weak var loginBt:UIButton!
     @IBOutlet weak var facebookBt:UIButton!
     @IBOutlet weak var registerHereBt:UIButton!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let loading = ActivityData()
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view:self.view)
@@ -43,7 +49,40 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func faceBookLoginBtnAction(_ sender: Any) {
+        //NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if fbloginresult.grantedPermissions != nil {
+                    if(fbloginresult.grantedPermissions.contains("email")) {
+                        if((FBSDKAccessToken.current()) != nil){
+                            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.width(100).height(100), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                                //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                                if (error == nil){
+                                    //self.dict = result as! [String : AnyObject]
+                                    print(result!)
+                                    
+                                    let json = JSON(result!)
+                                    self.appDelegate.userName = json["name"].stringValue
+                                    self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue
+                                    print("Login in System")
+                                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                    //print(self.dict)
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+            else{
+                print(error?.localizedDescription as Any)
+                //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }
+        }
+    }
     
 
 }

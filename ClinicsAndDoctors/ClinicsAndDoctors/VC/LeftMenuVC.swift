@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import Alamofire
+import AlamofireImage
 
 class LeftMenuVC: UIViewController {
     @IBOutlet weak var avatarIm:UIImageView!
@@ -16,6 +20,13 @@ class LeftMenuVC: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2
+        if (FBSDKAccessToken.current() != nil) {
+            avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
+            userName.text = appDelegate.userName
+        }
+        else{
+            //load parameters from user Model
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -23,11 +34,16 @@ class LeftMenuVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    // MARK: - Navigation
     @IBAction func Loggout(_ sender: AnyObject){
         self.appDelegate.loggout = false
         self.dismiss(animated: true, completion: {
             self.navigationController?.popToRootViewController(animated: true)
         })
+    }
+    
+    @IBAction func ShowwHome(_ sender: AnyObject){
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

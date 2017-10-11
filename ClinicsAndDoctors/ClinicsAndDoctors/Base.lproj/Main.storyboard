@@ -69,6 +69,9 @@
                                 <state key="normal" title="CONTINUE WITH FACEBOOK">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="faceBookLoginBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nRA-bj-nUR"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaQ-cB-07M">
                                 <rect key="frame" x="16" y="606" width="343" height="41"/>
@@ -103,7 +106,7 @@
                         <outlet property="facebookBt" destination="ld3-Du-p2h" id="lzk-kB-aME"/>
                         <outlet property="loginBt" destination="cXF-MA-Aws" id="dsq-ah-V5x"/>
                         <outlet property="registerHereBt" destination="E8d-az-1M5" id="FCf-5P-JJS"/>
-                        <segue destination="XJd-Cf-5kw" kind="show" id="hyb-1P-LpS"/>
+                        <segue destination="XJd-Cf-5kw" kind="show" identifier="loginSegue" id="hyb-1P-LpS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -285,6 +288,9 @@
                                 <state key="normal" title="       Home" image="sidemenu_icon_world ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="ShowwHome:" destination="wbO-2s-R4B" eventType="touchUpInside" id="635-Ls-4zq"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDp-II-tAw">
                                 <rect key="frame" x="-1" y="290" width="375" height="1"/>
@@ -446,6 +452,7 @@
                                             <outlet property="start3" destination="Qbf-5F-3Kq" id="dDt-WM-kBZ"/>
                                             <outlet property="start4" destination="one-gE-YAX" id="xhQ-fT-z4h"/>
                                             <outlet property="start5" destination="0Wp-lh-gsR" id="Ylx-rB-FmB"/>
+                                            <segue destination="Uj0-yo-EwR" kind="show" id="DiC-fD-wqt"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ClinicCell" rowHeight="70" id="WoI-3q-mRD" customClass="ClinicCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
@@ -514,6 +521,7 @@
                                             <outlet property="start3" destination="XaP-B7-pub" id="jVD-Ee-Khw"/>
                                             <outlet property="start4" destination="0i4-dc-ZpO" id="s5V-bY-tGY"/>
                                             <outlet property="start5" destination="15e-r6-1bY" id="oxS-k6-k93"/>
+                                            <segue destination="blR-Qa-TLo" kind="show" id="HSn-OU-elX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2237,7 +2245,7 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vdQ-Sl-OCc"/>
+        <segue reference="Mhn-Og-OoO"/>
         <segue reference="fIw-tL-S8K"/>
         <segue reference="hyb-1P-LpS"/>
     </inferredMetricsTieBreakers>
