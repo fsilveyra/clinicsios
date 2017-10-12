@@ -70,6 +70,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+        self.infoView.removeFromSuperview()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,6 +79,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+        self.infoView.removeFromSuperview()
     }
     
     // MARK: - @IBActions
