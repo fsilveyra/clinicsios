@@ -30,19 +30,20 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func Register(_ sender: Any) {
-        if emailTf.text=="" || passwordTf.text=="" || full_nameTf.text=="" || passwordCheckTf.text=="" || phone_numberTf.text==""{
+        passwordTf.resignFirstResponder()
+        if passwordTf.text=="" || full_nameTf.text=="" || passwordCheckTf.text=="" || phone_numberTf.text==""{
             viewRegister.layer.shake(duration: TimeInterval(0.7))
             self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
         }
-        else if !isValidEmail(testStr: emailTf.text!){
+        else if !(emailTf.text?.isEmpty)! && !isValidEmail(testStr: emailTf.text!){
             self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, please check")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, the correct format is email@email.com")
             print("Incorrect email")
             
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
-            self.phone_numberTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, please check")
+            //self.phone_numberTf.textColor = .red
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, the correct format is +119555555")
             print("Incorrect Phone")
 
         }
@@ -56,7 +57,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
                 if register! {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                     self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
-                    //self.performSegue(withIdentifier: "goHome", sender: nil)
+                    self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
                 }
                 else {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -98,7 +99,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     
     func isValidPhone(testStr:String) -> Bool {
 
-        return !testStr.isEmpty
+       // return !testStr.isEmpty
 
         print("validating phone: \(testStr)")
         let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
@@ -132,14 +133,17 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         return false
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! LoginWithEmailVC
+        vc.phone = phone_numberTf.text!
+        vc.password = passwordTf.text!
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

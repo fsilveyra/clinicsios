@@ -12,56 +12,55 @@ import NVActivityIndicatorView
 import SwiftMessages
 
 class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
-    @IBOutlet weak var emailTf: UITextField!
+    @IBOutlet weak var phoneTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginBt: UIButton!
     @IBOutlet weak var viewLogin:UIView!
+    var phone = ""
+    var password = ""
     let loading = ActivityData()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //MARK: Actions
     @IBAction func Login(_ sender: Any) {
-        if emailTf.text=="" || passwordTf.text==""{
+        if phoneTf.text=="" || passwordTf.text==""{
             viewLogin.layer.shake(duration: TimeInterval(0.7))
             self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
         }
-        else if !isValidEmail(testStr: emailTf.text!){
-            self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, please check")
-            print("Incorrect email")
+        else if !isValidPhone(testStr: phoneTf.text!){
+            self.phoneTf.textColor = .red
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone, the correct format is +11155555555")
+            print("Incorrect phone")
             
         }
         else{
 
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            self.performSegue(withIdentifier: "goHome", sender: nil)
+            //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            //self.performSegue(withIdentifier: "goHome", sender: nil)
             
-//            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-//            ISClient.sharedInstance.Login(email: emailTf.text!, password: passwordTf.text!) { (loggued, error) in
-//                if loggued! {
-//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                    self.performSegue(withIdentifier: "goHome", sender: nil)
-//                }
-//                else {
-//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
-//                }
-//            }
+            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+            ISClient.sharedInstance.Login(phone: phoneTf.text!, password: passwordTf.text!) { (loggued, error) in
+                if loggued! {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.performSegue(withIdentifier: "goHome", sender: nil)
+                }
+                else {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
+                }
+            }
         }
-    }
-    
-    @IBAction func ForgotPassword(_ sender: Any) {
-        
-        
     }
     
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    //MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
+        phoneTf.text = phone
+        passwordTf.text = password
         
         CreateGradienBackGround(view: view)
         loginBt.layer.cornerRadius = 5
@@ -108,8 +107,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     }
     
     func isValidPhone(testStr:String) -> Bool {
-        return !testStr.isEmpty
-        
+        //return !testStr.isEmpty
         print("validating phone: \(testStr)")
         let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
@@ -124,6 +122,16 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.textColor = .white
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == phoneTf{
+            passwordTf.becomeFirstResponder()
+        }
+        else {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 
 }

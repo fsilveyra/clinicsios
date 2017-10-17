@@ -75,9 +75,9 @@ class ISClient: NSObject {
         print(c.debugDescription)
     }
     
-    func Login(email:String,password:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+    func Login(phone:String,password:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
-            "email": email,
+            "phone_number": phone,
             "password": password
             //"otherParameter":"value"
         ]
@@ -97,7 +97,10 @@ class ISClient: NSObject {
             }
             else{
                 User.sharedInstance.SetData(representationJSON: json)
-                print("username: \(User.sharedInstance.full_name)")
+                print("Phone: \(User.sharedInstance.phone_number)")
+                print("Username: \(User.sharedInstance.full_name)")
+                self.access_token = json["access_token"].stringValue
+                print("Token ===> \(self.access_token)")
                 closure!(true,nil)
             }
         }
@@ -105,7 +108,7 @@ class ISClient: NSObject {
     
     func RegisterWhitEmail(fullName:String, phone_number: String, email:String, password:String, picture:UIImage, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
-            "fullName": fullName,
+            "full_name": fullName,
             "phone_number": phone_number,
             "email": email,
             "password": password,

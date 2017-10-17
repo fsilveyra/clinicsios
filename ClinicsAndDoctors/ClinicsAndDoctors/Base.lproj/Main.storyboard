@@ -54,7 +54,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.015450536273419857" green="0.14343053102493286" blue="0.23040404915809631" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
-                                <state key="normal" title="LOGIN WITH  EMAIL">
+                                <state key="normal" title="LOGIN WITH MOBILE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -184,7 +184,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next"/>
                                         <connections>
                                             <outlet property="delegate" destination="IXT-IQ-bve" id="EgC-dS-HXN"/>
                                         </connections>
@@ -194,7 +194,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.82352941176470584" green="0.86274509803921573" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-eh-31v">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mobile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-eh-31v">
                                         <rect key="frame" x="20" y="20" width="137" height="23"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
@@ -244,9 +244,9 @@
                     <navigationItem key="navigationItem" title="Login" id="n64-9R-dZP"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="emailTf" destination="q5i-zb-d5Q" id="btb-0K-VZb"/>
                         <outlet property="loginBt" destination="KPc-te-ygi" id="HSX-SX-UiO"/>
                         <outlet property="passwordTf" destination="LWl-V2-PV4" id="c09-L9-aCR"/>
+                        <outlet property="phoneTf" destination="q5i-zb-d5Q" id="BCy-tL-kvY"/>
                         <outlet property="viewLogin" destination="y56-KX-NwD" id="9hQ-nG-UVl"/>
                         <segue destination="XJd-Cf-5kw" kind="show" identifier="goHome" id="79E-pO-1Pz"/>
                     </connections>
@@ -1556,6 +1556,7 @@
                         <outlet property="plussImage" destination="G8k-VY-muw" id="hiy-U6-fKG"/>
                         <outlet property="registerBt" destination="rhm-99-DRa" id="3eM-pe-wE8"/>
                         <outlet property="viewRegister" destination="6LD-wO-NcF" id="8Db-XV-wr8"/>
+                        <segue destination="IXT-IQ-bve" kind="show" identifier="goLoginMobile" id="x1s-bv-YEb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zqz-Sh-yBN" sceneMemberID="firstResponder"/>
@@ -2296,5 +2297,6 @@
         <segue reference="Mhn-Og-OoO"/>
         <segue reference="fIw-tL-S8K"/>
         <segue reference="79E-pO-1Pz"/>
+        <segue reference="x1s-bv-YEb"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -34,6 +34,10 @@ class LeftMenuVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Navigation
     @IBAction func Loggout(_ sender: AnyObject){
         self.appDelegate.loggout = false
