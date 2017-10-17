@@ -43,7 +43,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
             //self.phone_numberTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, the correct format is +119555555")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, the correct format is 119555555")
             print("Incorrect Phone")
 
         }
@@ -102,7 +102,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
        // return !testStr.isEmpty
 
         print("validating phone: \(testStr)")
-        let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
+        //let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
+        let phoneRegEx = "^[0-9]{6,14}$"
         let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
         let result = phoneTest.evaluate(with: testStr)
         return result
