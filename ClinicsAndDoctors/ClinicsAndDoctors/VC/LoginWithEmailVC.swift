@@ -32,17 +32,21 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-            ISClient.sharedInstance.Login(email: emailTf.text!, password: passwordTf.text!) { (loggued, error) in
-                if loggued! {
-                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.performSegue(withIdentifier: "goHome", sender: nil)
-                }
-                else {
-                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
-                }
-            }
+
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            self.performSegue(withIdentifier: "goHome", sender: nil)
+            
+//            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+//            ISClient.sharedInstance.Login(email: emailTf.text!, password: passwordTf.text!) { (loggued, error) in
+//                if loggued! {
+//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                    self.performSegue(withIdentifier: "goHome", sender: nil)
+//                }
+//                else {
+//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
+//                }
+//            }
         }
     }
     
