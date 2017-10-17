@@ -7,12 +7,50 @@
 //
 
 import UIKit
+import PKHUD
+import NVActivityIndicatorView
+import SwiftMessages
 
-class LoginWithEmailVC: UIViewController {
+class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginBt: UIButton!
+    @IBOutlet weak var viewLogin:UIView!
+    let loading = ActivityData()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    //MARK: Actions
+    @IBAction func Login(_ sender: Any) {
+        if emailTf.text=="" || passwordTf.text==""{
+            viewLogin.layer.shake(duration: TimeInterval(0.7))
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
+        }
+        else if !isValidEmail(testStr: emailTf.text!){
+            self.emailTf.textColor = .red
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, please check")
+            print("Incorrect email")
+            
+        }
+        else{
+            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+            ISClient.sharedInstance.Login(email: emailTf.text!, password: passwordTf.text!) { (loggued, error) in
+                if loggued! {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.performSegue(withIdentifier: "goHome", sender: nil)
+                }
+                else {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
+                }
+            }
+        }
+    }
+    
+    @IBAction func ForgotPassword(_ sender: Any) {
+        
+        
+    }
+    
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -57,35 +95,44 @@ class LoginWithEmailVC: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
+    func isValidEmail(testStr:String) -> Bool {
+        print("validating email: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluate(with: testStr)
+        return result
+    }
     
+    func isValidPhone(testStr:String) -> Bool {
+        print("validating phone: \(testStr)")
+        let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
+        let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
+        let result = phoneTest.evaluate(with: testStr)
+        return result
+    }
+    
+    // MARK: - TextField Delegates
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.textColor = .white
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.textColor = .white
+    }
 
 }
 
-extension CALayer {
-    
-    func shake(duration: TimeInterval = TimeInterval(0.5)) {
-        
-        let animationKey = "shake"
-        removeAnimation(forKey: animationKey)
-        
-        let kAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        kAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        kAnimation.duration = duration
-        
-        var needOffset = frame.width * 0.15,
-        values = [CGFloat]()
-        
-        let minOffset = needOffset * 0.1
-        
-        repeat {
-            
-            values.append(-needOffset)
-            values.append(needOffset)
-            needOffset *= 0.5
-        } while needOffset > minOffset
-        
-        values.append(0)
-        kAnimation.values = values
-        add(kAnimation, forKey: animationKey)
+extension UIViewController {
+    func SwiftMessageAlert(layout: MessageView.Layout, theme: Theme, title: String = "", body: String = "", completation: (() -> Void)? = nil){
+        let alert = MessageView.viewFromNib(layout: layout)
+        alert.configureTheme(theme)
+        alert.configureContent(title: title, body: body)
+        alert.button?.isHidden = true
+        alert.configureDropShadow()
+        SwiftMessages.show(view: alert)
+        if (completation != nil) {
+            DispatchQueue.main.asyncAfter(
+                deadline: DispatchTime.now() + Double(Int64(2.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: completation!)
+        }
     }
 }

@@ -7,7 +7,32 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class User: NSObject {
-
+    static let sharedInstance = User()
+    var full_name : String!
+    var phone_number : String!
+    var password : String!
+    var profile_picture : String!
+    var email : String!
+    
+    override init() {
+    }
+    
+    required init(representationJSON:SwiftyJSON.JSON) {
+        self.full_name = representationJSON["full_name"].stringValue
+        self.phone_number = representationJSON["phone_number"].stringValue
+        self.password = representationJSON["password"].stringValue
+        self.profile_picture = representationJSON["profile_picture"].stringValue
+        self.email = representationJSON["email"].stringValue
+    }
+    
+    func SetData(representationJSON: SwiftyJSON.JSON) {
+        self.full_name = representationJSON["full_name"].stringValue
+        self.phone_number = representationJSON["phone_number"].stringValue
+        self.password = representationJSON["password"].stringValue
+        self.profile_picture = representationJSON["profile_picture"].stringValue
+        self.email = representationJSON["email"].stringValue
+    }
 }

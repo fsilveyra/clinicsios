@@ -17,7 +17,7 @@ import SwiftyJSON
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var loggout = false
     var window: UIWindow?
-    let webUrl = "http://192.168.4.106:3000/api"
+    let webUrl = "https://clinic.xanthops.com/api/v1/"
     var access_token = ""
     var userName = ""
     var userAvatarURL = ""

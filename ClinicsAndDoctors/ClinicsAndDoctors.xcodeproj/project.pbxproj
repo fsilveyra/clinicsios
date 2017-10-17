@@ -25,6 +25,11 @@
 		FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */; };
 		FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */; };
 		FB9FD27A1F8B03C600CDA54C /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */; };
+		FBD7A2E31F925D710038DD30 /* Clinic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7A2E21F925D710038DD30 /* Clinic.swift */; };
+		FBD7A2E81F9262800038DD30 /* ISClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7A2E71F9262800038DD30 /* ISClient.swift */; };
+		FBD7A2EA1F92657C0038DD30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7A2E91F92657C0038DD30 /* User.swift */; };
+		FBD7A2EC1F9266340038DD30 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7A2EB1F9266340038DD30 /* Doctor.swift */; };
+		FBD7A2EE1F926B9B0038DD30 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7A2ED1F926B9B0038DD30 /* Category.swift */; };
 		FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */; };
 		FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE2018E1F7DF69F00C51A0D /* ViewController.swift */; };
 		FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201901F7DF69F00C51A0D /* Main.storyboard */; };
@@ -57,6 +62,11 @@
 		FB9FD2761F8B005100CDA54C /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Light.otf"; path = "../../../../../Movil/IOS/doc Swift/Fonts/Monserat/Montserrat-Light.otf"; sourceTree = "<group>"; };
 		FB9FD2771F8B025200CDA54C /* ReviewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewsVC.swift; path = VC/ReviewsVC.swift; sourceTree = "<group>"; };
 		FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewCell.swift; path = VC/Cell/ReviewCell.swift; sourceTree = "<group>"; };
+		FBD7A2E21F925D710038DD30 /* Clinic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Clinic.swift; path = Models/Clinic.swift; sourceTree = "<group>"; };
+		FBD7A2E71F9262800038DD30 /* ISClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ISClient.swift; path = Helpers/ISClient.swift; sourceTree = "<group>"; };
+		FBD7A2E91F92657C0038DD30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
+		FBD7A2EB1F9266340038DD30 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Doctor.swift; path = Models/Doctor.swift; sourceTree = "<group>"; };
+		FBD7A2ED1F926B9B0038DD30 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FBE201891F7DF69F00C51A0D /* ClinicsAndDoctors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClinicsAndDoctors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBE2018E1F7DF69F00C51A0D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +116,14 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		FBD7A2E61F9262620038DD30 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FBD7A2E71F9262800038DD30 /* ISClient.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		FBE201801F7DF69F00C51A0D = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +147,7 @@
 			children = (
 				FB9FD2741F8AFF5700CDA54C /* Fonts */,
 				FBE201A41F7DFA5000C51A0D /* Images */,
+				FBD7A2E61F9262620038DD30 /* Helpers */,
 				FBE201A31F7DF6D300C51A0D /* Models */,
 				FBE201A21F7DF6C800C51A0D /* CellC */,
 				FBE201A11F7DF6BB00C51A0D /* VC */,
@@ -148,6 +167,7 @@
 			children = (
 				FB48541C1F7F6EAC00B758A4 /* LoginWithEmailVC.swift */,
 				FB4854201F7F8B2000B758A4 /* RegisterVC.swift */,
+				FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */,
 				FB4854221F7F8D4F00B758A4 /* HomeVC.swift */,
 				FB6766BC1F8433790039C122 /* LeftMenuVC.swift */,
 				FB8004381F84A0050028C62E /* ProfileVC.swift */,
@@ -169,7 +189,6 @@
 				FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */,
 				FB0228591F8675F500853B1B /* CustomInfoVIew.swift */,
 				FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */,
-				FB48541E1F7F822F00B758A4 /* ForgotPasswordVC.swift */,
 				FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */,
 			);
 			name = CellC;
@@ -178,6 +197,10 @@
 		FBE201A31F7DF6D300C51A0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBD7A2E21F925D710038DD30 /* Clinic.swift */,
+				FBD7A2ED1F926B9B0038DD30 /* Category.swift */,
+				FBD7A2E91F92657C0038DD30 /* User.swift */,
+				FBD7A2EB1F9266340038DD30 /* Doctor.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -224,7 +247,7 @@
 				TargetAttributes = {
 					FBE201881F7DF69F00C51A0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = EUARY92ECY;
+						DevelopmentTeam = SRD773KQ35;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -309,14 +332,12 @@
 				"${BUILT_PRODUCTS_DIR}/ARSLineProgress/ARSLineProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/Argo/Argo.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/Runes/Runes.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -328,14 +349,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ARSLineProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Argo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Runes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -355,8 +374,10 @@
 			files = (
 				FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */,
 				FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */,
+				FBD7A2EC1F9266340038DD30 /* Doctor.swift in Sources */,
 				FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */,
 				FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */,
+				FBD7A2E81F9262800038DD30 /* ISClient.swift in Sources */,
 				FB4600571F81D6D100C258E5 /* DoctorCell.swift in Sources */,
 				FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */,
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
@@ -367,12 +388,15 @@
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
+				FBD7A2EE1F926B9B0038DD30 /* Category.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
+				FBD7A2E31F925D710038DD30 /* Clinic.swift in Sources */,
 				FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */,
 				FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */,
 				FB9FD27A1F8B03C600CDA54C /* ReviewCell.swift in Sources */,
 				FB48541F1F7F822F00B758A4 /* ForgotPasswordVC.swift in Sources */,
 				FB02285A1F8675F500853B1B /* CustomInfoVIew.swift in Sources */,
+				FBD7A2EA1F92657C0038DD30 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,12 +522,15 @@
 			baseConfigurationReference = 88C2140DBF9C26EC10DCF08A /* Pods-ClinicsAndDoctors.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SRD773KQ35;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.infinixsoft.ClinicsAndDoctors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinixsoft.CAD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -513,12 +540,15 @@
 			baseConfigurationReference = 4BA06CFE8EB60E32718BC28A /* Pods-ClinicsAndDoctors.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SRD773KQ35;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.infinixsoft.ClinicsAndDoctors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.infinixsoft.CAD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

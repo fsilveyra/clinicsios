@@ -16,8 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBt:UIButton!
     @IBOutlet weak var facebookBt:UIButton!
     @IBOutlet weak var registerHereBt:UIButton!
+    
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let loading = ActivityData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view:self.view)
@@ -84,6 +87,8 @@ class ViewController: UIViewController {
         }
     }
     
+    
+
 
 }
 //Creating a diagonal Gradient
@@ -96,6 +101,35 @@ extension UIViewController{
         layer.startPoint = CGPoint(x: 0.4, y: 0.1)
         layer.endPoint = CGPoint(x: 0.0, y: 1.0)
         view.layer.insertSublayer(layer, at: 0)
+    }
+}
+
+extension CALayer {
+    
+    func shake(duration: TimeInterval = TimeInterval(0.5)) {
+        
+        let animationKey = "shake"
+        removeAnimation(forKey: animationKey)
+        
+        let kAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        kAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        kAnimation.duration = duration
+        
+        var needOffset = frame.width * 0.15,
+        values = [CGFloat]()
+        
+        let minOffset = needOffset * 0.1
+        
+        repeat {
+            
+            values.append(-needOffset)
+            values.append(needOffset)
+            needOffset *= 0.5
+        } while needOffset > minOffset
+        
+        values.append(0)
+        kAnimation.values = values
+        add(kAnimation, forKey: animationKey)
     }
 }
 
