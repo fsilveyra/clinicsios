@@ -62,18 +62,32 @@ class ViewController: UIViewController {
                 if fbloginresult.grantedPermissions != nil {
                     if(fbloginresult.grantedPermissions.contains("email")) {
                         if((FBSDKAccessToken.current()) != nil){
+                            NVActivityIndicatorPresenter.sharedInstance.startAnimating(self.loading)
                             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.width(100).height(100), email"]).start(completionHandler: { (connection, result, error) -> Void in
-                                //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                                 if (error == nil){
                                     //self.dict = result as! [String : AnyObject]
                                     print(result!)
-                                    
                                     let json = JSON(result!)
+                                    self.appDelegate.userName = json["name"].stringValue  //remove when image in server run
+                                    self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue //remove when image in server run
+                                    ISClient.sharedInstance.RegisterWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue, closure: { (register, error) in
+                                        if register! {
+                                            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                                            self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register With Facebook Success.")
+                                            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                        }
+                                        else {
+                                            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                                            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error!)
+                                        }
+                                    })
+                                    /*let json = JSON(result!)
+                                    
                                     self.appDelegate.userName = json["name"].stringValue
                                     self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue
                                     print("Login in System")
                                     self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                                    //print(self.dict)
+                                    //print(self.dict)*/
                                 }
                             })
                         }

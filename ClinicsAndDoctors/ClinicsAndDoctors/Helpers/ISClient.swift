@@ -156,12 +156,12 @@ class ISClient: NSObject {
         }
     }
     
-    func RegisterWithFacebook(fb_social_token:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+    func RegisterWithFacebook(fb_social_token:String, fb_id:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
-            "fb_social_token": fb_social_token
-            //"otherParameter":"value"
+            "fb_social_token": fb_social_token,
+            "fb_id":fb_id
         ]
-        request(endPoint: "forgot_password", Params: parameters, method: .post) { (json) in
+        request(endPoint: "register_with_fb", Params: parameters, method: .post) { (json) in
             //let responseList :NSMutableArray = NSMutableArray()
             
             if json["code"].stringValue == "time_out"{
@@ -173,7 +173,11 @@ class ISClient: NSObject {
                 closure!(false,json["detail"].stringValue)
             }
             else{
-                print(json.arrayValue)
+                User.sharedInstance.SetData(representationJSON: json)
+                print("Phone: \(User.sharedInstance.phone_number)")
+                print("Username: \(User.sharedInstance.full_name)")
+                self.access_token = json["access_token"].stringValue
+                print("Token ===> \(self.access_token)")
                 closure!(true,nil)
             }
         }

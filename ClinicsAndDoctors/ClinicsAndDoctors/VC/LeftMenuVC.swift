@@ -25,7 +25,7 @@ class LeftMenuVC: UIViewController {
             userName.text = appDelegate.userName
         }
         else{
-            //load parameters from user Model
+           //load parameters from user Model
         }
         // Do any additional setup after loading the view.
     }
