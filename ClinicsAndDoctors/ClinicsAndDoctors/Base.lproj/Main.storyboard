@@ -1327,7 +1327,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-k6-Bpf">
                                                 <rect key="frame" x="132.5" y="0.0" width="110" height="110"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMedium" translatesAutoresizingMaskIntoConstraints="NO" id="EzX-ud-cA3">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMedium" translatesAutoresizingMaskIntoConstraints="NO" id="EzX-ud-cA3">
                                                         <rect key="frame" x="5" y="5" width="99" height="99"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1339,6 +1339,9 @@
                                                         <state key="normal" image="iconAddImage">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="SelectAvatar:" destination="Uy8-H8-sUE" eventType="touchUpInside" id="ovQ-7f-LsN"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2294,9 +2297,9 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Mhn-Og-OoO"/>
+        <segue reference="vdQ-Sl-OCc"/>
         <segue reference="fIw-tL-S8K"/>
-        <segue reference="79E-pO-1Pz"/>
+        <segue reference="hyb-1P-LpS"/>
         <segue reference="x1s-bv-YEb"/>
     </inferredMetricsTieBreakers>
 </document>

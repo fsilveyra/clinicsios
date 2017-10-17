@@ -11,7 +11,7 @@ import SwiftMessages
 import NVActivityIndicatorView
 import TPKeyboardAvoiding
 
-class RegisterVC: UIViewController, UITextFieldDelegate {
+class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var plussImage: UIButton!
     @IBOutlet weak var registerBt: UIButton!
@@ -21,12 +21,29 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var passwordCheckTf: UITextField!
     @IBOutlet weak var viewRegister:UIStackView!
+    
+    let imagePicker = UIImagePickerController()
+    var imagePlayer = UIImage()
     let loading = ActivityData()
     @IBOutlet weak var keyboard:TPKeyboardAvoidingScrollView!
 
     // MARK: - Actions
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func SelectAvatar(_ sender: Any) {
+        let alert = UIAlertController.init(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
+        let cameraSource = UIAlertAction.init(title: "From Camera", style: .default) { _ in
+            self.shootPhoto()
+        }
+        let galery = UIAlertAction.init(title: "From Galery", style: .default) { _ in
+            self.photoFromLibrary()
+        }
+        
+        alert.addAction(cameraSource)
+        alert.addAction(galery)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func Register(_ sender: Any) {
@@ -53,20 +70,21 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         }
         else{
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-            ISClient.sharedInstance.RegisterWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: #imageLiteral(resourceName: "face4")) { (register, error) in
+            ISClient.sharedInstance.RegisterWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!) { (register, error) in
                 if register! {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                     self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
                     self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
                 }
                 else {
+                    self.HideKeyboard()
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                     self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error!)
                 }
             }
         }
     }
-    
+    //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: view)
@@ -74,6 +92,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         avatarImage.layer.cornerRadius = avatarImage.frame.width/2
         plussImage.layer.cornerRadius = plussImage.frame.width/2
         registerBt.layer.cornerRadius = 5
+        
+        imagePicker.allowsEditing = true;
+        imagePicker.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -117,6 +138,13 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         textField.textColor = .white
     }
 
+    func HideKeyboard(){
+        full_nameTf.resignFirstResponder()
+        emailTf.resignFirstResponder()
+        passwordTf.resignFirstResponder()
+        passwordCheckTf.resignFirstResponder()
+        phone_numberTf.resignFirstResponder()
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTage=textField.tag+1;
@@ -133,7 +161,65 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
         }
         return false
     }
-
+    
+    // MARK: - ImagePicker
+    func photoFromLibrary() {
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        imagePicker.modalPresentationStyle = .popover
+        present(imagePicker, animated: true, completion: nil)
+        //imagePicker.popoverPresentationController?.barButtonItem = sender
+    }
+    
+    func shootPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.cameraCaptureMode = .photo
+            imagePicker.modalPresentationStyle = .fullScreen
+            present(imagePicker,animated: true,completion: nil)
+        } else {
+            noCamera()
+        }
+    }
+    func noCamera(){
+        let alertVC = UIAlertController(
+            title: "No Camera",
+            message: "Sorry, this device has no camera",
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(
+            title: "OK",
+            style:.default,
+            handler: nil)
+        alertVC.addAction(okAction)
+        present(
+            alertVC,
+            animated: true,
+            completion: nil)
+    }
+    
+    func isPhotoAlbumAvailable() -> Bool {
+        return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
+    }
+    
+    func isCameraAvailable() -> Bool{
+        return UIImagePickerController.isSourceTypeAvailable(.camera)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var selectedImage = UIImage()
+        selectedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        avatarImage.image = selectedImage
+        avatarImage.contentMode = .scaleAspectFit
+        imagePlayer = selectedImage
+        //self.ShowSourceImageView()
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Navigation
 

@@ -46,7 +46,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
                 }
                 else {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: error!, body: "Check your Email and Password" )
+                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "Login Failed", body: error! )
                 }
             }
         }
