@@ -9,6 +9,8 @@
 import UIKit
 import SwiftMessages
 import NVActivityIndicatorView
+import TPKeyboardAvoiding
+
 class RegisterVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var plussImage: UIButton!
@@ -20,7 +22,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordCheckTf: UITextField!
     @IBOutlet weak var viewRegister:UIStackView!
     let loading = ActivityData()
-    
+    @IBOutlet weak var keyboard:TPKeyboardAvoidingScrollView!
+
     // MARK: - Actions
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -94,6 +97,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     }
     
     func isValidPhone(testStr:String) -> Bool {
+
+        return !testStr.isEmpty
+
         print("validating phone: \(testStr)")
         let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
@@ -108,6 +114,24 @@ class RegisterVC: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.textColor = .white
     }
+
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTage=textField.tag+1;
+
+        let nextResponder=keyboard.viewWithTag(nextTage) as UIResponder!
+
+        if (nextResponder != nil){
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+        return false
+    }
+
     /*
     // MARK: - Navigation
 

@@ -47,6 +47,9 @@ class ForgotPasswordVC: UIViewController {
     }
     
     func isValidPhone(testStr:String) -> Bool {
+
+        return !testStr.isEmpty
+        
         print("validating phone: \(testStr)")
         let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)

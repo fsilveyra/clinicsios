@@ -1359,7 +1359,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2U-tY-gJZ">
+                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2U-tY-gJZ">
                                                                 <rect key="frame" x="0.0" y="20.5" width="339" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="FiR-gX-gHg"/>
@@ -1389,7 +1389,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WZR-ip-3ec">
+                                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WZR-ip-3ec">
                                                                 <rect key="frame" x="0.0" y="20.5" width="339" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Qv3-i3-qQ3"/>
@@ -1419,7 +1419,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hxh-SH-MN5">
+                                                            <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hxh-SH-MN5">
                                                                 <rect key="frame" x="0.0" y="20.5" width="339" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="oeM-ne-cKH"/>
@@ -1449,7 +1449,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gqk-5N-mbh">
+                                                            <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gqk-5N-mbh">
                                                                 <rect key="frame" x="0.0" y="20.5" width="339" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Mfe-2L-O3z"/>
@@ -1479,7 +1479,7 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pto-l0-Ue3">
+                                                            <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pto-l0-Ue3">
                                                                 <rect key="frame" x="0.0" y="20.5" width="339" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="ZAX-5c-egu"/>
@@ -1549,6 +1549,7 @@
                         <outlet property="avatarImage" destination="EzX-ud-cA3" id="5fm-XZ-Bvh"/>
                         <outlet property="emailTf" destination="hxh-SH-MN5" id="0IY-FU-p01"/>
                         <outlet property="full_nameTf" destination="T2U-tY-gJZ" id="BUz-EU-k78"/>
+                        <outlet property="keyboard" destination="jeC-MO-6et" id="i9j-C0-zmd"/>
                         <outlet property="passwordCheckTf" destination="Pto-l0-Ue3" id="swN-hg-OkS"/>
                         <outlet property="passwordTf" destination="Gqk-5N-mbh" id="6Cd-A0-EbP"/>
                         <outlet property="phone_numberTf" destination="WZR-ip-3ec" id="5bl-AV-VKM"/>
