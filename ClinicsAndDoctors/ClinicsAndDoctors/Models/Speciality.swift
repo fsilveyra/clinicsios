@@ -7,7 +7,19 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class Speciality: NSObject {
-
+    var id : String!
+    var name : String!
+    var icon: String!
+    
+    override init() {
+    }
+    
+    required init(representationJSON:SwiftyJSON.JSON) {
+        self.id = representationJSON["id"].stringValue
+        self.name = representationJSON["name"].stringValue
+        self.icon = representationJSON["icon"].stringValue
+    }
 }

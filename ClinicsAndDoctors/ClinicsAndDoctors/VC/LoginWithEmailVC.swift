@@ -29,7 +29,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         }
         else if !isValidPhone(testStr: phoneTf.text!){
             self.phoneTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone, the correct format is 11155555555")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone, the correct format is 55555555")
             print("Incorrect phone")
             
         }

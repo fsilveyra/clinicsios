@@ -16,11 +16,12 @@ class User: NSObject {
     var password : String!
     var profile_picture : String!
     var email : String!
-    
+    var id: Int!
     override init() {
     }
     
     required init(representationJSON:SwiftyJSON.JSON) {
+        self.id = representationJSON["id"].intValue
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue
@@ -29,6 +30,7 @@ class User: NSObject {
     }
     
     func SetData(representationJSON: SwiftyJSON.JSON) {
+        self.id = representationJSON["id"].intValue
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue

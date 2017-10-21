@@ -11,6 +11,8 @@ import UIKit
 import CoreLocation
 import SideMenu
 import GoogleMaps
+import NVActivityIndicatorView
+
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
@@ -35,9 +37,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var currentMilles = 100
     var locationManager = CLLocationManager()
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
+    var specialitysList : [Speciality] = []
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
-
+    let loading = ActivityData()
     var infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
     var tappedMarker = GMSMarker()
     
@@ -56,12 +59,20 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         locationBt.layer.cornerRadius = 6
-        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
-        SideMenuManager.menuPresentMode = .menuSlideIn
-        SideMenuManager.menuFadeStatusBar = false
+        SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
+        SideMenuManager.default.menuPresentMode = .menuSlideIn
+        SideMenuManager.default.menuFadeStatusBar = false
         InitLocation()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -249,14 +260,35 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         pinClinic2.map = myMap
     }
     
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func LoadClinics (forLocation : CLLocation){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        ISClient.sharedInstance.GetClinics(latitude: forLocation.coordinate.latitude, longitude: forLocation.coordinate.longitude, radius: currentMilles, user_id: User.sharedInstance.id) { (success, error) in
+            if success! {
+                print("\(ISClient.sharedInstance.clinicsList.count) Clinics Loaded")
+                //Function to show mark in Maps
+                //Reload Data in Doctors List Table View
+            }
+            else {
+                print("Error Loading Clinics")
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+            }
+        }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    func LoadSpecialitys(){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        ISClient.sharedInstance.GetSpecialtys { (specilityList, error) in
+            if (specilityList?.isEmpty)! {
+                print("Error Loading Specilitys")
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+            }
+            else {
+                self.specialitysList = specilityList!
+                //change data source of especialitysCollection and reload Data
+            }
+        }
     }
     
     // MARK: - Google Maps Delegates

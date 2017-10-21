@@ -16,7 +16,9 @@ class ISClient: NSObject {
     //let listOfServices:[Service]?
     //Local
     private var baseURL = (UIApplication.shared.delegate as! AppDelegate).webUrl
-    var specialtys = [JSON]()
+    var specialtysList = [Speciality]()
+    var clinicsList = [Clinic]()
+    var doctorsList = [Doctor]()
     //Internet
     //private var baseURL : String = ""
     //Wify for Iphone
@@ -45,7 +47,7 @@ class ISClient: NSObject {
     
     
     
-    // MARK - Alamofire Request
+    // MARK: Alamofire Request
     func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
         let headers = ["Content-Type" : "application/json"]
         // if let token = appDelegate.token{}
@@ -75,6 +77,7 @@ class ISClient: NSObject {
         print(c.debugDescription)
     }
     
+    // MARK: Authentication
     func Login(phone:String,password:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
             "phone_number": phone,
@@ -183,25 +186,96 @@ class ISClient: NSObject {
         }
     }
     
-    func GetSpecialtys(fb_social_token:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+    // MARK: GetData
+    func GetSpecialtys( closure: ((_ success:[Speciality]?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
             "access_token": self.access_token
             //"otherParameter":"value"
         ]
         request(endPoint: "get_specialties", Params: parameters) { (json) in
-            //let responseList :NSMutableArray = NSMutableArray()
-            
+            if json["code"].stringValue == "time_out"{
+                print("error")
+                closure!([],json["detail"].stringValue)
+            }
+            else if json["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
+                print(json)
+                closure!([],json["detail"].stringValue)
+            }
+            else{
+                print(json.arrayValue)
+                for item in json.arrayValue {
+                    self.specialtysList.append(Speciality.init(representationJSON: item))
+                }
+                closure!(self.specialtysList,nil)
+            }
+        }
+    }
+    
+    func GetClinics(specialty_id:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+        var parameters : Parameters = [
+            "access_token": self.access_token,
+            "is_favorite": is_favorite,
+            "latitude": latitude,
+            "longitude": longitude,
+            "radius": radius,
+            "user_id":user_id
+        ]
+        if specialty_id != "" {
+            parameters.updateValue(specialty_id, forKey: "specialty_id")
+        }
+        
+        request(endPoint: "get_clinics", Params: parameters) { (json) in
+            //var clinicsList = [Clinic]()
             if json["code"].stringValue == "time_out"{
                 print("error")
                 closure!(false,json["detail"].stringValue)
             }
-            else if json["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
+            else if json["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
                 print(json)
                 closure!(false,json["detail"].stringValue)
             }
             else{
                 print(json.arrayValue)
-                self.specialtys = json.arrayValue
+                for item in json.arrayValue {
+                    self.clinicsList.append(Clinic.init(representationJSON: item))
+                }
+                closure!(true,nil)
+            }
+        }
+    }
+    
+    func GetDoctors(specialty_id:String = "", clinic_id:String = "", page:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+        var parameters : Parameters = [
+            "access_token": self.access_token,
+            "is_favorite": is_favorite,
+            "latitude": latitude,
+            "longitude": longitude,
+            "radius": radius,
+            "user_id":user_id
+        ]
+        if specialty_id != "" {
+            parameters.updateValue(specialty_id, forKey: "specialty_id")
+        }
+        if clinic_id != "" {
+            parameters.updateValue(clinic_id, forKey: "clinic_id")
+        }
+        
+        
+        request(endPoint: "get_doctors", Params: parameters) { (json) in
+            //var clinicsList = [Clinic]()
+            if json["code"].stringValue == "time_out"{
+                print("error")
+                closure!(false,json["detail"].stringValue)
+            }
+            else if json["code"].stringValue == "GET_DOCTORS_UNSUCCESSFUL" {
+                print(json)
+                closure!(false,json["detail"].stringValue)
+            }
+            else{
+                print(json.arrayValue)
+                for item in json.arrayValue {
+                    self.doctorsList.append(Doctor.init(representationJSON: item))
+                }
                 closure!(true,nil)
             }
         }
