@@ -1788,6 +1788,7 @@
                         <outlet property="option4Bt" destination="hJu-Oz-rQl" id="YU6-jc-jme"/>
                         <outlet property="submitBt" destination="6f7-eP-zDZ" id="wIb-NK-O6y"/>
                         <outlet property="titleLb" destination="6NU-77-uHk" id="M8P-0A-ci8"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goLogin" id="Czm-If-NiF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Wn-22-Sgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2293,10 +2294,10 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Rkf-td-94T"/>
         <segue reference="HSn-OU-elX"/>
-        <segue reference="DiC-fD-wqt"/>
+        <segue reference="BQg-EA-2T5"/>
         <segue reference="u7E-a2-pXa"/>
         <segue reference="dST-0L-VPo"/>
+        <segue reference="Czm-If-NiF"/>
     </inferredMetricsTieBreakers>
 </document>

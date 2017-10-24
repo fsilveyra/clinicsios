@@ -24,7 +24,8 @@ class RatingVC: UIViewController {
     @IBOutlet weak var option2Bt:UIButton!
     @IBOutlet weak var option3Bt:UIButton!
     @IBOutlet weak var option4Bt:UIButton!
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     
     var rating = 0
     
@@ -120,6 +121,15 @@ class RatingVC: UIViewController {
         default:
             optionBt.setImage(#imageLiteral(resourceName: "grayEllipse"), for: .normal)
             optionBt.tag = 0
+        }
+    }
+    
+    @IBAction func SubmitRating(_ sender: AnyObject){
+        if appDelegate.loggued {
+            print("Sumbit Sended")
+        }
+        else{
+            self.performSegue(withIdentifier: "goLogin", sender: nil)
         }
     }
     /*
