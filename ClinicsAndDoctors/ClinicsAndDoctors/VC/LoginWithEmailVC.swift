@@ -29,7 +29,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         }
         else if !isValidPhone(testStr: phoneTf.text!){
             self.phoneTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone, the correct format is 55555555")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
             print("Incorrect phone")
             
         }
@@ -42,7 +42,9 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
             ISClient.sharedInstance.Login(phone: phoneTf.text!, password: passwordTf.text!) { (loggued, error) in
                 if loggued! {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.appDelegate.loggued = true
                     self.performSegue(withIdentifier: "goHome", sender: nil)
+                    //self.navigationController?.popToRootViewController(animated: true)
                 }
                 else {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()

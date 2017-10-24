@@ -74,7 +74,9 @@ class ViewController: UIViewController {
                                         if register! {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                                             self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register With Facebook Success.")
+                                            self.appDelegate.loggued = true
                                             self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                            //self.navigationController?.popViewController(animated: true)
                                         }
                                         else {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()

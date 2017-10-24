@@ -187,12 +187,15 @@ class ISClient: NSObject {
     }
     
     // MARK: GetData
+    
+    //Get All Speciality in Sistem
     func GetSpecialtys( closure: ((_ success:[Speciality]?, _ error:String?) -> Void)?){
         let parameters : Parameters = [
-            "access_token": self.access_token
+            //"access_token": self.access_token
             //"otherParameter":"value"
-        ]
-        request(endPoint: "get_specialties", Params: parameters) { (json) in
+            :
+            ]
+        request(endPoint: "get_specialties", Params: parameters, method: .post) { (json) in
             if json["code"].stringValue == "time_out"{
                 print("error")
                 closure!([],json["detail"].stringValue)
@@ -202,6 +205,7 @@ class ISClient: NSObject {
                 closure!([],json["detail"].stringValue)
             }
             else{
+                
                 print(json.arrayValue)
                 for item in json.arrayValue {
                     self.specialtysList.append(Speciality.init(representationJSON: item))
@@ -211,6 +215,7 @@ class ISClient: NSObject {
         }
     }
     
+    //Get Clinic for specific speciality
     func GetClinics(specialty_id:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         var parameters : Parameters = [
             "access_token": self.access_token,
@@ -244,6 +249,7 @@ class ISClient: NSObject {
         }
     }
     
+    //Get Doctors for specific clinic or/ands speciality
     func GetDoctors(specialty_id:String = "", clinic_id:String = "", page:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
         var parameters : Parameters = [
             "access_token": self.access_token,
@@ -276,6 +282,64 @@ class ISClient: NSObject {
                 for item in json.arrayValue {
                     self.doctorsList.append(Doctor.init(representationJSON: item))
                 }
+                closure!(true,nil)
+            }
+        }
+    }
+    
+    //Add Clinic or Doctor to Favorite for User
+    func AddFavorite(user_id:String,clinic_id:String = "", doctor_id: String = "", closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+        var parameters : Parameters = [
+            "user_id": user_id,
+        ]
+        if clinic_id != "" {
+            parameters.updateValue(clinic_id, forKey: "clinic_id")
+        }
+        else{
+            parameters.updateValue(doctor_id, forKey: "doctor_id")
+        }
+        
+        //let postData = try JSONSerialization.js(withJSONObject: parameters, options: [])
+        
+        request(endPoint: "add_favorite", Params: parameters, method: .post) { (json) in
+            if json["code"].stringValue == "time_out"{
+                print("error")
+                closure!(false,json["detail"].stringValue)
+            }
+            else if json["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
+                print(json)
+                closure!(false,json["detail"].stringValue)
+            }
+            else{
+                closure!(true,nil)
+            }
+        }
+    }
+    
+    //Remove Clinic or Doctor as Favorite for User
+    func RemoveFavorite(user_id:String,clinic_id:String = "", doctor_id: String = "", closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+        var parameters : Parameters = [
+            "user_id": user_id,
+            ]
+        if clinic_id != "" {
+            parameters.updateValue(clinic_id, forKey: "clinic_id")
+        }
+        else{
+            parameters.updateValue(doctor_id, forKey: "doctor_id")
+        }
+        
+        //let postData = try JSONSerialization.js(withJSONObject: parameters, options: [])
+        
+        request(endPoint: "add_favorite", Params: parameters, method: .post) { (json) in
+            if json["code"].stringValue == "time_out"{
+                print("error")
+                closure!(false,json["detail"].stringValue)
+            }
+            else if json["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
+                print(json)
+                closure!(false,json["detail"].stringValue)
+            }
+            else{
                 closure!(true,nil)
             }
         }

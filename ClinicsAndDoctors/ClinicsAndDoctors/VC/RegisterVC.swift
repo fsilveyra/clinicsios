@@ -60,7 +60,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
             //self.phone_numberTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, the correct format is 119555555")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
             print("Incorrect Phone")
 
         }
