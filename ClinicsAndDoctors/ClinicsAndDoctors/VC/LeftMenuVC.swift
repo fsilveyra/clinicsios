@@ -15,19 +15,39 @@ import AlamofireImage
 class LeftMenuVC: UIViewController {
     @IBOutlet weak var avatarIm:UIImageView!
     @IBOutlet weak var userName:UILabel!
+    @IBOutlet weak var viewProfile:UIView!
+    @IBOutlet weak var seeProfileBt:UIButton!
+    @IBOutlet weak var logoutBt:UIButton!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2
-        if (FBSDKAccessToken.current() != nil) {
-            avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
-            userName.text = appDelegate.userName
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.SeeProfile))
+        self.viewProfile.addGestureRecognizer(tapGesture)
+        //self.userName.addGestureRecognizer(tapGesture)
+        seeProfileBt.addTarget(self, action: #selector(SeeProfile), for: .touchUpInside)
+        if !appDelegate.loggued{
+            seeProfileBt.isHidden = true
+            logoutBt.isHidden = true
         }
         else{
-            //load parameters from user Model
+            seeProfileBt.isHidden = false
+            logoutBt.isHidden = false
+            avatarIm.image = #imageLiteral(resourceName: "Photo") //avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
+            userName.text = User.sharedInstance.full_name
         }
         // Do any additional setup after loading the view.
+    }
+    func SeeProfile(sender: UITapGestureRecognizer) {
+        print("See Profile")
+        if appDelegate.loggued {
+            self.performSegue(withIdentifier: "goProfile", sender: nil)
+        }
+        else{
+            self.performSegue(withIdentifier: "goLogin", sender: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,14 +60,23 @@ class LeftMenuVC: UIViewController {
     
     // MARK: - Navigation
     @IBAction func Loggout(_ sender: AnyObject){
-        self.appDelegate.loggout = false
-        self.dismiss(animated: true, completion: {
-            self.navigationController?.popToRootViewController(animated: true)
-        })
+        self.appDelegate.loggued = false
+        //send ISClient.Logout
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func ShowwHome(_ sender: AnyObject){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func ShowFavorites(_ sender: AnyObject){
+        print("See Favorites")
+        if appDelegate.loggued {
+            self.performSegue(withIdentifier: "goFavorites", sender: nil)
+        }
+        else{
+            self.performSegue(withIdentifier: "goLogin", sender: nil)
+        }
     }
     
     override func didReceiveMemoryWarning() {

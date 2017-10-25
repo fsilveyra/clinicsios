@@ -11,33 +11,33 @@ import UIKit
 import CoreLocation
 import SideMenu
 import GoogleMaps
+import NVActivityIndicatorView
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        print("result")
-    }
+
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var especialitysCollection:UICollectionView!
     @IBOutlet weak var myMap:GMSMapView!
     @IBOutlet weak var myTableView:UITableView!
-    @IBOutlet weak var separetorView:UIView!
+    //@IBOutlet weak var separetorView:UIView!
     @IBOutlet weak var locationBt:UIButton!
-    @IBOutlet weak var searchBt:UIButton!
+    //@IBOutlet weak var searchBt:UIButton!
 
     var myPoint: GMSMarker? {
         didSet{
             ShowClinicsMarkerInMap()
         }
     }
-    var searchController:UISearchController!
+    //var searchController:UISearchController!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currentMilles = 100
     var locationManager = CLLocationManager()
-    let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
+    var especialitysArr = ["All"]
+    var specialitysList : [Speciality] = []
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
-
+    let loading = ActivityData()
     var infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
     var tappedMarker = GMSMarker()
     
@@ -52,22 +52,32 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myTableView.alpha = 0
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
-        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        //separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         locationBt.layer.cornerRadius = 6
-        SideMenuManager.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
-        SideMenuManager.menuPresentMode = .menuSlideIn
-        SideMenuManager.menuFadeStatusBar = false
+        SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
+        SideMenuManager.default.menuPresentMode = .menuSlideIn
+        SideMenuManager.default.menuFadeStatusBar = false
         InitLocation()
+        
+        self.LoadSpecialitys()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
-        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        //separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         self.infoView.removeFromSuperview()
@@ -76,13 +86,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewWillDisappear(_ animated: Bool) {
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
-        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        //separetorView.frame.origin.x = especialitysCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         self.infoView.removeFromSuperview()
     }
     
     // MARK: - @IBActions
+    /*
     @IBAction func ShowSearchBar(){
         searchController = UISearchController.init(searchResultsController: nil)
         searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
@@ -117,7 +128,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
         searchController.searchBar.becomeFirstResponder()
     }
-    
+    */
    
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
@@ -152,8 +163,25 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
-    @IBAction func SliderMoved(_ slider: UISlider){
-        currentMilles =  lroundf(slider.value)
+    @IBAction func SliderMoved(_ slider: UISlider, event:UIEvent){
+        if let touchEvent = event.allTouches?.first{
+            switch touchEvent.phase{
+            case .ended:
+                    currentMilles =  lroundf(slider.value)
+                    print("Current Milles: \(currentMilles)")
+            //case .began:
+             
+            //case .moved:
+                //
+            //case .stationary:
+                //
+            //case .cancelled:
+                //
+            default:
+                break
+            }
+            
+        }
     }
     
     @IBAction func SelectEspeciality(_ sender: AnyObject){
@@ -249,14 +277,39 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         pinClinic2.map = myMap
     }
     
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func LoadClinics (forLocation : CLLocation){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        ISClient.sharedInstance.GetClinics(latitude: forLocation.coordinate.latitude, longitude: forLocation.coordinate.longitude, radius: currentMilles, user_id: User.sharedInstance.id) { (success, error) in
+            if success! {
+                print("\(ISClient.sharedInstance.clinicsList.count) Clinics Loaded")
+                //Function to show mark in Maps
+                //Reload Data in Doctors List Table View
+            }
+            else {
+                print("Error Loading Clinics")
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+            }
+        }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    func LoadSpecialitys(){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        ISClient.sharedInstance.GetSpecialtys { (specilityList, error) in
+            if (specilityList?.isEmpty)! {
+                print("Error Loading Specilitys")
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+            }
+            else {
+                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                for speciality in specilityList!{
+                    self.especialitysArr.append(speciality.name)
+                }
+                //self.specialitysList = specilityList!
+                self.especialitysCollection.reloadData()
+            }
+        }
     }
     
     // MARK: - Google Maps Delegates
@@ -292,8 +345,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.infoView.center = myMap.projection.point(for: marker.position)
             self.view.addSubview(self.infoView)
             self.view.bringSubview(toFront: especialitysCollection)
-            self.view.bringSubview(toFront: searchBt)
-            self.view.bringSubview(toFront: separetorView)
+            //self.view.bringSubview(toFront: searchBt)
+            //self.view.bringSubview(toFront: separetorView)
             self.view.bringSubview(toFront: locationBt)
         }
         return false
@@ -376,7 +429,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row != 0{
-            return CGSize(width: 100, height: 50)
+            return CGSize(width: 115, height: 50)
         }
         else {
             return CGSize(width: 40, height: 50)
@@ -393,6 +446,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     // MARK: - Search Controller
+    /*
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         // Stop doing the search stuff
         // and clear the text in the search bar
@@ -414,7 +468,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             }
         }
         // You could also change the position, frame etc of the searchBar
-    }
+    }*/
     /*
     // MARK: - Navigation
 

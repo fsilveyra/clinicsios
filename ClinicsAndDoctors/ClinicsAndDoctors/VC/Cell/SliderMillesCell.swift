@@ -19,9 +19,6 @@ class SliderMillesCell: UITableViewCell {
     
     @IBAction func SliderMovedInCell(_ slider: UISlider){
         millesLb.text =  "\(lroundf(slider.value))"
-        
-        
-        //let header =  tableView.dequeueReusableCell(withIdentifier: "SliderMillesCell") as! SliderMillesCell
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

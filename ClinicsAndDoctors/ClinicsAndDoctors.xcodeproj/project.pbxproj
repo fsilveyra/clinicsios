@@ -19,6 +19,7 @@
 		FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4854221F7F8D4F00B758A4 /* HomeVC.swift */; };
 		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
 		FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */; };
+		FB54694A1F9AE88300B42712 /* Speciality.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5469491F9AE88300B42712 /* Speciality.swift */; };
 		FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FC4F51F8D36E20022720D /* ClinicCell.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
@@ -54,6 +55,7 @@
 		FB4854221F7F8D4F00B758A4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVC.swift; path = VC/HomeVC.swift; sourceTree = "<group>"; };
 		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
 		FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinincDetailVC.swift; path = VC/ClinincDetailVC.swift; sourceTree = "<group>"; };
+		FB5469491F9AE88300B42712 /* Speciality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Speciality.swift; path = Models/Speciality.swift; sourceTree = "<group>"; };
 		FB5FC4F51F8D36E20022720D /* ClinicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinicCell.swift; path = VC/Cell/ClinicCell.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				FBD7A2ED1F926B9B0038DD30 /* Category.swift */,
 				FBD7A2E91F92657C0038DD30 /* User.swift */,
 				FBD7A2EB1F9266340038DD30 /* Doctor.swift */,
+				FB5469491F9AE88300B42712 /* Speciality.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -247,8 +250,7 @@
 				TargetAttributes = {
 					FBE201881F7DF69F00C51A0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = EUARY92ECY;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -390,6 +392,7 @@
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
 				FBD7A2EE1F926B9B0038DD30 /* Category.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
+				FB54694A1F9AE88300B42712 /* Speciality.swift in Sources */,
 				FBD7A2E31F925D710038DD30 /* Clinic.swift in Sources */,
 				FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */,
 				FB48541D1F7F6EAC00B758A4 /* LoginWithEmailVC.swift in Sources */,
@@ -523,8 +526,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -541,8 +544,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

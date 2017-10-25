@@ -23,14 +23,14 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb2060578284189527</string>
+				<string>fb290850754744123</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>FacebookAppID</key>
-	<string>2060578284189527</string>
+	<string>290850754744123</string>
 	<key>FacebookDisplayName</key>
 	<string>ClinicsAndDoctors</string>
 	<key>LSApplicationQueriesSchemes</key>
