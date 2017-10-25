@@ -429,7 +429,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row != 0{
-            return CGSize(width: 110, height: 50)
+            return CGSize(width: 115, height: 50)
         }
         else {
             return CGSize(width: 40, height: 50)

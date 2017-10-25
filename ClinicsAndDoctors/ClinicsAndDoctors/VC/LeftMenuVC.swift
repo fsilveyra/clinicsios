@@ -19,6 +19,7 @@ class LeftMenuVC: UIViewController {
     @IBOutlet weak var seeProfileBt:UIButton!
     @IBOutlet weak var logoutBt:UIButton!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
@@ -35,7 +36,7 @@ class LeftMenuVC: UIViewController {
             seeProfileBt.isHidden = false
             logoutBt.isHidden = false
             avatarIm.image = #imageLiteral(resourceName: "Photo") //avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
-            userName.text = appDelegate.userName
+            userName.text = User.sharedInstance.full_name
         }
         // Do any additional setup after loading the view.
     }

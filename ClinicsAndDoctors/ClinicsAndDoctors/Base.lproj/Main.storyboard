@@ -1081,6 +1081,7 @@
                                         </state>
                                         <connections>
                                             <action selector="RateDoctor:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="qeN-3y-cRA"/>
+                                            <segue destination="WOc-nj-4EI" kind="show" id="r9N-42-X6c"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSA-UJ-pKS">
@@ -1626,6 +1627,9 @@
                                         <state key="normal" title="SUBMIT">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="SubmitRating:" destination="WOc-nj-4EI" eventType="touchUpInside" id="qvc-qS-rvE"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Other." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaW-1O-DWr">
                                         <rect key="frame" x="57" y="331" width="289" height="25"/>
@@ -2294,7 +2298,8 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HSn-OU-elX"/>
+        <segue reference="vdQ-Sl-OCc"/>
+        <segue reference="r9N-42-X6c"/>
         <segue reference="BQg-EA-2T5"/>
         <segue reference="u7E-a2-pXa"/>
         <segue reference="dST-0L-VPo"/>
