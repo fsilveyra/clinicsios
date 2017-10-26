@@ -288,7 +288,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             else {
                 print("Error Loading Clinics")
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
             }
         }
     }
@@ -299,7 +299,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             if (specilityList?.isEmpty)! {
                 print("Error Loading Specilitys")
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error! )
+                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
             }
             else {
                  NVActivityIndicatorPresenter.sharedInstance.stopAnimating()

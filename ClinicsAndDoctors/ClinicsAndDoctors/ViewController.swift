@@ -73,14 +73,14 @@ class ViewController: UIViewController {
                                     ISClient.sharedInstance.RegisterWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue, closure: { (register, error) in
                                         if register! {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                                            self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register With Facebook Success.")
+                                            self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register With Facebook Success.")
                                             self.appDelegate.loggued = true
                                             self.performSegue(withIdentifier: "loginSegue", sender: nil)
                                             //self.navigationController?.popViewController(animated: true)
                                         }
                                         else {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                                            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error!)
+                                            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
                                         }
                                     })
                                     /*let json = JSON(result!)

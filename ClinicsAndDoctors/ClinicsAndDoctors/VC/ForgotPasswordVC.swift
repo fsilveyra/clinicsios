@@ -22,11 +22,11 @@ class ForgotPasswordVC: UIViewController {
     @IBAction func RecoverPassword(_ sender: Any) {
         if  phoneTf.text==""{
             viewRecover.layer.shake(duration: TimeInterval(0.7))
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Type a Phone Number")
+            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "Type a Phone Number")
         }
         else if !isValidPhone(testStr: phoneTf.text!){
             self.phoneTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, please check")
+            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "Incorrect Phone Number, please check")
             print("Incorrect Phone")
             
         }
@@ -35,12 +35,12 @@ class ForgotPasswordVC: UIViewController {
             ISClient.sharedInstance.ForgotPassword(phone_number: phoneTf.text!, closure: { (forgot, error) in
                 if forgot! {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Weit for sms...")
+                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Weit for sms...")
                     //self.performSegue(withIdentifier: "goHome", sender: nil)
                 }
                 else {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: error!)
+                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
                 }
             })
         }
