@@ -10,6 +10,7 @@ import UIKit
 import SwiftMessages
 import NVActivityIndicatorView
 import TPKeyboardAvoiding
+import PromiseKit
 
 class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
@@ -69,19 +70,39 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             self.passwordCheckTf.textColor = .yellow
         }
         else{
+
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-            ISClient.sharedInstance.RegisterWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!) { (register, error) in
-                if register! {
-                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+            ISClient.sharedInstance.registerWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!)
+                .then { user -> Void in
+
                     self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register Success.")
                     self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
-                }
-                else {
-                    self.HideKeyboard()
+
+                }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
-                }
+                }.catch { error in
+                    if let e: LPError = error as? LPError {
+                        self.HideKeyboard()
+                        e.show()
+                    }
             }
+
+
+
+//            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+//            ISClient.sharedInstance.RegisterWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!) { (register, error) in
+//                if register! {
+//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register Success.")
+//                    self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
+//                }
+//                else {
+//                    self.HideKeyboard()
+//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
+//                }
+//            }
         }
     }
     //MARK: - Init

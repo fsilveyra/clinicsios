@@ -28,7 +28,7 @@ class LeftMenuVC: UIViewController {
         self.viewProfile.addGestureRecognizer(tapGesture)
         //self.userName.addGestureRecognizer(tapGesture)
         seeProfileBt.addTarget(self, action: #selector(SeeProfile), for: .touchUpInside)
-        if !appDelegate.loggued{
+        if User.currentUser == nil {
             seeProfileBt.isHidden = true
             logoutBt.isHidden = true
         }
@@ -36,13 +36,13 @@ class LeftMenuVC: UIViewController {
             seeProfileBt.isHidden = false
             logoutBt.isHidden = false
             avatarIm.image = #imageLiteral(resourceName: "Photo") //avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
-            userName.text = User.sharedInstance.full_name
+            userName.text = User.currentUser?.full_name ?? ""
         }
         // Do any additional setup after loading the view.
     }
     func SeeProfile(sender: UITapGestureRecognizer) {
         print("See Profile")
-        if appDelegate.loggued {
+        if User.currentUser != nil {
             self.performSegue(withIdentifier: "goProfile", sender: nil)
         }
         else{
@@ -60,8 +60,7 @@ class LeftMenuVC: UIViewController {
     
     // MARK: - Navigation
     @IBAction func Loggout(_ sender: AnyObject){
-        self.appDelegate.loggued = false
-        //send ISClient.Logout
+        User.currentUser = nil
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -71,7 +70,7 @@ class LeftMenuVC: UIViewController {
     
     @IBAction func ShowFavorites(_ sender: AnyObject){
         print("See Favorites")
-        if appDelegate.loggued {
+        if User.currentUser != nil {
             self.performSegue(withIdentifier: "goFavorites", sender: nil)
         }
         else{

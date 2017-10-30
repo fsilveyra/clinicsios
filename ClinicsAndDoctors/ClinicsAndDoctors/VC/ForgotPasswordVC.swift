@@ -31,18 +31,20 @@ class ForgotPasswordVC: UIViewController {
             
         }
         else{
+
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-            ISClient.sharedInstance.ForgotPassword(phone_number: phoneTf.text!, closure: { (forgot, error) in
-                if forgot! {
+
+            ISClient.sharedInstance.forgotPassword(phone_number: phoneTf.text!)
+                .then { _ -> Void in
+                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "User recovery was successful, wait for sms...")
+                }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Weit for sms...")
-                    //self.performSegue(withIdentifier: "goHome", sender: nil)
-                }
-                else {
-                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
-                }
-            })
+                }.catch { error in
+                    if let e: LPError = error as? LPError {
+                        e.show()
+                    }
+            }
+
         }
     }
     

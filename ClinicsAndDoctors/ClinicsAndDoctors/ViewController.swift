@@ -70,26 +70,23 @@ class ViewController: UIViewController {
                                     let json = JSON(result!)
                                     self.appDelegate.userName = json["name"].stringValue  //remove when image in server run
                                     self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue //remove when image in server run
-                                    ISClient.sharedInstance.RegisterWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue, closure: { (register, error) in
-                                        if register! {
-                                            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                                            self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register With Facebook Success.")
-                                            self.appDelegate.loggued = true
+
+
+                                    ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue).then { user -> Void in
+
+                                            self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register with Facebook success.")
+
                                             self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                                            //self.navigationController?.popViewController(animated: true)
-                                        }
-                                        else {
+
+                                        }.always {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                                            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
-                                        }
-                                    })
-                                    /*let json = JSON(result!)
-                                    
-                                    self.appDelegate.userName = json["name"].stringValue
-                                    self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue
-                                    print("Login in System")
-                                    self.performSegue(withIdentifier: "loginSegue", sender: nil)
-                                    //print(self.dict)*/
+                                        }.catch { error in
+                                            if let e: LPError = error as? LPError {
+                                                e.show()
+                                            }
+                                    }
+
+
                                 }
                             })
                         }

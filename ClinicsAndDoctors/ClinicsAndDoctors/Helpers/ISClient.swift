@@ -9,6 +9,30 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import PromiseKit
+import SwiftMessages
+
+
+class LPError : Error {
+    let description:String
+    let code:String
+
+    init(code:String, description:String) {
+        self.description = description
+        self.code = code
+    }
+
+    func show(){
+        let alert = MessageView.viewFromNib(layout: .CardView)
+        alert.configureTheme(.error)
+        alert.configureContent(title: "Clinics&Doctors", body: self.description)
+        alert.button?.isHidden = true
+        alert.configureDropShadow()
+        SwiftMessages.show(view: alert)
+    }
+
+}
+
 
 class ISClient: NSObject {
     //let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -19,11 +43,7 @@ class ISClient: NSObject {
     var specialtysList = [Speciality]()
     var clinicsList = [Clinic]()
     var doctorsList = [Doctor]()
-    //Internet
-    //private var baseURL : String = ""
-    //Wify for Iphone
-    //private var baseURL : String = ""
-    private var access_token = (UIApplication.shared.delegate as! AppDelegate).access_token
+
     private var reachabilityManager : Alamofire.NetworkReachabilityManager
     
     override init() {
@@ -49,6 +69,7 @@ class ISClient: NSObject {
     
     // MARK: Alamofire Request
     func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
+
         let headers = ["Content-Type" : "application/json"]
         // if let token = appDelegate.token{}
         //headers["access_token"] = appDelegate.token
@@ -62,7 +83,7 @@ class ISClient: NSObject {
                     completion(JSON(json))
                 case .failure:
                     let status = ["code": "time_out",
-                                  "detail": "Secure connection to the server cannot be made"]
+                                  "detail": "Secure connection to the server cannot be made."]
                     let Json = JSON(status)
                     completion(Json)
                     print("error en la peticion")
@@ -76,273 +97,389 @@ class ISClient: NSObject {
         }
         print(c.debugDescription)
     }
-    
+
+
+
     // MARK: Authentication
-    func Login(phone:String,password:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+    func login(phone:String, password:String) -> Promise<User> {
+        let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
             "phone_number": phone,
             "password": password
-            //"otherParameter":"value"
         ]
-        
-        //let postData = try JSONSerialization.js(withJSONObject: parameters, options: [])
-        
-        request(endPoint: "login", Params: parameters, method: .post) { (json) in
-            //let responseList :NSMutableArray = NSMutableArray()
-            
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "LOGIN_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                User.sharedInstance.SetData(representationJSON: json)
-                print("Phone: \(User.sharedInstance.phone_number)")
-                print("Username: \(User.sharedInstance.full_name)")
-                self.access_token = json["access_token"].stringValue
-                print("Token ===> \(self.access_token)")
-                closure!(true,nil)
+
+        let endPoint = "login"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+                    
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js != JSON.null && js["code"].stringValue == "LOGIN_SUCCESSFUL" {
+                            User.currentUser = User(representationJSON: js)
+                            fulfill(User.currentUser!)
+                        }else{
+                            reject(LPError(code: "error", description: "Wrong mobile or password"))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
-    func RegisterWhitEmail(fullName:String, phone_number: String, email:String, password:String, picture:UIImage, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+    func registerWhitEmail(fullName:String, phone_number: String, email:String, password:String, picture:UIImage) -> Promise<User> {
+
+        let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
             "full_name": fullName,
             "phone_number": phone_number,
             "email": email,
             "password": password,
-            "picture" : self.encodeImageToBase64String(image: picture)
-            //"otherParameter":"value"
+            "picture" : self.encodeImageToBase64String(image: picture),
+            "user_role":"user"
         ]
-        request(endPoint: "register", Params: parameters, method: .post) { (json) in
-            //let responseList :NSMutableArray = NSMutableArray()
-            
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "REGISTER_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                print(json.arrayValue)
-                closure!(true,nil)
+
+        let endPoint = "register"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js != JSON.null && js["code"].stringValue == "REGISTER_SUCCESSFUL" {
+                            User.currentUser = User(representationJSON: js)
+                            fulfill(User.currentUser!)
+                        }else{
+                            reject(LPError(code: "error", description: "Register error. Please tray again with another credentials."))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
-    func ForgotPassword(phone_number:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+
+    func forgotPassword(phone_number:String) -> Promise<Void> {
+
+        let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
             "phone_number": phone_number
-            //"otherParameter":"value"
         ]
-        request(endPoint: "forgot_password", Params: parameters, method: .post) { (json) in
-            //let responseList :NSMutableArray = NSMutableArray()
-            
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "USER_NOT_FOUND" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                print(json.arrayValue)
-                closure!(true,nil)
+
+        let endPoint = "forgot_password"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+                            if js["code"].stringValue == "RECOVERY_SUCCESS" {
+                                fulfill()
+                            }else{
+                                reject(LPError(code: "error", description: "The specified user does not exist."))
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
-    func RegisterWithFacebook(fb_social_token:String, fb_id:String, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+
+    func registerWithFacebook(fb_social_token:String, fb_id:String) -> Promise<User> {
+
+        let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
             "fb_social_token": fb_social_token,
-            "fb_id":fb_id
+            "fb_id":fb_id,
+            "user_role":"user"
         ]
-        request(endPoint: "register_with_fb", Params: parameters, method: .post) { (json) in
-            //let responseList :NSMutableArray = NSMutableArray()
-            
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "REGISTER_WITH_FB_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                User.sharedInstance.SetData(representationJSON: json)
-                print("Phone: \(User.sharedInstance.phone_number)")
-                print("Username: \(User.sharedInstance.full_name)")
-                self.access_token = json["access_token"].stringValue
-                print("Token ===> \(self.access_token)")
-                closure!(true,nil)
+
+        let endPoint = "register_with_fb"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+                            if js["code"].stringValue == "REGISTER_WITH_FB_SUCCESSFUL" {
+                                User.currentUser = User(representationJSON: js)
+                                fulfill(User.currentUser!)
+                            }else{
+                                reject(LPError(code: "error", description: "Register error. Please tray again."))
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
+
+
     // MARK: GetData
-    
-    //Get All Speciality in Sistem
-    func GetSpecialtys( closure: ((_ success:[Speciality]?, _ error:String?) -> Void)?){
-        let parameters : Parameters = [
-            //"access_token": self.access_token
-            //"otherParameter":"value"
-            :
-            ]
-        request(endPoint: "get_specialties", Params: parameters, method: .post) { (json) in
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!([],json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
-                print(json)
-                closure!([],json["detail"].stringValue)
-            }
-            else{
-                
-                print(json.arrayValue)
-                for item in json.arrayValue {
-                    self.specialtysList.append(Speciality.init(representationJSON: item))
-                }
-                closure!(self.specialtysList,nil)
+
+    func getSpecialtys() -> Promise<[Speciality]> {
+        let headers = ["Content-Type" : "application/json"]
+        let parameters : Parameters = [:]
+
+        let endPoint = "get_specialties"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+
+                            if js["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "No specialties found."))
+                            }
+                            else{
+                                var list = [Speciality]()
+                                for item in js.arrayValue {
+                                    list.append(Speciality(representationJSON: item))
+                                }
+                                fulfill(list)
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
-    //Get Clinic for specific speciality
-    func GetClinics(specialty_id:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+    func getClinics(latitude: Double, longitude: Double, radius: Int, specialty_id:String?) -> Promise<[Clinic]> {
+        let headers = ["Content-Type" : "application/json"]
+
+        guard let user = User.currentUser else {
+            return Promise { fulfill, reject in
+                reject(LPError(code: "error", description: "Must be logged"))
+            }
+        }
+
+
         var parameters : Parameters = [
-            "access_token": self.access_token,
-            "is_favorite": is_favorite,
+            "access_token": user.access_token,
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
-            "user_id":user_id
+            "user_id":user.id
         ]
-        if specialty_id != "" {
-            parameters.updateValue(specialty_id, forKey: "specialty_id")
+        if let esp = specialty_id, esp.isEmpty == false {
+            parameters.updateValue(esp, forKey: "specialty_id")
         }
-        
-        request(endPoint: "get_clinics", Params: parameters) { (json) in
-            //var clinicsList = [Clinic]()
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                print(json.arrayValue)
-                for item in json.arrayValue {
-                    self.clinicsList.append(Clinic.init(representationJSON: item))
-                }
-                closure!(true,nil)
+
+
+        let endPoint = "get_clinics"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+
+                            if js["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Server error ocurred."))
+                            }
+                            else{
+                                var list = [Clinic]()
+                                for item in js.arrayValue {
+                                    list.append(Clinic(representationJSON: item))
+                                }
+                                fulfill(list)
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
+
     //Get Doctors for specific clinic or/ands speciality
-    func GetDoctors(specialty_id:String = "", clinic_id:String = "", page:String = "", is_favorite:Bool = false, latitude: Double, longitude: Double, radius: Int, user_id: Int, closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+    func getDoctors(latitude: Double, longitude: Double, radius: Int, specialty_id:String?, clinic_id:String?, page:String?) -> Promise<[Doctor]> {
+
+        let headers = ["Content-Type" : "application/json"]
+
+        guard let user = User.currentUser else {
+            return Promise { fulfill, reject in
+                reject(LPError(code: "error", description: "Must be logged"))
+            }
+        }
+
         var parameters : Parameters = [
-            "access_token": self.access_token,
-            "is_favorite": is_favorite,
+            "access_token": user.access_token,
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
-            "user_id":user_id
+            "user_id":user.id
         ]
-        if specialty_id != "" {
-            parameters.updateValue(specialty_id, forKey: "specialty_id")
+        if let esp = specialty_id, esp.isEmpty == false {
+            parameters.updateValue(esp, forKey: "specialty_id")
         }
-        if clinic_id != "" {
-            parameters.updateValue(clinic_id, forKey: "clinic_id")
+        if let cid = clinic_id, cid.isEmpty == false {
+            parameters.updateValue(cid, forKey: "clinic_id")
         }
-        
-        
-        request(endPoint: "get_doctors", Params: parameters) { (json) in
-            //var clinicsList = [Clinic]()
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
-            }
-            else if json["code"].stringValue == "GET_DOCTORS_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                print(json.arrayValue)
-                for item in json.arrayValue {
-                    self.doctorsList.append(Doctor.init(representationJSON: item))
-                }
-                closure!(true,nil)
+
+        let endPoint = "get_doctors"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+
+                            if js["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Server error ocurred."))
+                            }
+                            else{
+                                var list = [Doctor]()
+                                for item in js.arrayValue {
+                                    list.append(Doctor(representationJSON: item))
+                                }
+                                fulfill(list)
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
         }
     }
-    
-    //Add Clinic or Doctor to Favorite for User
-    func AddFavorite(user_id:String,clinic_id:String = "", doctor_id: String = "", closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+
+    func addFavorite(clinicOrDoctorId:String, objType:String) -> Promise<Bool>{
+        let headers = ["Content-Type" : "application/json"]
+
+        if objType != "clinic" && objType != "doctor" {
+            fatalError("must be clinic or doctor")
+        }
+
+        guard let user = User.currentUser else {
+            return Promise { fulfill, reject in
+                reject(LPError(code: "error", description: "Must be logged"))
+            }
+        }
+
         var parameters : Parameters = [
-            "user_id": user_id,
+            "user_id": user.id
         ]
-        if clinic_id != "" {
-            parameters.updateValue(clinic_id, forKey: "clinic_id")
-        }
-        else{
-            parameters.updateValue(doctor_id, forKey: "doctor_id")
-        }
-        
-        //let postData = try JSONSerialization.js(withJSONObject: parameters, options: [])
-        
-        request(endPoint: "add_favorite", Params: parameters, method: .post) { (json) in
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
+        parameters.updateValue(clinicOrDoctorId, forKey: objType == "clinic" ? "clinic_id" : "doctor_id")
+
+        let endPoint = "add_favorite"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+                            if js["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Server error ocurred."))
+                            }
+                            else{
+                                fulfill(true)
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
-            else if json["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                closure!(true,nil)
-            }
         }
+
     }
+
     
     //Remove Clinic or Doctor as Favorite for User
-    func RemoveFavorite(user_id:String,clinic_id:String = "", doctor_id: String = "", closure: ((_ success:Bool?, _ error:String?) -> Void)?){
+    func removeFavorite(clinicOrDoctorId:String, objType:String) -> Promise<Bool>{
+        let headers = ["Content-Type" : "application/json"]
+
+        if objType != "clinic" && objType != "doctor" {
+            fatalError("must be clinic or doctor")
+        }
+
+        guard let user = User.currentUser else {
+            return Promise { fulfill, reject in
+                reject(LPError(code: "error", description: "Must be logged"))
+            }
+        }
+
         var parameters : Parameters = [
-            "user_id": user_id,
-            ]
-        if clinic_id != "" {
-            parameters.updateValue(clinic_id, forKey: "clinic_id")
-        }
-        else{
-            parameters.updateValue(doctor_id, forKey: "doctor_id")
-        }
-        
-        //let postData = try JSONSerialization.js(withJSONObject: parameters, options: [])
-        
-        request(endPoint: "add_favorite", Params: parameters, method: .post) { (json) in
-            if json["code"].stringValue == "time_out"{
-                print("error")
-                closure!(false,json["detail"].stringValue)
+            "user_id": user.id
+        ]
+        parameters.updateValue(clinicOrDoctorId, forKey: objType == "clinic" ? "clinic_id" : "doctor_id")
+
+        let endPoint = "remove_favorite"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+                            if js["code"].stringValue == "REMOVE_FAVORITE_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Server error ocurred."))
+                            }
+                            else{
+                                fulfill(true)
+                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
             }
-            else if json["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
-                print(json)
-                closure!(false,json["detail"].stringValue)
-            }
-            else{
-                closure!(true,nil)
-            }
         }
+
     }
 }
 

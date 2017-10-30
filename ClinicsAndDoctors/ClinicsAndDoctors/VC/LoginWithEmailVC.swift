@@ -10,6 +10,7 @@ import UIKit
 import PKHUD
 import NVActivityIndicatorView
 import SwiftMessages
+import PromiseKit
 
 class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTf: UITextField!
@@ -35,22 +36,20 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         }
         else{
 
-            //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            //self.performSegue(withIdentifier: "goHome", sender: nil)
-            
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-            ISClient.sharedInstance.Login(phone: phoneTf.text!, password: passwordTf.text!) { (loggued, error) in
-                if loggued! {
-                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.appDelegate.loggued = true
+
+            ISClient.sharedInstance.login(phone: phoneTf.text!, password: passwordTf.text!)
+                .then { user -> Void in
                     self.performSegue(withIdentifier: "goHome", sender: nil)
-                    //self.navigationController?.popToRootViewController(animated: true)
-                }
-                else {
+                }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "Login Failed", body: error! )
+                }.catch { error in
+                    if let e: LPError = error as? LPError {
+                        e.show()
+                    }
                 }
-            }
+
+
         }
     }
     

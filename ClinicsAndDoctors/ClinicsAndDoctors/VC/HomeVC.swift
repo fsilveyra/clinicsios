@@ -278,38 +278,62 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func LoadClinics (forLocation : CLLocation){
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-        ISClient.sharedInstance.GetClinics(latitude: forLocation.coordinate.latitude, longitude: forLocation.coordinate.longitude, radius: currentMilles, user_id: User.sharedInstance.id) { (success, error) in
-            if success! {
-                print("\(ISClient.sharedInstance.clinicsList.count) Clinics Loaded")
-                //Function to show mark in Maps
-                //Reload Data in Doctors List Table View
-            }
-            else {
-                print("Error Loading Clinics")
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
-            }
-        }
+//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+//        ISClient.sharedInstance.GetClinics(latitude: forLocation.coordinate.latitude, longitude: forLocation.coordinate.longitude, radius: currentMilles, user_id: User.currentUser.id) { (success, error) in
+//            if success! {
+//                print("\(ISClient.sharedInstance.clinicsList.count) Clinics Loaded")
+//                //Function to show mark in Maps
+//                //Reload Data in Doctors List Table View
+//            }
+//            else {
+//                print("Error Loading Clinics")
+//                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
+//            }
+//        }
     }
     
     func LoadSpecialitys(){
+
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-        ISClient.sharedInstance.GetSpecialtys { (specilityList, error) in
-            if (specilityList?.isEmpty)! {
-                print("Error Loading Specilitys")
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
-            }
-            else {
-                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-                for speciality in specilityList!{
-                    self.especialitysArr.append(speciality.name)
+
+        ISClient.sharedInstance.getSpecialtys()
+            .then { specilityList -> Void in
+                if specilityList.isEmpty {
+
+                } else {
+                    for speciality in specilityList{
+                        self.especialitysArr.append(speciality.name)
+                    }
+                    self.especialitysCollection.reloadData()
                 }
-                //self.specialitysList = specilityList!
-                self.especialitysCollection.reloadData()
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError {
+                    e.show()
             }
         }
+
+
+//
+//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+//        ISClient.sharedInstance.GetSpecialtys { (specilityList, error) in
+//            if (specilityList?.isEmpty)! {
+//                print("Error Loading Specilitys")
+//                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
+//            }
+//            else {
+//                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//                for speciality in specilityList!{
+//                    self.especialitysArr.append(speciality.name)
+//                }
+//                //self.specialitysList = specilityList!
+//                self.especialitysCollection.reloadData()
+//            }
+//        }
     }
     
     // MARK: - Google Maps Delegates

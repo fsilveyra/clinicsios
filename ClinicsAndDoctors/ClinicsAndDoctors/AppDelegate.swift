@@ -18,10 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var loggout = false
     var window: UIWindow?
     let webUrl = "https://clinic.xanthops.com/api/v1/"
-    var access_token = ""
+    
     var userName = ""
     var userAvatarURL = ""
-    var loggued = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         GMSServices.provideAPIKey("AIzaSyDSp4ShzTnVcSpavEhUHlhPhqFk4SlbIXQ") ////Apy Key for GoogleMaps
         // Override point for customization after application launch.
