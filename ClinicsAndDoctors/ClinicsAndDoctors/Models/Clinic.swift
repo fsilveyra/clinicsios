@@ -14,17 +14,18 @@ class Clinic: NSObject {
     var phone_number : String!
     var password : String!
     var profile_picture : String!
-    var category: Category!
+    var specialtys: [Speciality]!
     var email : String!
     var address : String!
     var city: String!
     var state: String!
     var country: String!
-    var zipcode: Int!
+    //var zipcode: Int!
     var latitude : Double!
     var longitude : Double!
     var id: Int!
     var rating: Int!
+    var isFavorite: Bool!
     
     override init() {
     }
@@ -33,17 +34,22 @@ class Clinic: NSObject {
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue
-        self.profile_picture = representationJSON["profile_picture"].stringValue
-        self.category = Category.init(representationJSON: representationJSON["category"])
+        self.profile_picture = representationJSON["picture"].stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
+        //self.category = Category.init(representationJSON: representationJSON["category"])
         self.email = representationJSON["email"].stringValue
         self.address = representationJSON["address"].stringValue
         self.city = representationJSON["city"].string
         self.state = representationJSON["state"].string
         self.country = representationJSON["country"].string
-        self.zipcode = representationJSON["zipcode"].intValue
+        //self.zipcode = representationJSON["zipcode"].intValue
         self.latitude = representationJSON["latitude"].doubleValue
         self.longitude = representationJSON["longitude"].doubleValue
         self.id = representationJSON["id"].intValue
         self.rating = representationJSON["rating"].intValue
+        self.isFavorite = representationJSON["is_favorite"].boolValue
+        let specialtysJSON = representationJSON["specialties"].arrayValue
+        for specialty in specialtysJSON {
+            self.specialtys.append(Speciality.init(representationJSON: specialty))
+        }
     }
 }

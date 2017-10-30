@@ -46,6 +46,8 @@
 	<string>Clinics and Doctor need access to your Camera for set your avatar in Perfil</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Clinics and Doctor need access to your Photo Library for set your avatar in Perfil</string>
 	<key>UILaunchStoryboardName</key>

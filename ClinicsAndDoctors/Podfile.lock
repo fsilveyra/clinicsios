@@ -25,8 +25,22 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.0.0)
   - NVActivityIndicatorView/Presenter (4.0.0)
   - PKHUD (5.0.0)
+  - PromiseKit (4.4.3):
+    - PromiseKit/Foundation (= 4.4.3)
+    - PromiseKit/QuartzCore (= 4.4.3)
+    - PromiseKit/UIKit (= 4.4.3)
+  - PromiseKit/Alamofire (4.4.3):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (4.4.3)
+  - PromiseKit/Foundation (4.4.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.4.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.4.3):
+    - PromiseKit/CorePromise
   - SideMenu (3.1.1)
-  - SwiftMessages (4.0.0)
+  - SwiftMessages (3.5.1)
   - SwiftyJSON (3.1.4)
   - TPKeyboardAvoiding (1.3.1)
 
@@ -41,8 +55,10 @@ DEPENDENCIES:
   - GoogleMaps
   - NVActivityIndicatorView
   - PKHUD
+  - PromiseKit
+  - PromiseKit/Alamofire (~> 4.0)
   - SideMenu
-  - SwiftMessages
+  - SwiftMessages (~> 3.5.1)
   - SwiftyJSON
   - TPKeyboardAvoiding
 
@@ -58,11 +74,12 @@ SPEC CHECKSUMS:
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   NVActivityIndicatorView: 54c9b93b6f25a4f467512680c0c90c09a1095cf2
   PKHUD: 3c001512c6e002091184197a8de7a20420786e3b
+  PromiseKit: fbb52a0d154402c57eeb6eccd36dd7724fcf6117
   SideMenu: 1bf32e90afaa2dc0e0ab68e938a0ff85014c4217
-  SwiftMessages: cd565e0e7d095584be1770c012c6b5be4183b5ee
+  SwiftMessages: ea0184c801030e52674c603896812c392c129248
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: dc2b77feb27e59117d6f2c460feeefe4075bc6d6
+PODFILE CHECKSUM: c20f2a9fbe004087e5c4ca19c86b72ee6c757bb4
 
 COCOAPODS: 1.3.1

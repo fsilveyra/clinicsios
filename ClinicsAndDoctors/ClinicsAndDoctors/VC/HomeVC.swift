@@ -12,7 +12,8 @@ import CoreLocation
 import SideMenu
 import GoogleMaps
 import NVActivityIndicatorView
-
+import Alamofire
+import AlamofireImage
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -35,6 +36,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var locationManager = CLLocationManager()
     var especialitysArr = ["All"]
     var specialitysList : [Speciality] = []
+    var clinicList : [Clinic] = []
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
     let loading = ActivityData()
@@ -62,7 +64,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         InitLocation()
         
         self.LoadSpecialitys()
-
+        //self.LoadClinics()
         // Do any additional setup after loading the view.
     }
     
@@ -201,17 +203,25 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     @IBAction func ShowMyLocation(_ sende: AnyObject){
-        if myPoint==nil{
-            myPoint = GMSMarker.init(position: (locationManager.location?.coordinate)!)
-            myPoint?.title = "My Location"
-            myPoint?.icon = #imageLiteral(resourceName: "icon_location")
-            myPoint?.map = myMap
+        if locationManager.location != nil {
+            if myPoint==nil{
+                myPoint = GMSMarker.init(position: (locationManager.location?.coordinate)!)
+                myPoint?.title = "My Location"
+                myPoint?.icon = #imageLiteral(resourceName: "icon_location")
+                myPoint?.map = myMap
+            }
+            else {
+                myPoint?.position = (locationManager.location?.coordinate)!
+                myPoint?.icon = #imageLiteral(resourceName: "icon_location")
+                myPoint?.map = myMap
+            }
+            let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, zoom: 14.0)
+            myMap.animate(to: camera)
         }
         else {
-            myPoint?.position = (locationManager.location?.coordinate)!
+            print("location no update")
         }
-        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, zoom: 14.0)
-        myMap.animate(to: camera)
+        
     }
     
     @IBAction func GoClinicDetails(_ sender: AnyObject){
@@ -261,20 +271,41 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func ShowClinicsMarkerInMap(){
-        let pinClinic = generateRandomMarker()
-        pinClinic.title = "River Clinic"
-        pinClinic.icon = #imageLiteral(resourceName: "pin_clinic")
-        pinClinic.map = myMap
+        if clinicList.isEmpty {
+            let pinClinic = generateRandomMarker()
+            pinClinic.title = "River Clinic"
+            pinClinic.icon = #imageLiteral(resourceName: "pin_clinic")
+            pinClinic.map = myMap
+            
+            let pinClinic1 = generateRandomMarker()
+            pinClinic1.title = "Infinix Clinic"
+            pinClinic1.icon = #imageLiteral(resourceName: "pinInfinix")
+            pinClinic1.map = myMap
+            
+            let pinClinic2 = generateRandomMarker()
+            pinClinic2.title = "Infi Health Clinic"
+            pinClinic2.icon = #imageLiteral(resourceName: "pinInfiHealth")
+            pinClinic2.map = myMap
+        }
+        else {
+            myMap.clear()
+            for clinic in clinicList {
+                //let iconClinic = UIImage.af_setImage(withURL: URL.init(string: clinic.profile_picture)!)
+                let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
+                pinClinic.title = clinic.full_name
+                pinClinic.icon = #imageLiteral(resourceName: "pinInfinix")
+                pinClinic.map = self.myMap
+                /*Alamofire.request(URL.init(string: clinic.profile_picture)!, method: .get).responseImage(completionHandler: { avatar in
+                    if let image = avatar.result.value {
+                        let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
+                        pinClinic.title = clinic.full_name
+                        pinClinic.icon = image
+                        pinClinic.map = self.myMap
+                    }
+                })*/
+            }
+        }
         
-        let pinClinic1 = generateRandomMarker()
-        pinClinic1.title = "Infinix Clinic"
-        pinClinic1.icon = #imageLiteral(resourceName: "pinInfinix")
-        pinClinic1.map = myMap
-        
-        let pinClinic2 = generateRandomMarker()
-        pinClinic2.title = "Infi Health Clinic"
-        pinClinic2.icon = #imageLiteral(resourceName: "pinInfiHealth")
-        pinClinic2.map = myMap
     }
     
     func LoadClinics (forLocation : CLLocation){
@@ -336,6 +367,29 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 //        }
     }
     
+    func LoadClinics(specialityId: String = ""){
+        
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+        
+        ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: currentMilles*1000, specialty_id: specialityId)
+            .then { clinicList -> Void in
+                if clinicList.isEmpty {
+
+                } else {
+                    for clinic in clinicList{
+                        self.clinicList.append(clinic)
+                        print("clinic added")
+                    }
+                    self.ShowClinicsMarkerInMap()
+                }
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError {
+                    e.show()
+                }
+        }
+    }
     // MARK: - Google Maps Delegates
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -403,6 +457,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
                 let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 14.0)
                 myMap.animate(to: camera)
+                LoadClinics()
             }
             else {
                 myPoint?.position = currentLocation

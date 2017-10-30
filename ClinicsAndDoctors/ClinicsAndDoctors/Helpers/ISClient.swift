@@ -279,20 +279,20 @@ class ISClient: NSObject {
 
     func getClinics(latitude: Double, longitude: Double, radius: Int, specialty_id:String?) -> Promise<[Clinic]> {
         let headers = ["Content-Type" : "application/json"]
-
+        /*
         guard let user = User.currentUser else {
             return Promise { fulfill, reject in
                 reject(LPError(code: "error", description: "Must be logged"))
             }
-        }
+        }*/
 
 
         var parameters : Parameters = [
-            "access_token": user.access_token,
+            //"access_token": user.access_token,
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
-            "user_id":user.id
+            "user_id":48
         ]
         if let esp = specialty_id, esp.isEmpty == false {
             parameters.updateValue(esp, forKey: "specialty_id")
@@ -316,6 +316,7 @@ class ISClient: NSObject {
                                 reject(LPError(code: "error", description: "Server error ocurred."))
                             }
                             else{
+                                print("Get CLinics \(js.arrayValue)")
                                 var list = [Clinic]()
                                 for item in js.arrayValue {
                                     list.append(Clinic(representationJSON: item))
