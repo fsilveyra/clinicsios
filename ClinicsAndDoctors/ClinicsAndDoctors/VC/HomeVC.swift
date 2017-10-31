@@ -14,6 +14,7 @@ import GoogleMaps
 import NVActivityIndicatorView
 import Alamofire
 import AlamofireImage
+import PromiseKit
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -24,19 +25,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var locationBt:UIButton!
     //@IBOutlet weak var searchBt:UIButton!
 
-    var myPoint: GMSMarker? {
-        didSet{
-            ShowClinicsMarkerInMap()
-        }
-    }
+    var myPoint: GMSMarker?
+
     //var searchController:UISearchController!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currentMilles = 100
     var locationManager = CLLocationManager()
     var especialitysArr = ["All"]
-    var specialitysList : [Speciality] = []
-    var clinicList : [Clinic] = []
+    var specialitysList = [Speciality]()
+    var clinicList = [Clinic]()
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
     let loading = ActivityData()
@@ -62,12 +60,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         SideMenuManager.default.menuPresentMode = .menuSlideIn
         SideMenuManager.default.menuFadeStatusBar = false
         InitLocation()
-        
-        self.LoadSpecialitys()
-        //self.LoadClinics()
+
+        self.loadData()
+
+
         // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -96,42 +95,42 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     // MARK: - @IBActions
     /*
-    @IBAction func ShowSearchBar(){
-        searchController = UISearchController.init(searchResultsController: nil)
-        searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
-        //searchController.searchBar.alpha = 1
-        //searchController.searchBar.isTranslucent = false
-        searchController.searchBar.placeholder = "Search doctors or clinics"
-        
-        searchController.searchBar.tintColor = .white
-        searchController.searchResultsUpdater = self
-        
-        //self.definesPresentationContext = true
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.showsCancelButton = true
-        searchController.searchBar.delegate = self
-        searchController.delegate = self
-        
-        //searchController.searchBar.cance
-        self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
-        self.viewSearch.backgroundColor =  UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
-        //self.viewSearch.clipsToBounds = true
-        //searchController.searchBar.frame.size.height = viewSearch.frame.height
-        //searchController.searchBar.frame.size.width = viewSearch.frame.width
-        
-        viewSearch.addSubview(searchController.searchBar)
-        self.view.addSubview(self.viewSearch)
-        self.view.bringSubview(toFront: self.viewSearch)
+     @IBAction func ShowSearchBar(){
+     searchController = UISearchController.init(searchResultsController: nil)
+     searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
+     //searchController.searchBar.alpha = 1
+     //searchController.searchBar.isTranslucent = false
+     searchController.searchBar.placeholder = "Search doctors or clinics"
 
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-                cell.subButtonView.alpha = 0
-        }
+     searchController.searchBar.tintColor = .white
+     searchController.searchResultsUpdater = self
 
-        searchController.searchBar.becomeFirstResponder()
-    }
-    */
-   
+     //self.definesPresentationContext = true
+     searchController.dimsBackgroundDuringPresentation = true
+     searchController.hidesNavigationBarDuringPresentation = false
+     searchController.searchBar.showsCancelButton = true
+     searchController.searchBar.delegate = self
+     searchController.delegate = self
+
+     //searchController.searchBar.cance
+     self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
+     self.viewSearch.backgroundColor =  UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
+     //self.viewSearch.clipsToBounds = true
+     //searchController.searchBar.frame.size.height = viewSearch.frame.height
+     //searchController.searchBar.frame.size.width = viewSearch.frame.width
+
+     viewSearch.addSubview(searchController.searchBar)
+     self.view.addSubview(self.viewSearch)
+     self.view.bringSubview(toFront: self.viewSearch)
+
+     for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+     cell.subButtonView.alpha = 0
+     }
+
+     searchController.searchBar.becomeFirstResponder()
+     }
+     */
+
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
         self.infoView.removeFromSuperview()
@@ -169,16 +168,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if let touchEvent = event.allTouches?.first{
             switch touchEvent.phase{
             case .ended:
-                    currentMilles =  lroundf(slider.value)
-                    print("Current Milles: \(currentMilles)")
-            //case .began:
-             
-            //case .moved:
+                currentMilles =  lroundf(slider.value)
+                print("Current Milles: \(currentMilles)")
+                //case .began:
+
+                //case .moved:
                 //
-            //case .stationary:
+                //case .stationary:
                 //
-            //case .cancelled:
-                //
+                //case .cancelled:
+            //
             default:
                 break
             }
@@ -258,77 +257,58 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
-    func generateRandomMarker() -> GMSMarker{
-
-        let deltax = Double(arc4random()) / Double(UInt32.max)
-        let valx = ((deltax * 20.0) - 10.0) * 0.001
-        let deltay = Double(arc4random()) / Double(UInt32.max)
-        let valy = ((deltay * 20.0) - 10.0) * 0.001
-
-        let p = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: (myPoint?.position.latitude)! + valx,
-                                                                             longitude: (myPoint?.position.longitude)! + valy))
-        return p
-    }
 
     func ShowClinicsMarkerInMap(){
-        if clinicList.isEmpty {
-            let pinClinic = generateRandomMarker()
-            pinClinic.title = "River Clinic"
-            pinClinic.icon = #imageLiteral(resourceName: "pin_clinic")
-            pinClinic.map = myMap
-            
-            let pinClinic1 = generateRandomMarker()
-            pinClinic1.title = "Infinix Clinic"
-            pinClinic1.icon = #imageLiteral(resourceName: "pinInfinix")
-            pinClinic1.map = myMap
-            
-            let pinClinic2 = generateRandomMarker()
-            pinClinic2.title = "Infi Health Clinic"
-            pinClinic2.icon = #imageLiteral(resourceName: "pinInfiHealth")
-            pinClinic2.map = myMap
+        myMap.clear()
+        for clinic in clinicList {
+            //let iconClinic = UIImage.af_setImage(withURL: URL.init(string: clinic.profile_picture)!)
+            let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
+            pinClinic.title = clinic.full_name
+            pinClinic.icon = #imageLiteral(resourceName: "pinInfinix")
+            pinClinic.map = self.myMap
+            /*Alamofire.request(URL.init(string: clinic.profile_picture)!, method: .get).responseImage(completionHandler: { avatar in
+             if let image = avatar.result.value {
+             let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
+             pinClinic.title = clinic.full_name
+             pinClinic.icon = image
+             pinClinic.map = self.myMap
+             }
+             })*/
         }
-        else {
-            myMap.clear()
-            for clinic in clinicList {
-                //let iconClinic = UIImage.af_setImage(withURL: URL.init(string: clinic.profile_picture)!)
-                let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
-                pinClinic.title = clinic.full_name
-                pinClinic.icon = #imageLiteral(resourceName: "pinInfinix")
-                pinClinic.map = self.myMap
-                /*Alamofire.request(URL.init(string: clinic.profile_picture)!, method: .get).responseImage(completionHandler: { avatar in
-                    if let image = avatar.result.value {
-                        let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
-                        pinClinic.title = clinic.full_name
-                        pinClinic.icon = image
-                        pinClinic.map = self.myMap
-                    }
-                })*/
-            }
-        }
+
         
     }
-    
-    func LoadClinics (forLocation : CLLocation){
-//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-//        ISClient.sharedInstance.GetClinics(latitude: forLocation.coordinate.latitude, longitude: forLocation.coordinate.longitude, radius: currentMilles, user_id: User.currentUser.id) { (success, error) in
-//            if success! {
-//                print("\(ISClient.sharedInstance.clinicsList.count) Clinics Loaded")
-//                //Function to show mark in Maps
-//                //Reload Data in Doctors List Table View
-//            }
-//            else {
-//                print("Error Loading Clinics")
-//                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
-//            }
-//        }
-    }
-    
-    func LoadSpecialitys(){
 
+
+    func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
-        ISClient.sharedInstance.getSpecialtys()
+        self.LoadSpecialitys().then {
+            self.LoadClinics()
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+
+                if let e: LPError = error as? LPError { e.show() }
+
+                DispatchQueue.main.asyncAfter(
+                    deadline: DispatchTime.now() + 1, execute: {
+
+                        let alert = UIAlertController(title:"Clinics&Doctors", message: "Error loading data from server. Please, try again.", preferredStyle: .alert)
+
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {[weak self] action in
+                            self?.loadData()
+                        }))
+
+                        self.present(alert, animated: true, completion: nil)
+                })
+        }
+
+    }
+
+
+    func LoadSpecialitys() -> Promise<Void> {
+        return ISClient.sharedInstance.getSpecialtys()
             .then { specilityList -> Void in
                 if specilityList.isEmpty {
 
@@ -338,76 +318,36 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     }
                     self.especialitysCollection.reloadData()
                 }
-
-            }.always {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            }.catch { error in
-                if let e: LPError = error as? LPError {
-                    e.show()
-            }
         }
-
-
-//
-//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-//        ISClient.sharedInstance.GetSpecialtys { (specilityList, error) in
-//            if (specilityList?.isEmpty)! {
-//                print("Error Loading Specilitys")
-//                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error! )
-//            }
-//            else {
-//                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                for speciality in specilityList!{
-//                    self.especialitysArr.append(speciality.name)
-//                }
-//                //self.specialitysList = specilityList!
-//                self.especialitysCollection.reloadData()
-//            }
-//        }
     }
     
-    func LoadClinics(specialityId: String = ""){
-        
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-        
-        ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: currentMilles*1000, specialty_id: specialityId)
-            .then { clinicList -> Void in
-                if clinicList.isEmpty {
+    func LoadClinics(specialityId: String = "") -> Promise<Void>{
 
-                } else {
-                    for clinic in clinicList{
-                        self.clinicList.append(clinic)
-                        print("clinic added")
-                    }
-                    self.ShowClinicsMarkerInMap()
-                }
-            }.always {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            }.catch { error in
-                if let e: LPError = error as? LPError {
-                    e.show()
-                }
+        return ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: currentMilles*1000000, specialty_id: specialityId)
+            .then { clist -> Void in
+                self.clinicList = clist
+                self.ShowClinicsMarkerInMap()
         }
     }
+
     // MARK: - Google Maps Delegates
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         if marker != self.myPoint {
             return UIView()
             /*self.infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
-            self.infoView.contentView.layer.cornerRadius = 5
-            self.infoView.clinicNameLb.text = marker.title
-            self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
-            self.infoView.isUserInteractionEnabled = true
-            self.infoView.center = myMap.projection.point(for: marker.position)
-            //self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
-            /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-                let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
-                let position = GMSCameraUpdate.setTarget(camera)
-                mapView.animate(with: position)
-               })*/
-            return infoView*/
+             self.infoView.contentView.layer.cornerRadius = 5
+             self.infoView.clinicNameLb.text = marker.title
+             self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
+             self.infoView.isUserInteractionEnabled = true
+             self.infoView.center = myMap.projection.point(for: marker.position)
+             //self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
+             /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+             let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
+             let position = GMSCameraUpdate.setTarget(camera)
+             mapView.animate(with: position)
+             })*/
+             return infoView*/
         }
         
         return nil
@@ -457,7 +397,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
                 let camera = GMSCameraPosition.camera(withLatitude: latitude!, longitude: longitude!, zoom: 14.0)
                 myMap.animate(to: camera)
-                LoadClinics()
+
             }
             else {
                 myPoint?.position = currentLocation
@@ -526,36 +466,36 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     // MARK: - Search Controller
     /*
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // Stop doing the search stuff
-        // and clear the text in the search bar
-        self.viewSearch.removeFromSuperview()
-        searchController = nil
-        
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            if currentSelectedEspec != cell.especialityBt.tag{
-                cell.subButtonView.alpha = 0
-            }
-            else {
-                cell.subButtonView.alpha = 1
-            }
-        }
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
-            print("touch")
-            if searchBar.text == "" {
-                self.viewSearch.removeFromSuperview()
-            }
-        }
-        // You could also change the position, frame etc of the searchBar
-    }*/
-    /*
-    // MARK: - Navigation
+     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+     // Stop doing the search stuff
+     // and clear the text in the search bar
+     self.viewSearch.removeFromSuperview()
+     searchController = nil
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
+     if currentSelectedEspec != cell.especialityBt.tag{
+     cell.subButtonView.alpha = 0
+     }
+     else {
+     cell.subButtonView.alpha = 1
+     }
+     }
+     func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+     print("touch")
+     if searchBar.text == "" {
+     self.viewSearch.removeFromSuperview()
+     }
+     }
+     // You could also change the position, frame etc of the searchBar
+     }*/
+    /*
+     // MARK: - Navigation
+
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 
 }

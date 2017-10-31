@@ -14,7 +14,7 @@ class Clinic: NSObject {
     var phone_number : String!
     var password : String!
     var profile_picture : String!
-    var specialtys: [Speciality]!
+    //var specialtys: [Speciality]!
     var email : String!
     var address : String!
     var city: String!
@@ -48,8 +48,8 @@ class Clinic: NSObject {
         self.rating = representationJSON["rating"].intValue
         self.isFavorite = representationJSON["is_favorite"].boolValue
         let specialtysJSON = representationJSON["specialties"].arrayValue
-        for specialty in specialtysJSON {
-            self.specialtys.append(Speciality.init(representationJSON: specialty))
-        }
+//        for specialty in specialtysJSON {
+//            self.specialtys.append(Speciality(representationJSON: specialty))
+//        }
     }
 }
