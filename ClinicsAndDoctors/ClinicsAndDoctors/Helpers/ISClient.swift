@@ -23,7 +23,7 @@ class LPError : Error {
     }
 
     func show(){
-        let alert = MessageView.viewFromNib(layout: .CardView)
+        let alert = MessageView.viewFromNib(layout: .cardView)
         alert.configureTheme(.error)
         alert.configureContent(title: "Clinics&Doctors", body: self.description)
         alert.button?.isHidden = true

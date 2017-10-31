@@ -266,8 +266,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 imageView.layer.cornerRadius = imageView.frame.width/2
                 imageView.clipsToBounds = true
             imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
-                image?.yy_imageByResize(to: CGSize.init(width: 100, height: 100), contentMode: .center)
-                image?.yy_image(byRoundCornerRadius: 50)
+                //image?.yy_imageByResize(to: CGSize.init(width: 100, height: 100), contentMode: .center)
+                //image?.yy_image(byRoundCornerRadius: 50)
                 let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
                 //imageView.image = image?
                 pinClinic.iconView = imageView

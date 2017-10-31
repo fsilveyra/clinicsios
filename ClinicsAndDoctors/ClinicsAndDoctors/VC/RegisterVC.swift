@@ -51,22 +51,22 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         passwordTf.resignFirstResponder()
         if passwordTf.text=="" || full_nameTf.text=="" || passwordCheckTf.text=="" || phone_numberTf.text==""{
             viewRegister.layer.shake(duration: TimeInterval(0.7))
-            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "Complete all blank fields")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
         }
         else if !(emailTf.text?.isEmpty)! && !isValidEmail(testStr: emailTf.text!){
             self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "Incorrect Email, the correct format is email@email.com")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, the correct format is email@email.com")
             print("Incorrect email")
             
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
             //self.phone_numberTf.textColor = .red
-            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
             print("Incorrect Phone")
 
         }
         else if passwordTf.text != passwordCheckTf.text{
-            self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: "The password and Re-Type Password are not same, please check")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The password and Re-Type Password are not same, please check")
             self.passwordCheckTf.textColor = .yellow
         }
         else{
@@ -76,7 +76,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             ISClient.sharedInstance.registerWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!)
                 .then { user -> Void in
 
-                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register Success.")
+                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
                     self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
 
                 }.always {

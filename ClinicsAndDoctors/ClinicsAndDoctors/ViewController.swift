@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 
                                     ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue).then { user -> Void in
 
-                                            self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register with Facebook success.")
+                                            self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register with Facebook success.")
 
                                             self.performSegue(withIdentifier: "loginSegue", sender: nil)
 
