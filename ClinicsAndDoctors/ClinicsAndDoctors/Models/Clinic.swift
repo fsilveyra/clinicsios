@@ -35,8 +35,8 @@ class Clinic: NSObject {
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue
         self.profile_picture = representationJSON["picture"].stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
-        //let string = self.profile_picture.replacingOccurrences(of: "http", with: "https")
-        //self.profile_picture = string
+        let string = self.profile_picture.replacingOccurrences(of: "http", with: "https")
+        self.profile_picture = string
         print("image url: \(self.profile_picture)")
         //self.category = Category.init(representationJSON: representationJSON["category"])
         self.email = representationJSON["email"].stringValue

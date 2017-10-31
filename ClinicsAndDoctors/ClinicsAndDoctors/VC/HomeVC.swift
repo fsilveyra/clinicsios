@@ -262,12 +262,15 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func ShowClinicsMarkerInMap(){
         myMap.clear()
         for clinic in clinicList {
-            let imageView = UIImageView()
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 56, height: 56))
+                imageView.layer.cornerRadius = imageView.frame.width/2
+                imageView.clipsToBounds = true
             imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
                 image?.yy_imageByResize(to: CGSize.init(width: 100, height: 100), contentMode: .center)
                 image?.yy_image(byRoundCornerRadius: 50)
                 let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
-                pinClinic.icon = imageView.image
+                //imageView.image = image?
+                pinClinic.iconView = imageView
                 pinClinic.title = clinic.full_name
                 pinClinic.map = self.myMap
             })
