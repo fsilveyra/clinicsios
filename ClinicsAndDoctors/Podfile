@@ -29,4 +29,5 @@ pod 'SideMenu'
 pod 'TPKeyboardAvoiding'
 pod 'GoogleMaps'
 pod 'NVActivityIndicatorView'
+pod 'YYWebImage'
 end

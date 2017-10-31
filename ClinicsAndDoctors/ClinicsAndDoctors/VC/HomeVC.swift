@@ -15,6 +15,7 @@ import NVActivityIndicatorView
 import Alamofire
 import AlamofireImage
 import PromiseKit
+import YYWebImage
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -261,24 +262,17 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func ShowClinicsMarkerInMap(){
         myMap.clear()
         for clinic in clinicList {
-            //let iconClinic = UIImage.af_setImage(withURL: URL.init(string: clinic.profile_picture)!)
-            let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
-            pinClinic.title = clinic.full_name
-            pinClinic.icon = #imageLiteral(resourceName: "pinInfinix")
-            pinClinic.map = self.myMap
-            /*Alamofire.request(URL.init(string: clinic.profile_picture)!, method: .get).responseImage(completionHandler: { avatar in
-             if let image = avatar.result.value {
-             let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
-             pinClinic.title = clinic.full_name
-             pinClinic.icon = image
-             pinClinic.map = self.myMap
-             }
-             })*/
+            let imageView = UIImageView()
+            imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
+                image?.yy_imageByResize(to: CGSize.init(width: 100, height: 100), contentMode: .center)
+                image?.yy_image(byRoundCornerRadius: 50)
+                let pinClinic = GMSMarker.init(position: CLLocationCoordinate2D.init(latitude: clinic.latitude,longitude: clinic.longitude))
+                pinClinic.icon = imageView.image
+                pinClinic.title = clinic.full_name
+                pinClinic.map = self.myMap
+            })
         }
-
-        
     }
-
 
     func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
@@ -322,7 +316,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func LoadClinics(specialityId: String = "") -> Promise<Void>{
-
+        
         return ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: currentMilles*1000000, specialty_id: specialityId)
             .then { clist -> Void in
                 self.clinicList = clist
