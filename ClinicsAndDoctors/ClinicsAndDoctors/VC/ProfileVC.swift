@@ -19,10 +19,10 @@ class ProfileVC: UIViewController {
         CreateGradienBackGround(view: self.view)
         self.navigationController?.navigationBar.isHidden = false
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2
-        let attribRegBut : [String: Any] = [
-            NSFontAttributeName : UIFont.systemFont(ofSize: 15),
-            NSForegroundColorAttributeName : UIColor.white,
-            NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue]
+        let attribRegBut : [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: 15),
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
         let attributeString = NSMutableAttributedString(string: "Change Password",
                                                         attributes: attribRegBut)
         changePasswordBt.setAttributedTitle(attributeString, for: .normal)

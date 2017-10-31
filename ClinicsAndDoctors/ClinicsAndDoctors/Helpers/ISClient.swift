@@ -188,7 +188,7 @@ class ISClient: NSObject {
                             reject(LPError(code: "error", description: "Network error ocurred"))
                         }else{
                             if js["code"].stringValue == "RECOVERY_SUCCESS" {
-                                fulfill()
+                                //fulfill()
                             }else{
                                 reject(LPError(code: "error", description: "The specified user does not exist."))
                             }

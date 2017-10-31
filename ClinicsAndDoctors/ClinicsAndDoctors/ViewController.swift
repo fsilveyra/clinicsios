@@ -27,10 +27,10 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         loginBt.layer.cornerRadius = 4
         facebookBt.layer.cornerRadius = 4
-        let attribRegBut : [String: Any] = [
-            NSFontAttributeName : UIFont.systemFont(ofSize: 14),
-            NSForegroundColorAttributeName : UIColor.white,
-            NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue]
+        let attribRegBut : [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: 14),
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
         let attributeString = NSMutableAttributedString(string: "Register Here",
                                                         attributes: attribRegBut)
         registerHereBt.setAttributedTitle(attributeString, for: .normal)

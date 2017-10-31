@@ -40,7 +40,7 @@ class LeftMenuVC: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
-    func SeeProfile(sender: UITapGestureRecognizer) {
+    @objc func SeeProfile(sender: UITapGestureRecognizer) {
         print("See Profile")
         if User.currentUser != nil {
             self.performSegue(withIdentifier: "goProfile", sender: nil)
