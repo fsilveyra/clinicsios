@@ -58,6 +58,16 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         locationBt.layer.cornerRadius = 6
 
+
+        if #available(iOS 11.0, *) {
+            myTableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        myTableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
+
+
+
         configureSideMenu()
 
         initLocation()

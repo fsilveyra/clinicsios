@@ -61,7 +61,7 @@ class ForgotPasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+
         CreateGradienBackGround(view: view)
         recoverBt.layer.cornerRadius = 5
         // Do any additional setup after loading the view.

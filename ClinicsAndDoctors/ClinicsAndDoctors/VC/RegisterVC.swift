@@ -26,6 +26,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     let imagePicker = UIImagePickerController()
     var imagePlayer = UIImage()
     let loading = ActivityData()
+    var futureVC = ""
+
     @IBOutlet weak var keyboard:TPKeyboardAvoidingScrollView!
 
     // MARK: - Actions
@@ -74,10 +76,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
             ISClient.sharedInstance.registerWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!)
-                .then { user -> Void in
+                .then {[weak self] user -> Void in
 
-                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
-                    self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
+                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
+
+                    self?.registerSuccess()
 
                 }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -88,23 +91,28 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                     }
             }
 
-
-
-//            NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-//            ISClient.sharedInstance.RegisterWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!) { (register, error) in
-//                if register! {
-//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                    self.SwiftMessageAlert(layout: .CardView, theme: .success, title: "", body: "Register Success.")
-//                    self.performSegue(withIdentifier: "goLoginMobile", sender: nil)
-//                }
-//                else {
-//                    self.HideKeyboard()
-//                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-//                    self.SwiftMessageAlert(layout: .CardView, theme: .error, title: "", body: error!)
-//                }
-//            }
         }
     }
+
+    func registerSuccess(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {[weak self] in
+            if let nav = self?.navigationController{
+                let c = nav.viewControllers.count
+                if let fvc = self?.futureVC, fvc.isEmpty == false {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+                    let c = nav.viewControllers.count
+                    nav.viewControllers.insert(vc, at: c - 2)
+                    nav.popToViewController(vc, animated: true)
+                }else{
+                    let backVC = nav.viewControllers[c - 3]
+                    nav.popToViewController(backVC, animated: true)
+                }
+            }
+        })
+    }
+
+
     //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -242,16 +250,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! LoginWithEmailVC
-        vc.phone = phone_numberTf.text!
-        vc.password = passwordTf.text!
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+   
     
 
 }

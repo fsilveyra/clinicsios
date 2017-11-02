@@ -21,6 +21,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     var password = ""
     let loading = ActivityData()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var futureVC = ""
     
     //MARK: Actions
     @IBAction func Login(_ sender: Any) {
@@ -39,8 +40,23 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
             ISClient.sharedInstance.login(phone: phoneTf.text!, password: passwordTf.text!)
-                .then { user -> Void in
-                    self.performSegue(withIdentifier: "goHome", sender: nil)
+                .then {[weak self] user -> Void in
+
+                    if let nav = self?.navigationController{
+                        let c = nav.viewControllers.count
+
+                        if let fvc = self?.futureVC, fvc.isEmpty == false {
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+                            let c = nav.viewControllers.count
+                            nav.viewControllers.insert(vc, at: c - 2)
+                            nav.popToViewController(vc, animated: true)
+                        }else{
+                            let backVC = nav.viewControllers[c - 3]
+                            nav.popToViewController(backVC, animated: true)
+                        }
+                    }
+
                 }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                 }.catch { error in
@@ -53,13 +69,11 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func BackView(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
+ 
     //MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
+        //self.navigationController?.navigationBar.isHidden = true
         phoneTf.text = phone
         passwordTf.text = password
         
@@ -67,20 +81,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         loginBt.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    /*
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
 
-    }*/
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

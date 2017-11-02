@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import TPKeyboardAvoiding
+
 
 class RatingVC: UIViewController {
     @IBOutlet weak var avatarClinicIm:UIImageView!
@@ -24,6 +26,7 @@ class RatingVC: UIViewController {
     @IBOutlet weak var option2Bt:UIButton!
     @IBOutlet weak var option3Bt:UIButton!
     @IBOutlet weak var option4Bt:UIButton!
+    @IBOutlet weak var scrollView:TPKeyboardAvoidingScrollView!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     
@@ -35,7 +38,16 @@ class RatingVC: UIViewController {
         avatarClinicIm.layer.cornerRadius = avatarClinicIm.frame.width/2
         avatarClinicIm.layer.borderColor = UIColor.darkGray.cgColor
         
-        // Do any additional setup after loading the view.
+
+
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+
+        self.scrollView.contentInset = UIEdgeInsetsMake(0,0,0,0);
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,9 +55,9 @@ class RatingVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Actions
-    @IBAction func GoBack(_ sender: AnyObject){
-        self.navigationController?.popViewController(animated: true)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.backBarButtonItem?.title = "Back"
     }
     
     @IBAction func Face1(_ sender: AnyObject){
@@ -125,13 +137,9 @@ class RatingVC: UIViewController {
     }
     
     @IBAction func SubmitRating(_ sender: AnyObject){
-        if User.currentUser != nil {
-            print("Sumbit Sended")
-        }
-        else{
-            self.performSegue(withIdentifier: "goLogin", sender: nil)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
+
 
 
 }

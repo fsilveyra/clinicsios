@@ -178,14 +178,25 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+    @IBAction func rateBtnAction(_ sender: Any) {
+        if User.currentUser != nil {
+            self.performSegue(withIdentifier: "toRating", sender: nil)
+        }
+        else{
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+            vc.futureVC = "RatingVC"
+            
+            navigationController?.pushViewController(vc,
+                                                     animated: true)
+
+        }
     }
-    */
+
+
+
 
 }

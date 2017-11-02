@@ -16,17 +16,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBt:UIButton!
     @IBOutlet weak var facebookBt:UIButton!
     @IBOutlet weak var registerHereBt:UIButton!
-    
-    
+
+    var futureVC = ""
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let loading = ActivityData()
-    
+
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         CreateGradienBackGround(view:self.view)
-        self.navigationController?.navigationBar.isHidden = true
+
         loginBt.layer.cornerRadius = 4
         facebookBt.layer.cornerRadius = 4
+
         let attribRegBut : [NSAttributedStringKey: Any] = [
             NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: 14),
             NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
@@ -34,24 +38,12 @@ class ViewController: UIViewController {
         let attributeString = NSMutableAttributedString(string: "Register Here",
                                                         attributes: attribRegBut)
         registerHereBt.setAttributedTitle(attributeString, for: .normal)
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+
     }
     
 
-    
     @IBAction func faceBookLoginBtnAction(_ sender: Any) {
-        //NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
             if (error == nil){
@@ -62,18 +54,14 @@ class ViewController: UIViewController {
                             NVActivityIndicatorPresenter.sharedInstance.startAnimating(self.loading)
                             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.width(100).height(100), email"]).start(completionHandler: { (connection, result, error) -> Void in
                                 if (error == nil){
-                                    //self.dict = result as! [String : AnyObject]
-                                    print(result!)
                                     let json = JSON(result!)
-                                    self.appDelegate.userName = json["name"].stringValue  //remove when image in server run
-                                    self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue //remove when image in server run
+                                    self.appDelegate.userName = json["name"].stringValue
 
+                                    self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue
 
-                                    ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue).then { user -> Void in
+                                    ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue).then {[weak self] user -> Void in
 
-                                            self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register with Facebook success.")
-
-                                            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                                            self?.fbRegisterSuccess()
 
                                         }.always {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -83,7 +71,6 @@ class ViewController: UIViewController {
                                             }
                                     }
 
-
                                 }
                             })
                         }
@@ -92,15 +79,46 @@ class ViewController: UIViewController {
             }
             else{
                 print(error?.localizedDescription as Any)
-                //NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
             }
         }
     }
-    
-    
 
+
+    func fbRegisterSuccess(){
+        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register with Facebook success.")
+
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + 1, execute: {[weak self] in
+
+                if let nav = self?.navigationController{
+                    if let fvc = self?.futureVC, fvc.isEmpty == false {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+                        let c = nav.viewControllers.count
+                        nav.viewControllers.insert(vc, at: c - 2)
+                        self?.navigationController?.popToViewController(vc, animated: true)
+                    }else{
+                        nav.popViewController(animated: true)
+                    }
+                }
+
+        })
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "toLoginWithEmail" {
+            (segue.destination as! LoginWithEmailVC).futureVC = self.futureVC
+        }else if segue.identifier == "toRegister" {
+            (segue.destination as! RegisterVC).futureVC = self.futureVC
+        }
+    }
 
 }
+
 //Creating a diagonal Gradient
 extension UIViewController{
     func CreateGradienBackGround(view: UIView!){
@@ -117,7 +135,6 @@ extension UIViewController{
 extension CALayer {
     
     func shake(duration: TimeInterval = TimeInterval(0.5)) {
-        
         let animationKey = "shake"
         removeAnimation(forKey: animationKey)
         
@@ -127,11 +144,9 @@ extension CALayer {
         
         var needOffset = frame.width * 0.15,
         values = [CGFloat]()
-        
         let minOffset = needOffset * 0.1
         
         repeat {
-            
             values.append(-needOffset)
             values.append(needOffset)
             needOffset *= 0.5
