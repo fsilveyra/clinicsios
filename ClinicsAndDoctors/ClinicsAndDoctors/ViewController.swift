@@ -48,10 +48,7 @@ class ViewController: UIViewController {
         return .lightContent
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     @IBAction func faceBookLoginBtnAction(_ sender: Any) {
         //NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
@@ -109,7 +106,7 @@ extension UIViewController{
     func CreateGradienBackGround(view: UIView!){
         let layer = CAGradientLayer()
         layer.frame = view.frame
-        layer.colors = [UIColor.init(red: 24/255, green: 43/255, blue: 59/255, alpha: 1.0).cgColor, UIColor.init(red: 38/255, green: 142/255, blue: 133/255, alpha: 1).cgColor]
+        layer.colors = [UIColor(red: 24/255, green: 43/255, blue: 59/255, alpha: 1.0).cgColor, UIColor(red: 38/255, green: 142/255, blue: 133/255, alpha: 1).cgColor]
         //layer.locations = [1.0 , 0.1]
         layer.startPoint = CGPoint(x: 0.4, y: 0.1)
         layer.endPoint = CGPoint(x: 0.0, y: 1.0)

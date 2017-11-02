@@ -67,36 +67,36 @@ class ISClient: NSObject {
     
     
     
-    // MARK: Alamofire Request
-    func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
-
-        let headers = ["Content-Type" : "application/json"]
-        // if let token = appDelegate.token{}
-        //headers["access_token"] = appDelegate.token
-        print(self.baseURL+endPoint)
-        let c = Alamofire.request(self.baseURL + endPoint, method: method!, parameters: Params, encoding: encoding!, headers: headers)
-            .responseJSON() { response in
-                print("Alamofire Response \(response)")
-                switch response.result {
-                case .success(let json):
-                    print(JSON(json))
-                    completion(JSON(json))
-                case .failure:
-                    let status = ["code": "time_out",
-                                  "detail": "Secure connection to the server cannot be made."]
-                    let Json = JSON(status)
-                    completion(Json)
-                    print("error en la peticion")
-                    //if let err = error as? AFError {
-                        /*if err.isResponseSerializationError {
-                        } else {
-                        }*/
-                    //}
-                    print("error: \(response.error?.localizedDescription)")
-                }
-        }
-        print(c.debugDescription)
-    }
+//    // MARK: Alamofire Request
+//    func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
+//
+//        let headers = ["Content-Type" : "application/json"]
+//        // if let token = appDelegate.token{}
+//        //headers["access_token"] = appDelegate.token
+//        print(self.baseURL+endPoint)
+//        let c = Alamofire.request(self.baseURL + endPoint, method: method!, parameters: Params, encoding: encoding!, headers: headers)
+//            .responseJSON() { response in
+//                print("Alamofire Response \(response)")
+//                switch response.result {
+//                case .success(let json):
+//                    print(JSON(json))
+//                    completion(JSON(json))
+//                case .failure:
+//                    let status = ["code": "time_out",
+//                                  "detail": "Secure connection to the server cannot be made."]
+//                    let Json = JSON(status)
+//                    completion(Json)
+//                    print("error en la peticion")
+//                    //if let err = error as? AFError {
+//                        /*if err.isResponseSerializationError {
+//                        } else {
+//                        }*/
+//                    //}
+//                    print("error: \(response.error?.localizedDescription)")
+//                }
+//        }
+//        print(c.debugDescription)
+//    }
 
 
 
@@ -288,11 +288,10 @@ class ISClient: NSObject {
 
 
         var parameters : Parameters = [
-            //"access_token": user.access_token,
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
-            "user_id":48
+            "user_id":0
         ]
         if let esp = specialty_id, esp.isEmpty == false {
             parameters.updateValue(esp, forKey: "specialty_id")

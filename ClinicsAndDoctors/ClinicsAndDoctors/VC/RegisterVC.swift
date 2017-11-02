@@ -34,11 +34,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     }
     
     @IBAction func SelectAvatar(_ sender: Any) {
-        let alert = UIAlertController.init(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
-        let cameraSource = UIAlertAction.init(title: "From Camera", style: .default) { _ in
+        let alert = UIAlertController(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
+        let cameraSource = UIAlertAction(title: "From Camera", style: .default) { _ in
             self.shootPhoto()
         }
-        let galery = UIAlertAction.init(title: "From Galery", style: .default) { _ in
+        let galery = UIAlertAction(title: "From Galery", style: .default) { _ in
             self.photoFromLibrary()
         }
         

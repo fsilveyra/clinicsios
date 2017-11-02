@@ -68,7 +68,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     @IBAction func ShowSearchBar(){
-        searchController = UISearchController.init(searchResultsController: nil)
+        searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
         //searchController.searchBar.alpha = 1
         //searchController.searchBar.isTranslucent = false
@@ -85,7 +85,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         searchController.delegate = self
         
         //searchController.searchBar.cance
-        self.viewSearch = UIView(frame: CGRect.init(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
+        self.viewSearch = UIView(frame: CGRect(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
         self.viewSearch.backgroundColor =  UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
         //self.viewSearch.clipsToBounds = true
         //searchController.searchBar.frame.size.height = viewSearch.frame.height
