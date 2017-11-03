@@ -93,6 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext () {
+
+        FBSDKLoginManager().logOut()
+        
 //        if #available(iOS 10.0, *) {
 //            let context = persistentContainer.viewContext
 //        } else {

@@ -101,7 +101,7 @@ class ViewController: UIViewController {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: fvc)
                         let c = nav.viewControllers.count
-                        nav.viewControllers.insert(vc, at: c - 2)
+                        nav.viewControllers.insert(vc, at: c - 1)
                         self?.navigationController?.popToViewController(vc, animated: true)
                     }else{
                         nav.popViewController(animated: true)

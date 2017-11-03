@@ -16,6 +16,9 @@ import Alamofire
 import AlamofireImage
 import PromiseKit
 import YYWebImage
+import FBSDKCoreKit
+import FBSDKLoginKit
+
 
 class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -42,6 +45,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
+        FBSDKLoginManager().logOut()
+
+        
         self.title = ""
 
         self.navigationController?.navigationBar.isHidden = false

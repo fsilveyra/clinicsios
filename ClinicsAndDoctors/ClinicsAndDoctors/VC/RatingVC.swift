@@ -27,7 +27,7 @@ class RatingVC: UIViewController {
     @IBOutlet weak var option3Bt:UIButton!
     @IBOutlet weak var option4Bt:UIButton!
     @IBOutlet weak var scrollView:TPKeyboardAvoidingScrollView!
-    @IBOutlet weak var titleCommentLbl: UILabel!
+    @IBOutlet weak var questionLbl: UILabel!
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -73,7 +73,7 @@ class RatingVC: UIViewController {
         option1Lb.text = "The waiting was too long."
         option2Lb.text = "The attention wasn’t good."
         option3Lb.text = "It was too expensive."
-        titleCommentLbl.text = "Leave a comment:"
+        questionLbl.text = "Tell us what we can improve?"
     }
     
     @IBAction func Face2(_ sender: AnyObject){
@@ -86,7 +86,7 @@ class RatingVC: UIViewController {
         option1Lb.text = "The waiting was too long."
         option2Lb.text = "The attention wasn’t good."
         option3Lb.text = "It was too expensive."
-        titleCommentLbl.text = "Leave a comment:"
+        questionLbl.text = "Tell us what we can improve?"
     }
     
     @IBAction func Face3(_ sender: AnyObject){
@@ -99,7 +99,7 @@ class RatingVC: UIViewController {
         option1Lb.text = "The waiting was too long."
         option2Lb.text = "The attention wasn’t good."
         option3Lb.text = "It was too expensive."
-        titleCommentLbl.text = "Leave a comment:"
+        questionLbl.text = "Tell us what we can improve?"
     }
     
     @IBAction func Face4(_ sender: AnyObject){
@@ -112,7 +112,7 @@ class RatingVC: UIViewController {
         option1Lb.text = "The attention was so good."
         option2Lb.text = "The places is clean and modern."
         option3Lb.text = "The waiting was short."
-        titleCommentLbl.text = "Tell us what did you like?"
+        questionLbl.text = "Tell us what did you like?"
         
         
     }
@@ -127,7 +127,7 @@ class RatingVC: UIViewController {
         option1Lb.text = "The attention was so good."
         option2Lb.text = "The places is clean and modern."
         option3Lb.text = "The waiting was short."
-        titleCommentLbl.text = "Tell us what did you like?"
+        questionLbl.text = "Tell us what did you like?"
     }
     
     @IBAction func AddRemoveOptions(_ sender: AnyObject){

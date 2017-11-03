@@ -14,6 +14,9 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var mobileTf:UITextField!
     @IBOutlet weak var emailTf:UITextField!
     @IBOutlet weak var changePasswordBt:UIButton!
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
@@ -26,7 +29,8 @@ class ProfileVC: UIViewController {
         let attributeString = NSMutableAttributedString(string: "Change Password",
                                                         attributes: attribRegBut)
         changePasswordBt.setAttributedTitle(attributeString, for: .normal)
-        // Do any additional setup after loading the view.
+
+        self.loadUserData()
     }
     
     @IBAction func BackView(_ sender: AnyObject){
@@ -48,20 +52,13 @@ class ProfileVC: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func loadUserData(){
+
+        guard let user = User.currentUser else { return }
+
+        self.nameTf.text = user.full_name
+
+
+
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

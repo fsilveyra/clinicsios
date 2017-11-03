@@ -73,14 +73,14 @@ class LeftMenuVC: UIViewController {
             self.performSegue(withIdentifier: "goFavorites", sender: nil)
         }
         else{
-            pressentLogin()
+            pressentLogin("FavoritesVC")
         }
     }
 
-    func pressentLogin(){
+    func pressentLogin(_ futureVC:String = ""){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-        vc.futureVC = "FavoritesVC"
+        vc.futureVC = futureVC
 
         navigationController?.pushViewController(vc, animated: true)
        
