@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import SwiftMessages
 import NVActivityIndicatorView
 import TPKeyboardAvoiding
 import PromiseKit
+import SwiftMessages
 
 class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var avatarImage: UIImageView!

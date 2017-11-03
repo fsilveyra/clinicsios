@@ -21,23 +21,31 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var start4:UIButton!
     @IBOutlet weak var start5:UIButton!
 
-    @IBOutlet weak var especialitysCollection:UICollectionView!
+    @IBOutlet weak var specialitiesCollection:UICollectionView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
 
-    let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
+    var specialitysNames = ["All"]
     var currentSelectedEspec = 0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
-        myTableView.frame.origin.y = especialitysCollection.frame.maxY
-        separetorView.frame.origin.x = especialitysCollection.frame.minX-1
+        myTableView.frame.origin.y = specialitiesCollection.frame.maxY
+        separetorView.frame.origin.x = specialitiesCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         callBt.layer.cornerRadius = callBt.frame.width/2
         directionBt.layer.cornerRadius = 5
-        // Do any additional setup after loading the view.
+
+
+        self.specialitysNames = ["All"]
+        for sp in Speciality.specialities{
+            self.specialitysNames.append(sp.name)
+        }
+
+        specialitiesCollection.reloadData()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,10 +58,10 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         let button = sender as! UIButton
         currentSelectedEspec = button.tag
         print("Especiliality pos: \(currentSelectedEspec)")
-        //especialitysCollection.reloadData()
+        //specialitiesCollection.reloadData()
         
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            if button != cell.especialityBt{
+        for cell in specialitiesCollection.visibleCells as! [SpecialityButtonCell] {
+            if button != cell.specialityBt{
                 cell.subButtonView.alpha = 0
             }
             else {
@@ -88,17 +96,17 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return especialitysArr.count
+        return specialitysNames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = especialitysCollection.dequeueReusableCell(withReuseIdentifier: "EspacialityButtonCell", for: indexPath) as! EspacialityButtonCell
-        cell.especialityBt.setTitle(especialitysArr[indexPath.row], for: .normal)
+        let cell = specialitiesCollection.dequeueReusableCell(withReuseIdentifier: "SpecialityButtonCell", for: indexPath) as! SpecialityButtonCell
+        cell.specialityBt.setTitle(specialitysNames[indexPath.row], for: .normal)
         if currentSelectedEspec != indexPath.row {
             cell.subButtonView.alpha = 0
         }
-        cell.especialityBt.tag = indexPath.row
-        cell.especialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
+        cell.specialityBt.tag = indexPath.row
+        cell.specialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
         
         return cell
     }

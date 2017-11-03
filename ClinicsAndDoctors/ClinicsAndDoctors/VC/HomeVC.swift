@@ -29,8 +29,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currentMilles = 100
     var locationManager = CLLocationManager()
-    var especialitysArr = ["All"]
-    var specialitysList = [Speciality]()
+    var specialitysNames = ["All"]
+    
     var clinicList = [Clinic]()
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
@@ -163,8 +163,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         print("Especiliality pos: \(currentSelectedEspec)")
         //especialitysCollection.reloadData()
         
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            if button != cell.especialityBt{
+        for cell in especialitysCollection.visibleCells as! [SpecialityButtonCell] {
+            if button != cell.specialityBt{
                 cell.subButtonView.alpha = 0
             }
             else {
@@ -207,14 +207,19 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
 
     func LoadSpecialitys() -> Promise<Void> {
+        Speciality.specialities = [Speciality]()
+
         return ISClient.sharedInstance.getSpecialtys()
             .then { specilityList -> Void in
                 if specilityList.isEmpty {
 
                 } else {
-                    for speciality in specilityList{
-                        self.especialitysArr.append(speciality.name)
+                    Speciality.specialities = specilityList
+                    self.specialitysNames = ["All"]
+                    for sp in Speciality.specialities{
+                        self.specialitysNames.append(sp.name)
                     }
+
                     self.especialitysCollection.reloadData()
                 }
         }
@@ -426,17 +431,17 @@ extension HomeVC {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return especialitysArr.count
+        return specialitysNames.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = especialitysCollection.dequeueReusableCell(withReuseIdentifier: "EspacialityButtonCell", for: indexPath) as! EspacialityButtonCell
-        cell.especialityBt.setTitle(especialitysArr[indexPath.row], for: .normal)
+        let cell = especialitysCollection.dequeueReusableCell(withReuseIdentifier: "SpecialityButtonCell", for: indexPath) as! SpecialityButtonCell
+        cell.specialityBt.setTitle(specialitysNames[indexPath.row], for: .normal)
         if currentSelectedEspec != indexPath.row {
             cell.subButtonView.alpha = 0
         }
-        cell.especialityBt.tag = indexPath.row
-        cell.especialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
+        cell.specialityBt.tag = indexPath.row
+        cell.specialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
 
         return cell
     }

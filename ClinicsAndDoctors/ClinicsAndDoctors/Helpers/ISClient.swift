@@ -25,7 +25,7 @@ class LPError : Error {
     func show(){
         let alert = MessageView.viewFromNib(layout: .cardView)
         alert.configureTheme(.error)
-        alert.configureContent(title: "Clinics&Doctors", body: self.description)
+        alert.configureContent(title: "ClinicsAndDoctors", body: self.description)
         alert.button?.isHidden = true
         alert.configureDropShadow()
         SwiftMessages.show(view: alert)

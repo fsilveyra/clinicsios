@@ -244,7 +244,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login With Mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnq-h9-jHN">
-                                <rect key="frame" x="79" y="29" width="215" height="21"/>
+                                <rect key="frame" x="79" y="30" width="215" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -413,7 +413,7 @@
                                         <rect key="frame" x="0.0" y="34" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u4T-0h-ffF" id="Zt1-Cj-gcM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="ypi-UY-n76">
@@ -490,7 +490,7 @@
                                         <rect key="frame" x="0.0" y="104" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WoI-3q-mRD" id="RgB-MT-bWw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="8T4-yc-uWS">
@@ -768,7 +768,7 @@
                                         <rect key="frame" x="0.0" y="50" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wzg-dd-bjX" id="sda-KC-8Jt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="POU-8q-UWd">
@@ -807,7 +807,7 @@
                                         <rect key="frame" x="0.0" y="100" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IZI-fk-dhk" id="ayI-Qb-XvB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="TwX-E5-6ff">
@@ -914,11 +914,11 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EspacialityButtonCell" id="y5a-18-DgE" customClass="EspacialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="y5a-18-DgE" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za7-p0-fVa">
@@ -937,8 +937,8 @@
                                         </view>
                                         <size key="customSize" width="65" height="48.5"/>
                                         <connections>
-                                            <outlet property="especialityBt" destination="Za7-p0-fVa" id="Qhr-fV-6K7"/>
-                                            <outlet property="subButtonView" destination="Qdc-3r-Jeg" id="Hwy-jH-YFF"/>
+                                            <outlet property="specialityBt" destination="Za7-p0-fVa" id="w5P-dr-RSa"/>
+                                            <outlet property="subButtonView" destination="Qdc-3r-Jeg" id="qPl-Od-M1s"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1263,7 +1263,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUK-Eq-8Oh">
-                                <rect key="frame" x="80" y="29" width="215" height="21"/>
+                                <rect key="frame" x="80" y="30" width="215" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1527,7 +1527,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2A-Cc-akZ">
-                                <rect key="frame" x="79" y="29" width="215" height="25"/>
+                                <rect key="frame" x="79" y="31" width="215" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1887,11 +1887,11 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EspacialityButtonCell" id="EOJ-ov-irK" customClass="EspacialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="EOJ-ov-irK" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYm-HN-vRo">
@@ -1910,8 +1910,8 @@
                                         </view>
                                         <size key="customSize" width="65" height="48.5"/>
                                         <connections>
-                                            <outlet property="especialityBt" destination="CYm-HN-vRo" id="GER-Ef-fR7"/>
-                                            <outlet property="subButtonView" destination="2Bt-SI-4yM" id="jaW-gq-gWi"/>
+                                            <outlet property="specialityBt" destination="CYm-HN-vRo" id="gby-Gh-kte"/>
+                                            <outlet property="subButtonView" destination="2Bt-SI-4yM" id="6W6-Qt-1oB"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1935,7 +1935,7 @@
                                         <rect key="frame" x="0.0" y="34" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zz0-sg-H3Q" id="jIM-op-uFH">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="Y1h-S1-jJb">
@@ -2035,10 +2035,10 @@
                         <outlet property="callBt" destination="rTa-Ch-zVM" id="6Ko-sA-JH8"/>
                         <outlet property="centerLb" destination="U2e-OR-1he" id="DcS-w7-84W"/>
                         <outlet property="directionBt" destination="v1A-Ns-Byz" id="dYo-Pl-9Cs"/>
-                        <outlet property="especialitysCollection" destination="eah-Qd-3O1" id="QzQ-7B-ve9"/>
                         <outlet property="myTableView" destination="BZm-Tk-5lM" id="HgN-ha-ISC"/>
                         <outlet property="nameClinicLb" destination="71F-rx-tal" id="dU1-OP-4uK"/>
                         <outlet property="separetorView" destination="67q-DP-VTd" id="O9h-wD-ROk"/>
+                        <outlet property="specialitiesCollection" destination="eah-Qd-3O1" id="PFY-jj-lRS"/>
                         <outlet property="start1" destination="uv5-NR-625" id="S5b-Jt-REi"/>
                         <outlet property="start2" destination="dvd-5U-TYw" id="paV-9K-5aW"/>
                         <outlet property="start3" destination="btE-si-Btd" id="3dq-NZ-VyX"/>
@@ -2148,7 +2148,7 @@
                                         <rect key="frame" x="0.0" y="40" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JUI-Bs-FaB" id="1YB-B8-YA0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-sA-WN4">
@@ -2166,7 +2166,7 @@
                                         <rect key="frame" x="0.0" y="80" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TWb-qm-HfF" id="OTo-qQ-Rxf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Excellent Profesional she is an extraordinary doctor, Excellent Profesional she is an extraordinary doctor." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XXp-jt-9Yf">
@@ -2277,8 +2277,8 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vdQ-Sl-OCc"/>
-        <segue reference="SJY-cP-rMk"/>
+        <segue reference="Mhn-Og-OoO"/>
+        <segue reference="KMf-W4-iLd"/>
         <segue reference="BQg-EA-2T5"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,8 +9,8 @@
 import UIKit
 import PKHUD
 import NVActivityIndicatorView
-import SwiftMessages
 import PromiseKit
+import SwiftMessages
 
 class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTf: UITextField!

@@ -10,6 +10,9 @@ import UIKit
 import SwiftyJSON
 
 class Speciality: NSObject {
+
+    static var specialities = [Speciality]()
+
     var id : String!
     var name : String!
     var icon: String!

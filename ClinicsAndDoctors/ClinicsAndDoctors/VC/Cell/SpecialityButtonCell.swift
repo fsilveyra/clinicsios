@@ -1,5 +1,5 @@
 //
-//  EspacialityButtonCell.swift
+//  SpecialityButtonCell.swift
 //  ClinicsAndDoctors
 //
 //  Created by Reinier Isalgue on 01/10/17.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class EspacialityButtonCell: UICollectionViewCell {
-    @IBOutlet weak var especialityBt:UIButton!
+class SpecialityButtonCell: UICollectionViewCell {
+    @IBOutlet weak var specialityBt:UIButton!
     @IBOutlet weak var subButtonView:UIView!
     override func awakeFromNib() {
         super.awakeFromNib()

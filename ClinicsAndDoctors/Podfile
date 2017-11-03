@@ -14,7 +14,7 @@ pod 'PromiseKit'
 pod 'PromiseKit/Alamofire', '~> 4.0'
 
 pod 'ARSLineProgress'
-pod 'SwiftMessages'
+#pod 'SwiftMessages'
 #pod 'NotificationBannerSwift'
 
 pod 'FBSDKLoginKit'
