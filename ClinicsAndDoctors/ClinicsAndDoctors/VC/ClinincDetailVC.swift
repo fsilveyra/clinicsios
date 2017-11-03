@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
+class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var avatarClinicIm:UIImageView!
     @IBOutlet weak var nameClinicLb:UILabel!
     @IBOutlet weak var centerLb:UILabel!
@@ -20,15 +20,14 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var start3:UIButton!
     @IBOutlet weak var start4:UIButton!
     @IBOutlet weak var start5:UIButton!
-    @IBOutlet weak var searchBt:UIButton!
+
     @IBOutlet weak var especialitysCollection:UICollectionView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
 
     let especialitysArr = ["All","Cardiology","Dermatology","Emergency","Neurology"]
     var currentSelectedEspec = 0
-    var viewSearch: UIView! = nil
-    var searchController:UISearchController!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +40,9 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Actions
@@ -67,63 +66,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func ShowSearchBar(){
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.barTintColor = UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
-        //searchController.searchBar.alpha = 1
-        //searchController.searchBar.isTranslucent = false
-        searchController.searchBar.placeholder = "Search doctors or clinics"
-        
-        searchController.searchBar.tintColor = .white
-        searchController.searchResultsUpdater = self
-        
-        //self.definesPresentationContext = true
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.showsCancelButton = true
-        searchController.searchBar.delegate = self
-        searchController.delegate = self
-        
-        //searchController.searchBar.cance
-        self.viewSearch = UIView(frame: CGRect(x: 0, y: searchBt.frame.origin.y, width: self.view.bounds.width, height: searchController.searchBar.frame.height))
-        self.viewSearch.backgroundColor =  UIColor(red: 23.0/255, green: 55.0/255.0, blue: 78.0/255.0, alpha: 1)
-        //self.viewSearch.clipsToBounds = true
-        //searchController.searchBar.frame.size.height = viewSearch.frame.height
-        //searchController.searchBar.frame.size.width = viewSearch.frame.width
-        
-        viewSearch.addSubview(searchController.searchBar)
-        self.view.addSubview(self.viewSearch)
-        self.view.bringSubview(toFront: self.viewSearch)
-        
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            cell.subButtonView.alpha = 0
-        }
-        
-        searchController.searchBar.becomeFirstResponder()
-    }
-    
-    // MARK: - Search Controller Delegates
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // Stop doing the search stuff
-        // and clear the text in the search bar
-        self.viewSearch.removeFromSuperview()
-        searchController = nil
-        
-        for cell in especialitysCollection.visibleCells as! [EspacialityButtonCell] {
-            if currentSelectedEspec != cell.especialityBt.tag{
-                cell.subButtonView.alpha = 0
-            }
-            else {
-                cell.subButtonView.alpha = 1
-            }
-        }
-        
-        // You could also change the position, frame etc of the searchBar
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        print("result")
-    }
     
     // MARK: - TableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {

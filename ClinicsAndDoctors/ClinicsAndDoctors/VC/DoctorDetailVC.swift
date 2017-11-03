@@ -34,24 +34,21 @@ class DoctorDetailVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
-    
+
     // MARK: - Actions
     @IBAction func BackView(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func GoToClinicPage(_ sender: AnyObject){
-        print("GoToClinicPage")
+
     }
-    
-    @IBAction func RateDoctor(_ sender: AnyObject){
-        print("RateDoctor")
-    }
-    
+
     @IBAction func ShowHideRateView(_ sender: AnyObject){
         if rateView.isHidden {
              self.view.bringSubview(toFront: self.rateView)
@@ -70,6 +67,22 @@ class DoctorDetailVC: UIViewController {
         }
     }
 
+
+    @IBAction func rateBtnAction(_ sender: Any) {
+        if User.currentUser != nil {
+            self.performSegue(withIdentifier: "toRating", sender: nil)
+        }
+        else{
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+            vc.futureVC = "RatingVC"
+
+            navigationController?.pushViewController(vc,
+                                                     animated: true)
+
+        }
+    }
     
     // MARK: - Navigation
 
