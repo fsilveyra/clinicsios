@@ -58,6 +58,7 @@ class RatingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.backBarButtonItem?.title = "Back"
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     @IBAction func Face1(_ sender: AnyObject){

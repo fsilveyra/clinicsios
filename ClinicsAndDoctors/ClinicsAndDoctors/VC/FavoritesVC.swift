@@ -18,16 +18,23 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         super.viewDidLoad()
         myTableView.frame.origin.y = doctorsBt.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
-        // Do any additional setup after loading the view.
+
+
+        if #available(iOS 11.0, *) {
+            myTableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        myTableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Actions
-    
     @IBAction func BackView(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
     }
@@ -68,14 +75,5 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             return cell
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

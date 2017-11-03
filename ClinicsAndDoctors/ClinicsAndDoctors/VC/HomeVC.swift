@@ -77,8 +77,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
+
+        self.navigationController?.navigationBar.isHidden = false
+
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
@@ -343,6 +347,7 @@ extension HomeVC {
         for clinic in clinicList {
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
             imageView.layer.cornerRadius = imageView.frame.width/2
+            imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
             })

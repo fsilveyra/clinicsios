@@ -81,7 +81,9 @@ class LeftMenuVC: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
         vc.futureVC = "FavoritesVC"
+
         navigationController?.pushViewController(vc, animated: true)
+       
     }
 
 

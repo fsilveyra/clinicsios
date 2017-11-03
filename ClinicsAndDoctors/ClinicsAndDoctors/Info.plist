@@ -23,16 +23,18 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb290850754744123</string>
+				<string>fb141722709800382</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>6</string>
 	<key>FacebookAppID</key>
-	<string>290850754744123</string>
+	<string>141722709800382</string>
 	<key>FacebookDisplayName</key>
 	<string>ClinicsAndDoctors</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -42,11 +44,26 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>clinic.xanthops.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Clinics and Doctor need access to your Camera for set your avatar in Perfil</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Clinics and Doctor need your Location for bring to you a minimun distance to travel</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Clinics and Doctor need access to your Photo Library for set your avatar in Perfil</string>
@@ -64,7 +81,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key><false/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -72,20 +88,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-        <key>NSExceptionDomains</key>
-        <dict>
-            <key>clinic.xanthops.com</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-            </dict>
-        </dict>
-    </dict>
 </dict>
 </plist>

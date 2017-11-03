@@ -22,7 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userName = ""
     var userAvatarURL = ""
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        GMSServices.provideAPIKey("AIzaSyDSp4ShzTnVcSpavEhUHlhPhqFk4SlbIXQ") ////Apy Key for GoogleMaps
+
+        GMSServices.provideAPIKey("AIzaSyD4YJgOX4NjtGwJDJpLtSwIYpy13ykGxOg")
+
+
         // Override point for customization after application launch.
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

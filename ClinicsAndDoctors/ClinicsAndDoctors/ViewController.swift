@@ -40,7 +40,12 @@ class ViewController: UIViewController {
         registerHereBt.setAttributedTitle(attributeString, for: .normal)
 
     }
-    
+
+
+    override func viewWillAppear(_ animated: Bool) {
+         self.navigationController?.navigationBar.isHidden = true
+    }
+
 
     @IBAction func faceBookLoginBtnAction(_ sender: Any) {
 
@@ -115,7 +120,15 @@ class ViewController: UIViewController {
         }else if segue.identifier == "toRegister" {
             (segue.destination as! RegisterVC).futureVC = self.futureVC
         }
+
+
     }
+
+
+    @IBAction func goBackAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
 
 }
 

@@ -98,16 +98,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hG7-UV-YcM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="LOGIN" id="jq3-Dn-Xg2"/>
-                                </items>
-                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1a-Ke-oYV">
+                                <rect key="frame" x="5" y="20" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backIcon"/>
+                                <connections>
+                                    <action selector="goBackAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c3D-Np-aZ9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14645373821258545" green="0.51173281669616699" blue="0.48512166738510132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="5Aa-p3-iIO">
+                        <barButtonItem key="backBarButtonItem" title=" " id="rvh-Oj-BZx"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="facebookBt" destination="ld3-Du-p2h" id="lzk-kB-aME"/>
                         <outlet property="loginBt" destination="cXF-MA-Aws" id="dsq-ah-V5x"/>
@@ -116,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="610" y="-1684"/>
+            <point key="canvasLocation" x="948" y="-1684.4077961019491"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NJW-gW-ndi">
@@ -124,7 +128,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b3t-ol-j1V" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Mdy-pV-BsU">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.144858717918396" green="0.50779443979263306" blue="0.48552834987640381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -228,6 +232,21 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ViI-jU-bti">
+                                <rect key="frame" x="5" y="20" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backIcon"/>
+                                <connections>
+                                    <action selector="goBackAction:" destination="IXT-IQ-bve" eventType="touchUpInside" id="spC-eo-7MS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login With Mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rnq-h9-jHN">
+                                <rect key="frame" x="79" y="29" width="215" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14645373819999999" green="0.51173281670000004" blue="0.48512166740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -240,7 +259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U1M-UM-7FB" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-1970"/>
+            <point key="canvasLocation" x="2104.8000000000002" y="-1970.4647676161921"/>
         </scene>
         <!--Left MenuVC-->
         <scene sceneID="0Yc-IQ-eGO">
@@ -929,6 +948,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="mGq-yd-Ogi">
+                        <barButtonItem key="backBarButtonItem" title=" " id="HTI-u0-hF4"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="menuLeft" id="7uB-0y-YV2">
                             <connections>
                                 <segue destination="DZT-JE-mHZ" kind="presentation" id="7IW-GV-Xjt"/>
@@ -1170,10 +1190,10 @@
             </objects>
             <point key="canvasLocation" x="441" y="1009"/>
         </scene>
-        <!--Forgot PasswordVC-->
+        <!--Forgot Password-->
         <scene sceneID="uDC-J4-yOq">
             <objects>
-                <viewController id="Gly-bp-YlT" customClass="ForgotPasswordVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Forgot Password" id="Gly-bp-YlT" customClass="ForgotPasswordVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6NL-rn-trw"/>
                         <viewControllerLayoutGuide type="bottom" id="oy8-EY-0J0"/>
@@ -1224,13 +1244,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJb-u6-cdd">
-                                <rect key="frame" x="58" y="29" width="258" height="23"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We will send you an sms with a new password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWX-lG-4BD">
                                 <rect key="frame" x="63" y="362" width="233" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1238,10 +1251,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzz-5i-n2t">
+                                <rect key="frame" x="5" y="20" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backIcon"/>
+                                <connections>
+                                    <action selector="goBackAction:" destination="Gly-bp-YlT" eventType="touchUpInside" id="pH2-gS-5i4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUK-Eq-8Oh">
+                                <rect key="frame" x="80" y="29" width="215" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14645373819999999" green="0.51173281670000004" blue="0.48512166740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="phoneTf" destination="o6h-Io-kse" id="Di4-XR-jma"/>
                         <outlet property="recoverBt" destination="d1j-kS-9si" id="vQI-mq-s9t"/>
@@ -1250,12 +1277,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ppm-8k-Jcg" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2724" y="-1970"/>
+            <point key="canvasLocation" x="3063.1999999999998" y="-1970.4647676161921"/>
         </scene>
-        <!--RegisterVC-->
+        <!--Register-->
         <scene sceneID="4mi-bk-dlr">
             <objects>
-                <viewController id="Uy8-H8-sUE" customClass="RegisterVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Register" id="Uy8-H8-sUE" customClass="RegisterVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Syx-bo-4Nx"/>
                         <viewControllerLayoutGuide type="bottom" id="bF2-oq-PHw"/>
@@ -1268,29 +1295,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t3p-Tw-EvS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9d-JD-V4D">
-                                        <rect key="frame" x="10" y="23" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="backIcon"/>
-                                        <connections>
-                                            <action selector="BackView:" destination="Uy8-H8-sUE" eventType="touchUpInside" id="lxO-oH-9rv"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ad-Io-dmR">
-                                        <rect key="frame" x="104" y="26" width="167" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeC-MO-6et" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
@@ -1511,6 +1515,21 @@
                                     <constraint firstItem="6LD-wO-NcF" firstAttribute="top" secondItem="jeC-MO-6et" secondAttribute="top" constant="20" id="sZ4-cs-0W6"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuo-XK-TX2">
+                                <rect key="frame" x="5" y="20" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="backIcon"/>
+                                <connections>
+                                    <action selector="goBackAction:" destination="Uy8-H8-sUE" eventType="touchUpInside" id="vkO-xH-jqQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2A-Cc-akZ">
+                                <rect key="frame" x="79" y="29" width="215" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14645373819999999" green="0.51173281670000004" blue="0.48512166740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1520,7 +1539,6 @@
                             <constraint firstItem="jeC-MO-6et" firstAttribute="top" secondItem="WMB-4F-EGe" secondAttribute="top" constant="64" id="TxP-nE-cy8"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="avatarImage" destination="EzX-ud-cA3" id="5fm-XZ-Bvh"/>
                         <outlet property="emailTf" destination="hxh-SH-MN5" id="0IY-FU-p01"/>
@@ -1536,7 +1554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zqz-Sh-yBN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-1289"/>
+            <point key="canvasLocation" x="2104.8000000000002" y="-1289.5052473763119"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="F9s-da-XHN">
@@ -1544,7 +1562,7 @@
                 <navigationController storyboardIdentifier="LeftMenu" automaticallyAdjustsScrollViewInsets="NO" id="DZT-JE-mHZ" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Wje-s8-2Sx">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.14645373819999999" green="0.51173281670000004" blue="0.48512166740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2268,8 +2286,8 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HSn-OU-elX"/>
+        <segue reference="Mhn-Og-OoO"/>
         <segue reference="KMf-W4-iLd"/>
-        <segue reference="BQg-EA-2T5"/>
+        <segue reference="fIw-tL-S8K"/>
     </inferredMetricsTieBreakers>
 </document>

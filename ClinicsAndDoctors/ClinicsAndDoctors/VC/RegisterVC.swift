@@ -117,7 +117,9 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: view)
-        //self.navigationController?.navigationBar.isHidden = false
+
+
+        
         avatarImage.layer.cornerRadius = avatarImage.frame.width/2
         plussImage.layer.cornerRadius = plussImage.frame.width/2
         registerBt.layer.cornerRadius = 5
@@ -127,11 +129,6 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -250,7 +247,10 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         self.dismiss(animated: true, completion: nil)
     }
     
-   
+    @IBAction func goBackAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     
 
 }
