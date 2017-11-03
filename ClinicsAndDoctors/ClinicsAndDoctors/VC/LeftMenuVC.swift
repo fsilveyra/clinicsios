@@ -60,6 +60,9 @@ class LeftMenuVC: UIViewController {
     
     // MARK: - Navigation
     @IBAction func Loggout(_ sender: AnyObject){
+
+        FBSDKLoginManager().logOut()
+        
         User.currentUser = nil
         self.dismiss(animated: true, completion: nil)
     }
