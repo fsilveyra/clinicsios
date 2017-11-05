@@ -17,8 +17,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginBt: UIButton!
     @IBOutlet weak var viewLogin:UIView!
-    var phone = ""
-    var password = ""
+
     let loading = ActivityData()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var futureVC = ""
@@ -74,14 +73,8 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-
-        phoneTf.text = phone
-        passwordTf.text = password
-        
         CreateGradienBackGround(view: view)
-        loginBt.layer.cornerRadius = 5
-        // Do any additional setup after loading the view.
+
     }
 
 
@@ -101,11 +94,9 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     }
 
     func isValidEmail(testStr:String) -> Bool {
-        print("validating email: \(testStr)")
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluate(with: testStr)
-        return result
+        return emailTest.evaluate(with: testStr)
     }
     
     func isValidPhone(testStr:String) -> Bool {

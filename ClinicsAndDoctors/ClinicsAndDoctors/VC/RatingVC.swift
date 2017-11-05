@@ -36,7 +36,7 @@ class RatingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        submitBt.layer.cornerRadius = 5
+        
         avatarClinicIm.layer.cornerRadius = avatarClinicIm.frame.width/2
         avatarClinicIm.layer.borderColor = UIColor.darkGray.cgColor
         

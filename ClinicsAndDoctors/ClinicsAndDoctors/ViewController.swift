@@ -28,8 +28,6 @@ class ViewController: UIViewController {
 
         CreateGradienBackGround(view:self.view)
 
-        loginBt.layer.cornerRadius = 4
-        facebookBt.layer.cornerRadius = 4
 
         let attribRegBut : [NSAttributedStringKey: Any] = [
             NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: 14),

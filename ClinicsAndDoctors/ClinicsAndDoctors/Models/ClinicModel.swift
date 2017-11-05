@@ -9,12 +9,12 @@
 import UIKit
 import SwiftyJSON
 
-class Clinic: NSObject {
+class ClinicModel: NSObject {
     var full_name : String!
     var phone_number : String!
     var password : String!
     var profile_picture : String!
-    //var specialtys: [Speciality]!
+    var specialtys = [String]()
     var email : String!
     var address : String!
     var city: String!
@@ -23,10 +23,12 @@ class Clinic: NSObject {
     //var zipcode: Int!
     var latitude : Double!
     var longitude : Double!
-    var id: Int!
+    var id: String!
     var rating: Int!
     var isFavorite: Bool!
-    
+
+
+
     override init() {
     }
     
@@ -47,12 +49,41 @@ class Clinic: NSObject {
         //self.zipcode = representationJSON["zipcode"].intValue
         self.latitude = representationJSON["latitude"].doubleValue
         self.longitude = representationJSON["longitude"].doubleValue
-        self.id = representationJSON["id"].intValue
+        self.id = representationJSON["id"].stringValue
         self.rating = representationJSON["rating"].intValue
         self.isFavorite = representationJSON["is_favorite"].boolValue
         let specialtysJSON = representationJSON["specialties"].arrayValue
-//        for specialty in specialtysJSON {
-//            self.specialtys.append(Speciality(representationJSON: specialty))
-//        }
+        for specialty in specialtysJSON {
+            self.specialtys.append(SpecialityModel(representationJSON: specialty).id)
+        }
     }
+
+    func getDoctorNumber() ->Int {
+        return DoctorModel.doctors.filter { (d) -> Bool in
+            d.idClinic == self.id
+            }.count
+    }
+
+
+    static var clinics = [ClinicModel]()
+
+    static func by(id:String) ->ClinicModel? {
+        return ClinicModel.clinics.filter { (c) -> Bool in
+            c.id == id
+        }.first
+    }
+
+    static func allDoctorsInClinics() ->[DoctorModel] {
+        var result = [DoctorModel]()
+        for clinic in ClinicModel.clinics {
+            for doctor in DoctorModel.doctors {
+                if doctor.idClinic == clinic.id {
+                    result.append(doctor)
+                }
+            }
+        }
+        return result
+    }
+
+
 }

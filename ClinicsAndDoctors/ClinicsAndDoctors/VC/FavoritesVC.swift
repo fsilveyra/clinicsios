@@ -19,6 +19,11 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         myTableView.frame.origin.y = doctorsBt.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
 
+        let classBundle = Bundle(for: DoctorTableCell.self)
+        let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
+        self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
+
+
 
         if #available(iOS 11.0, *) {
             myTableView.contentInsetAdjustmentBehavior = .never
@@ -71,7 +76,9 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             return cell
         }
         else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCellInFavorite", for: indexPath) as! DoctorCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
+
+//            cell.updateWith(doctor: self.doctorInClinics[indexPath.row])
             return cell
         }
     }

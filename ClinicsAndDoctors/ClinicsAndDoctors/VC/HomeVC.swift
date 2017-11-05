@@ -33,8 +33,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var currentMilles = 100
     var locationManager = CLLocationManager()
     var specialitysNames = ["All"]
-    
-    var clinicList = [Clinic]()
+    var doctorInClinics = [DoctorModel]()
     var currentSelectedEspec = 0
     var viewSearch: UIView! = nil
     let loading = ActivityData()
@@ -65,6 +64,11 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         locationBt.layer.cornerRadius = 6
 
+        let classBundle = Bundle(for: DoctorTableCell.self)
+        let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
+        self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
+
+
 
         if #available(iOS 11.0, *) {
             myTableView.contentInsetAdjustmentBehavior = .never
@@ -72,7 +76,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             automaticallyAdjustsScrollViewInsets = false
         }
         myTableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
-
 
 
         configureSideMenu()
@@ -182,15 +185,21 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     
     @IBAction func GoClinicDetails(_ sender: AnyObject){
-        print("goClinicDetails")
         self.performSegue(withIdentifier: "goClinicDetails", sender: nil)
     }
 
     func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
-        self.LoadSpecialitys().then {
-            self.LoadClinics()
+        self.loadSpecialitys().then {
+                self.loadClinics(radius: 1000000000)
+            }.then {
+                self.loadDoctors(specialityId:nil, clinicId: nil)
+            }.then { _ -> Void in
+
+                self.doctorInClinics = ClinicModel.allDoctorsInClinics()
+                self.myTableView.reloadData()
+
             }.always {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
             }.catch { error in
@@ -213,17 +222,17 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
 
 
-    func LoadSpecialitys() -> Promise<Void> {
-        Speciality.specialities = [Speciality]()
+    func loadSpecialitys() -> Promise<Void> {
+        SpecialityModel.specialities = [SpecialityModel]()
 
         return ISClient.sharedInstance.getSpecialtys()
             .then { specilityList -> Void in
                 if specilityList.isEmpty {
 
                 } else {
-                    Speciality.specialities = specilityList
+                    SpecialityModel.specialities = specilityList
                     self.specialitysNames = ["All"]
-                    for sp in Speciality.specialities{
+                    for sp in SpecialityModel.specialities{
                         self.specialitysNames.append(sp.name)
                     }
 
@@ -232,15 +241,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
-    func LoadClinics(specialityId: String = "") -> Promise<Void>{
+    func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
 
-        return ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: currentMilles*99999999, specialty_id: specialityId)
+        return ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: radius,
+                                                  specialty_id: specialityId)
             .then { clist -> Void in
-                self.clinicList = clist
+                ClinicModel.clinics = clist
                 self.ShowClinicsMarkerInMap()
+
         }
     }
 
+    func loadDoctors(specialityId: String?, clinicId:String?) -> Promise<Void>{
+        return ISClient.sharedInstance.getDoctors(specialty_id: specialityId, clinic_id:clinicId)
+            .then { doctors -> Void in
+                DoctorModel.doctors = doctors
+        }
+    }
 
 }
 
@@ -279,25 +296,10 @@ extension HomeVC {
         }
     }
 
-
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         if marker != self.myPoint {
             return UIView()
-            /*self.infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
-             self.infoView.contentView.layer.cornerRadius = 5
-             self.infoView.clinicNameLb.text = marker.title
-             self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
-             self.infoView.isUserInteractionEnabled = true
-             self.infoView.center = myMap.projection.point(for: marker.position)
-             //self.infoView.transform = CGAffineTransform.init(translationX: infoView.frame.maxX, y: infoView.frame.maxY + infoView.frame.height * 1.5)
-             /*Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-             let camera = mapView.projection.coordinate(for: CGPoint.init(x: self.infoView.transform.tx - self.infoView.frame.width/2 , y: self.infoView.transform.ty - self.infoView.frame.height / 2))
-             let position = GMSCameraUpdate.setTarget(camera)
-             mapView.animate(with: position)
-             })*/
-             return infoView*/
         }
-
         return nil
     }
 
@@ -305,18 +307,53 @@ extension HomeVC {
         if marker != self.myPoint {
             tappedMarker = marker
             self.infoView.removeFromSuperview()
-            self.infoView.contentView.layer.cornerRadius = 5
-            self.infoView.clinicNameLb.text = marker.title
+
+
+            guard let clinic = ClinicModel.by(id: marker.userData as! String) else { return false }
+
+            self.infoView.mylocation = self.locationManager.location
+            self.infoView.updateWith(clinic: clinic)
+
             self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
-            self.infoView.center = myMap.projection.point(for: marker.position)
+
+            if let image = (marker.iconView as! UIImageView).image {
+                self.infoView.imageView.image = image
+            }
+
+            self.infoView.contentView.layer.cornerRadius = 10
+            self.infoView.internalContentView.layer.cornerRadius = 10
+
+            var markPos = myMap.projection.point(for: marker.position)
+            markPos.x -= 28
+            markPos.y += (self.infoView.frame.height / 2 - 3)
+
+            self.infoView.frame.origin = markPos
             self.view.addSubview(self.infoView)
             self.view.bringSubview(toFront: especialitysCollection)
             self.view.bringSubview(toFront: locationBt)
+
+
+            let point = marker.position
+            var pixelpoint = myMap.projection.point(for: point)
+            pixelpoint.x += (self.infoView.frame.width / 2) - 28
+            let newpoint = myMap.projection.coordinate(for: pixelpoint)
+
+
+            let camera = GMSCameraPosition.camera(withLatitude: newpoint.latitude, longitude: newpoint.longitude, zoom: myMap.camera.zoom)
+            myMap.animate(to: camera)
+
+            return true
+
         }
         return false
     }
+
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        self.infoView.center = myMap.projection.point(for: tappedMarker.position)
+        var markPos = myMap.projection.point(for: tappedMarker.position)
+        markPos.y += (self.infoView.frame.height / 2 - 3)
+        markPos.x -= 28
+
+        self.infoView.frame.origin = markPos
     }
 
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -333,7 +370,7 @@ extension HomeVC {
         let howRecent = eventDate?.timeIntervalSinceNow
         if fabs(howRecent!) < 15 {
 
-            if myPoint==nil{
+            if myPoint == nil{
                 myPoint = GMSMarker(position: currentLocation)
                 myPoint?.title = "My Location"
 
@@ -356,11 +393,12 @@ extension HomeVC {
 
     func ShowClinicsMarkerInMap(){
         myMap.clear()
-        for clinic in clinicList {
+        for clinic in ClinicModel.clinics {
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
             imageView.layer.cornerRadius = imageView.frame.width/2
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
+            imageView.backgroundColor = .white
             imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
             })
 
@@ -369,6 +407,8 @@ extension HomeVC {
             pinClinic.iconView = imageView
             pinClinic.title = clinic.full_name
             pinClinic.map = self.myMap
+            pinClinic.userData = clinic.id
+
         }
     }
 
@@ -409,7 +449,7 @@ extension HomeVC {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.doctorInClinics.count
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -418,12 +458,35 @@ extension HomeVC {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCell", for: indexPath) as! DoctorCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
+
+        cell.updateWith(doctor: self.doctorInClinics[indexPath.row], mylocation: self.locationManager.location)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        self.performSegue(withIdentifier: "toDoctorDetails", sender: self.doctorInClinics[indexPath.row].id)
     }
 
 }
 
+
+extension HomeVC {
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "toDoctorDetails"{
+            let docId = sender as! String
+            let vc:DoctorDetailVC = segue.destination as! DoctorDetailVC
+            vc.docId = docId
+
+        }
+    }
+
+}
 
 
 

@@ -9,16 +9,18 @@
 import UIKit
 import SwiftyJSON
 
-class Doctor: NSObject {
-    static let sharedInstance = Doctor()
+class DoctorModel: NSObject {
+
+    static var doctors = [DoctorModel]()
+
     var full_name : String!
     var phone_number : String!
     var profile_picture : String!
     var email : String!
     var nationality : String!
-    var specialty : String!
-    var idClinic: Int!
-    var id: Int!
+    var idSpecialty : String!
+    var idClinic: String!
+    var id: String!
     
     override init() {
     }
@@ -29,8 +31,9 @@ class Doctor: NSObject {
         self.profile_picture = representationJSON["profile_picture"].stringValue
         self.email = representationJSON["email"].stringValue
         self.nationality = representationJSON["nationality"].stringValue
-        self.specialty = representationJSON["specialty"].stringValue
-        self.idClinic = representationJSON["idClinic"].intValue
-        self.id = representationJSON["id"].intValue
+        self.id = representationJSON["id"].stringValue
+        self.idSpecialty = representationJSON["specialty","id"].stringValue
+        self.idClinic = representationJSON["clinic","id"].stringValue
+
     }
 }

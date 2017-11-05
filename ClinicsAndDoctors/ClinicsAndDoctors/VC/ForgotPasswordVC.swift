@@ -60,10 +60,7 @@ class ForgotPasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         CreateGradienBackGround(view: view)
-        recoverBt.layer.cornerRadius = 5
-
     }
 
 

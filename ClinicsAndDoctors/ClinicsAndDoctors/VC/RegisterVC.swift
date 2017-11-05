@@ -34,19 +34,28 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
     @IBAction func SelectAvatar(_ sender: Any) {
-        let alert = UIAlertController(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
-        let cameraSource = UIAlertAction(title: "From Camera", style: .default) { _ in
-            self.shootPhoto()
-        }
-        let galery = UIAlertAction(title: "From Galery", style: .default) { _ in
+
+        if isCameraAvailable() {
+            let alert = UIAlertController(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
+            let cameraSource = UIAlertAction(title: "From Camera", style: .default) { _ in
+                self.shootPhoto()
+            }
+            let galery = UIAlertAction(title: "From Galery", style: .default) { _ in
+                self.photoFromLibrary()
+            }
+
+            alert.addAction(cameraSource)
+            alert.addAction(galery)
+            present(alert, animated: true, completion: nil)
+
+        }else{
             self.photoFromLibrary()
         }
-        
-        alert.addAction(cameraSource)
-        alert.addAction(galery)
-        present(alert, animated: true, completion: nil)
+
+
+
     }
     
     @IBAction func Register(_ sender: Any) {
@@ -57,15 +66,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         }
         else if !(emailTf.text?.isEmpty)! && !isValidEmail(testStr: emailTf.text!){
             self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email, the correct format is email@email.com")
-            print("Incorrect email")
-            
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Email format")
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
             //self.phone_numberTf.textColor = .red
             self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
-            print("Incorrect Phone")
-
         }
         else if passwordTf.text != passwordCheckTf.text{
             self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The password and Re-Type Password are not same, please check")
@@ -84,9 +89,10 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
 
                 }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                    self.view.endEditing(true)
+
                 }.catch { error in
                     if let e: LPError = error as? LPError {
-                        self.HideKeyboard()
                         e.show()
                     }
             }
@@ -118,15 +124,12 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         super.viewDidLoad()
         CreateGradienBackGround(view: view)
 
+        avatarImage.layer.cornerRadius = avatarImage.frame.width / 2
+        plussImage.layer.cornerRadius = plussImage.frame.width / 2
 
-        
-        avatarImage.layer.cornerRadius = avatarImage.frame.width/2
-        plussImage.layer.cornerRadius = plussImage.frame.width/2
-        registerBt.layer.cornerRadius = 5
-        
-        imagePicker.allowsEditing = true;
+        imagePicker.allowsEditing = true
         imagePicker.delegate = self
-        // Do any additional setup after loading the view.
+
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -136,19 +139,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
     func isValidEmail(testStr:String) -> Bool {
-        print("validating email: \(testStr)")
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        let result = emailTest.evaluate(with: testStr)
-        return result
+        return emailTest.evaluate(with: testStr)
     }
     
     func isValidPhone(testStr:String) -> Bool {
-
-       // return !testStr.isEmpty
-
-        print("validating phone: \(testStr)")
         //let phoneRegEx = "^((\\+)|(00))[0-9]{6,14}$"
         let phoneRegEx = "^[0-9]{6,14}$"
         let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
@@ -187,7 +185,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         }
         return false
     }
-    
+
+
     // MARK: - ImagePicker
     func photoFromLibrary() {
         imagePicker.allowsEditing = true
@@ -195,34 +194,16 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         imagePicker.modalPresentationStyle = .popover
         present(imagePicker, animated: true, completion: nil)
-        //imagePicker.popoverPresentationController?.barButtonItem = sender
     }
-    
+
     func shootPhoto() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        if isCameraAvailable() {
             imagePicker.allowsEditing = true
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.cameraCaptureMode = .photo
             imagePicker.modalPresentationStyle = .fullScreen
             present(imagePicker,animated: true,completion: nil)
-        } else {
-            noCamera()
         }
-    }
-    func noCamera(){
-        let alertVC = UIAlertController(
-            title: "No Camera",
-            message: "Sorry, this device has no camera",
-            preferredStyle: .alert)
-        let okAction = UIAlertAction(
-            title: "OK",
-            style:.default,
-            handler: nil)
-        alertVC.addAction(okAction)
-        present(
-            alertVC,
-            animated: true,
-            completion: nil)
     }
     
     func isPhotoAlbumAvailable() -> Bool {

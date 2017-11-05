@@ -40,9 +40,9 @@ class ISClient: NSObject {
     //let listOfServices:[Service]?
     //Local
     private var baseURL = (UIApplication.shared.delegate as! AppDelegate).webUrl
-    var specialtysList = [Speciality]()
-    var clinicsList = [Clinic]()
-    var doctorsList = [Doctor]()
+    var specialtysList = [SpecialityModel]()
+    var clinicsList = [ClinicModel]()
+    var doctorsList = [DoctorModel]()
 
     private var reachabilityManager : Alamofire.NetworkReachabilityManager
     
@@ -54,18 +54,11 @@ class ISClient: NSObject {
     
     // MARK: - Encoders and Decoders Image
     func encodeImageToBase64String(image:UIImage)->String{
-        let imageData:NSData = UIImagePNGRepresentation(image)! as NSData
-        let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+        let imageData:NSData = UIImageJPEGRepresentation(image, 0.9)! as NSData
+        let strBase64:String = "data:image/jpeg;base64," + imageData.base64EncodedString(options: .lineLength64Characters)
         return strBase64
     }
-    
-    func decodeImageFromBase64String(strBase64:String)->UIImage{
-        let dataDecoded:NSData = NSData(base64Encoded: strBase64, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-        let decodedimage:UIImage = UIImage(data: dataDecoded as Data)!
-        return decodedimage
-    }
-    
-    
+
     
 //    // MARK: Alamofire Request
 //    func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
@@ -102,7 +95,7 @@ class ISClient: NSObject {
 
     // MARK: Authentication
 
-    func login(phone:String, password:String) -> Promise<User> {
+    func login(phone:String, password:String) -> Promise<UserModel> {
         let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
             "phone_number": phone,
@@ -119,8 +112,11 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js != JSON.null && js["code"].stringValue == "LOGIN_SUCCESSFUL" {
-                            User.currentUser = User(representationJSON: js)
-                            fulfill(User.currentUser!)
+                            UserModel.currentUser = UserModel(representationJSON: js)
+                            UserModel.currentUser?.password = password
+                            UserModel.saveSession()
+
+                            fulfill(UserModel.currentUser!)
                         }else{
                             reject(LPError(code: "error", description: "Wrong mobile or password"))
                         }
@@ -132,7 +128,7 @@ class ISClient: NSObject {
         }
     }
 
-    func registerWhitEmail(fullName:String, phone_number: String, email:String, password:String, picture:UIImage) -> Promise<User> {
+    func registerWhitEmail(fullName:String, phone_number: String, email:String, password:String, picture:UIImage) -> Promise<UserModel> {
 
         let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
@@ -154,8 +150,11 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js != JSON.null && js["code"].stringValue == "REGISTER_SUCCESSFUL" {
-                            User.currentUser = User(representationJSON: js)
-                            fulfill(User.currentUser!)
+                            UserModel.currentUser = UserModel(representationJSON: js)
+                            UserModel.currentUser?.password = password
+                            UserModel.saveSession()
+
+                            fulfill(UserModel.currentUser!)
                         }else{
                             reject(LPError(code: "error", description: "Register error. Please tray again with another credentials."))
                         }
@@ -202,7 +201,7 @@ class ISClient: NSObject {
     }
 
 
-    func registerWithFacebook(fb_social_token:String, fb_id:String) -> Promise<User> {
+    func registerWithFacebook(fb_social_token:String, fb_id:String) -> Promise<UserModel> {
 
         let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [
@@ -224,8 +223,11 @@ class ISClient: NSObject {
                             reject(LPError(code: "error", description: "Network error ocurred"))
                         }else{
                             if js["code"].stringValue == "REGISTER_WITH_FB_SUCCESSFUL" {
-                                User.currentUser = User(representationJSON: js)
-                                fulfill(User.currentUser!)
+                                UserModel.currentUser = UserModel(representationJSON: js)
+                                UserModel.currentUser?.password = ""
+                                UserModel.saveSession()
+
+                                fulfill(UserModel.currentUser!)
                             }else{
                                 reject(LPError(code: "error", description: "Register error. Please tray again."))
                             }
@@ -241,7 +243,7 @@ class ISClient: NSObject {
 
     // MARK: GetData
 
-    func getSpecialtys() -> Promise<[Speciality]> {
+    func getSpecialtys() -> Promise<[SpecialityModel]> {
         let headers = ["Content-Type" : "application/json"]
         let parameters : Parameters = [:]
 
@@ -262,9 +264,9 @@ class ISClient: NSObject {
                                 reject(LPError(code: "error", description: "No specialties found."))
                             }
                             else{
-                                var list = [Speciality]()
+                                var list = [SpecialityModel]()
                                 for item in js.arrayValue {
-                                    list.append(Speciality(representationJSON: item))
+                                    list.append(SpecialityModel(representationJSON: item))
                                 }
                                 fulfill(list)
                             }
@@ -277,7 +279,7 @@ class ISClient: NSObject {
         }
     }
 
-    func getClinics(latitude: Double, longitude: Double, radius: Int, specialty_id:String?) -> Promise<[Clinic]> {
+    func getClinics(latitude: Double, longitude: Double, radius: Int, specialty_id:String?) -> Promise<[ClinicModel]> {
         let headers = ["Content-Type" : "application/json"]
         /*
         guard let user = User.currentUser else {
@@ -286,12 +288,13 @@ class ISClient: NSObject {
             }
         }*/
 
+        let user = UserModel.currentUser
 
         var parameters : Parameters = [
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
-            "user_id":0
+            "user_id":user != nil ? user!.id : "-1"
         ]
         if let esp = specialty_id, esp.isEmpty == false {
             parameters.updateValue(esp, forKey: "specialty_id")
@@ -316,9 +319,9 @@ class ISClient: NSObject {
                             }
                             else{
                                 print("Get CLinics \(js.arrayValue)")
-                                var list = [Clinic]()
+                                var list = [ClinicModel]()
                                 for item in js.arrayValue {
-                                    list.append(Clinic(representationJSON: item))
+                                    list.append(ClinicModel(representationJSON: item))
                                 }
                                 fulfill(list)
                             }
@@ -332,22 +335,17 @@ class ISClient: NSObject {
     }
 
     //Get Doctors for specific clinic or/ands speciality
-    func getDoctors(latitude: Double, longitude: Double, radius: Int, specialty_id:String?, clinic_id:String?, page:String?) -> Promise<[Doctor]> {
+    func getDoctors(specialty_id:String?, clinic_id:String?) -> Promise<[DoctorModel]> {
 
         let headers = ["Content-Type" : "application/json"]
 
-        guard let user = User.currentUser else {
-            return Promise { fulfill, reject in
-                reject(LPError(code: "error", description: "Must be logged"))
-            }
-        }
+        let user = UserModel.currentUser
 
         var parameters : Parameters = [
-            "access_token": user.access_token,
-            "latitude": latitude,
-            "longitude": longitude,
-            "radius": radius,
-            "user_id":user.id
+//            "latitude": latitude,
+//            "longitude": longitude,
+//            "radius": radius,
+            "user_id": user != nil ? user!.id : "-1"
         ]
         if let esp = specialty_id, esp.isEmpty == false {
             parameters.updateValue(esp, forKey: "specialty_id")
@@ -373,9 +371,9 @@ class ISClient: NSObject {
                                 reject(LPError(code: "error", description: "Server error ocurred."))
                             }
                             else{
-                                var list = [Doctor]()
+                                var list = [DoctorModel]()
                                 for item in js.arrayValue {
-                                    list.append(Doctor(representationJSON: item))
+                                    list.append(DoctorModel(representationJSON: item))
                                 }
                                 fulfill(list)
                             }
@@ -395,7 +393,7 @@ class ISClient: NSObject {
             fatalError("must be clinic or doctor")
         }
 
-        guard let user = User.currentUser else {
+        guard let user = UserModel.currentUser else {
             return Promise { fulfill, reject in
                 reject(LPError(code: "error", description: "Must be logged"))
             }
@@ -443,7 +441,7 @@ class ISClient: NSObject {
             fatalError("must be clinic or doctor")
         }
 
-        guard let user = User.currentUser else {
+        guard let user = UserModel.currentUser else {
             return Promise { fulfill, reject in
                 reject(LPError(code: "error", description: "Must be logged"))
             }
@@ -481,5 +479,53 @@ class ISClient: NSObject {
         }
 
     }
+
+
+    func editProfile(user_id:String, fullName:String?, phone_number: String?, email:String?, password:String?, picture:UIImage?) -> Promise<UserModel> {
+
+        let headers = ["Content-Type" : "application/json"]
+        var parameters : Parameters = [
+            "user_id":user_id
+        ]
+
+        if let fullName = fullName {parameters.updateValue(fullName, forKey:"full_name")}
+        if let phone_number = phone_number {parameters.updateValue(phone_number, forKey:"phone_number")}
+        if let email = email {parameters.updateValue(email, forKey:"email")}
+        if let password = password {parameters.updateValue(password, forKey:"password")}
+        if let picture = picture {parameters.updateValue(self.encodeImageToBase64String(image: picture), forKey:"picture")}
+
+
+        let endPoint = "edit_profile"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+
+                        if js != JSON.null {
+                            if js["code"].stringValue == "EDIT_PROFILE_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Unsuccessful profile editing"))
+                            }else{
+                                UserModel.currentUser = UserModel(representationJSON: js)
+                                UserModel.currentUser?.password = password ?? ""
+                                UserModel.saveSession()
+
+                                fulfill(UserModel.currentUser!)
+                            }
+
+                        }else{
+                            reject(LPError(code: "error", description: "Server error ocurred"))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
+            }
+        }
+    }
+
 }
 

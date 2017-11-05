@@ -24,14 +24,16 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var star3:UIButton!
     @IBOutlet weak var star4:UIButton!
     @IBOutlet weak var star5:UIButton!
+
+    var docId = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
-        addFavoriteBt.layer.cornerRadius = 5
-        phoneBt.layer.cornerRadius = 5
-        doctorAvatarIm.layer.cornerRadius = doctorAvatarIm.frame.width/2
+
+        doctorAvatarIm.layer.cornerRadius = doctorAvatarIm.frame.width / 2
         
-        // Do any additional setup after loading the view.
+
     }
 
 
@@ -69,7 +71,7 @@ class DoctorDetailVC: UIViewController {
 
 
     @IBAction func rateBtnAction(_ sender: Any) {
-        if User.currentUser != nil {
+        if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
         }
         else{

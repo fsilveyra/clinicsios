@@ -13,7 +13,7 @@ import Alamofire
 import AlamofireImage
 
 class LeftMenuVC: UIViewController {
-    @IBOutlet weak var avatarIm:UIImageView!
+    @IBOutlet weak var avatarIm:RoundedImageView!
     @IBOutlet weak var userName:UILabel!
     @IBOutlet weak var viewProfile:UIView!
     @IBOutlet weak var seeProfileBt:UIButton!
@@ -24,36 +24,46 @@ class LeftMenuVC: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.SeeProfile))
+
         self.viewProfile.addGestureRecognizer(tapGesture)
-        //self.userName.addGestureRecognizer(tapGesture)
+
         seeProfileBt.addTarget(self, action: #selector(SeeProfile), for: .touchUpInside)
-        if User.currentUser == nil {
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        updateWithUserData()
+    }
+
+
+    func updateWithUserData(){
+        if let user = UserModel.currentUser {
+            seeProfileBt.isHidden = false
+            logoutBt.isHidden = false
+            userName.text = UserModel.currentUser?.full_name ?? ""
+
+            if let url = URL(string: user.profile_picture) {
+                self.avatarIm.url = url
+            }
+        }else{
             seeProfileBt.isHidden = true
             logoutBt.isHidden = true
         }
-        else{
-            seeProfileBt.isHidden = false
-            logoutBt.isHidden = false
-            avatarIm.image = #imageLiteral(resourceName: "Photo") //avatarIm.af_setImage(withURL: URL.init(string: appDelegate.userAvatarURL)!)
-            userName.text = User.currentUser?.full_name ?? ""
-        }
-        // Do any additional setup after loading the view.
     }
+
     @objc func SeeProfile(sender: UITapGestureRecognizer) {
         print("See Profile")
-        if User.currentUser != nil {
+        if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "goProfile", sender: nil)
         }
         else{
             pressentLogin()
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -63,7 +73,9 @@ class LeftMenuVC: UIViewController {
 
         FBSDKLoginManager().logOut()
         
-        User.currentUser = nil
+        UserModel.currentUser = nil
+        UserModel.removeSessionData()
+
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -72,7 +84,7 @@ class LeftMenuVC: UIViewController {
     }
     
     @IBAction func ShowFavorites(_ sender: AnyObject){
-        if User.currentUser != nil {
+        if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "goFavorites", sender: nil)
         }
         else{

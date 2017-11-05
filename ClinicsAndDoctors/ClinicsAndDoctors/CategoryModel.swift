@@ -1,27 +1,23 @@
 //
-//  Speciality.swift
+//  Category.swift
 //  ClinicsAndDoctors
 //
-//  Created by reinier on 20/10/17.
+//  Created by reinier on 14/10/17.
 //  Copyright © 2017 InfinixSoft. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
-
-class Speciality: NSObject {
-
-    static var specialities = [Speciality]()
-
-    var id : String!
+class CategoryModel: NSObject {
+    var id: Int!
     var name : String!
-    var icon: String!
-    
+    var icon : String!
+
     override init() {
     }
     
     required init(representationJSON:SwiftyJSON.JSON) {
-        self.id = representationJSON["id"].stringValue
+        self.id = representationJSON["id"].intValue
         self.name = representationJSON["name"].stringValue
         self.icon = representationJSON["icon"].stringValue
     }

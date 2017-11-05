@@ -39,8 +39,15 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         directionBt.layer.cornerRadius = 5
 
 
+
+        let classBundle = Bundle(for: DoctorTableCell.self)
+        let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
+        self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
+
+
+
         self.specialitysNames = ["All"]
-        for sp in Speciality.specialities{
+        for sp in SpecialityModel.specialities{
             self.specialitysNames.append(sp.name)
         }
 
@@ -85,7 +92,9 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCell", for: indexPath) as! DoctorCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
+
+        //cell.updateWith(doctor: self.doctorInClinics[indexPath.row])
         return cell
     }
     
@@ -131,7 +140,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
 
 
     @IBAction func rateBtnAction(_ sender: Any) {
-        if User.currentUser != nil {
+        if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
         }
         else{
