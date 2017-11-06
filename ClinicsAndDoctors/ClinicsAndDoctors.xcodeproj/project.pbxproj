@@ -19,7 +19,6 @@
 		FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */; };
 		FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */; };
 		FB54694A1F9AE88300B42712 /* SpecialityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5469491F9AE88300B42712 /* SpecialityModel.swift */; };
-		FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FC4F51F8D36E20022720D /* ClinicCell.swift */; };
 		FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6766BC1F8433790039C122 /* LeftMenuVC.swift */; };
 		FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8004381F84A0050028C62E /* ProfileVC.swift */; };
 		FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */; };
@@ -44,6 +43,9 @@
 		FE0FAAB11FACC26F00C27C16 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FAAAF1FACC26E00C27C16 /* UIView+Extension.swift */; };
 		FE0FAAB81FADEC8D00C27C16 /* SwiftMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0FAA9D1FAC76AF00C27C16 /* SwiftMessages.framework */; };
 		FE0FAAB91FADEC8D00C27C16 /* SwiftMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE0FAA9D1FAC76AF00C27C16 /* SwiftMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FE1F94391FAFFB8500193E2D /* ClinicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F94371FAFFB8500193E2D /* ClinicTableCell.swift */; };
+		FE1F943A1FAFFB8500193E2D /* ClinicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE1F94381FAFFB8500193E2D /* ClinicTableCell.xib */; };
+		FE1F943D1FB0188300193E2D /* TermsPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */; };
 		FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */; };
 		FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */; };
 /* End PBXBuildFile section */
@@ -108,7 +110,6 @@
 		FB4BEBAE1F87599100B4E386 /* DoctorDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoctorDetailVC.swift; path = VC/DoctorDetailVC.swift; sourceTree = "<group>"; };
 		FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinincDetailVC.swift; path = VC/ClinincDetailVC.swift; sourceTree = "<group>"; };
 		FB5469491F9AE88300B42712 /* SpecialityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpecialityModel.swift; path = Models/SpecialityModel.swift; sourceTree = "<group>"; };
-		FB5FC4F51F8D36E20022720D /* ClinicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClinicCell.swift; path = VC/Cell/ClinicCell.swift; sourceTree = "<group>"; };
 		FB6766BC1F8433790039C122 /* LeftMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuVC.swift; path = VC/LeftMenuVC.swift; sourceTree = "<group>"; };
 		FB8004381F84A0050028C62E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = VC/ProfileVC.swift; sourceTree = "<group>"; };
 		FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoritesVC.swift; path = VC/FavoritesVC.swift; sourceTree = "<group>"; };
@@ -136,6 +137,9 @@
 		FE0FAAAA1FACBFA600C27C16 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Helpers/RoundedImageView.swift; sourceTree = "<group>"; };
 		FE0FAAAE1FACC26E00C27C16 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Extensions.swift"; path = "Helpers/UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FE0FAAAF1FACC26E00C27C16 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "Helpers/UIView+Extension.swift"; sourceTree = "<group>"; };
+		FE1F94371FAFFB8500193E2D /* ClinicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicTableCell.swift; sourceTree = "<group>"; };
+		FE1F94381FAFFB8500193E2D /* ClinicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClinicTableCell.xib; sourceTree = "<group>"; };
+		FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPolicyVC.swift; sourceTree = "<group>"; };
 		FE6D681A1FAAA03F0032CD16 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorTableCell.swift; sourceTree = "<group>"; };
 		FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorTableCell.xib; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				FB86ABDB1F8B0DA400817B4B /* FavoritesVC.swift */,
 				FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */,
 				FBEC68A11F8BDE9400DC304A /* RatingVC.swift */,
+				FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -254,13 +259,14 @@
 			isa = PBXGroup;
 			children = (
 				FB3E548E1F81B64900DF65BA /* SpecialityButtonCell.swift */,
-				FB5FC4F51F8D36E20022720D /* ClinicCell.swift */,
 				FB4600581F8206CD00C258E5 /* SliderMillesCell.swift */,
 				FB0228591F8675F500853B1B /* CustomInfoVIew.swift */,
 				FB02285D1F8676C700853B1B /* CustomInfoVIewX.xib */,
 				FB9FD2791F8B03C600CDA54C /* ReviewCell.swift */,
 				FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */,
 				FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */,
+				FE1F94371FAFFB8500193E2D /* ClinicTableCell.swift */,
+				FE1F94381FAFFB8500193E2D /* ClinicTableCell.xib */,
 			);
 			name = CellC;
 			sourceTree = "<group>";
@@ -379,6 +385,7 @@
 				FBE201971F7DF69F00C51A0D /* Assets.xcassets in Resources */,
 				FB02285E1F8676C700853B1B /* CustomInfoVIewX.xib in Resources */,
 				FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */,
+				FE1F943A1FAFFB8500193E2D /* ClinicTableCell.xib in Resources */,
 				FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,6 +490,7 @@
 			files = (
 				FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */,
 				FE0FAAB01FACC26F00C27C16 /* UIColor+Extensions.swift in Sources */,
+				FE1F943D1FB0188300193E2D /* TermsPolicyVC.swift in Sources */,
 				FE0FAAAD1FACBFA700C27C16 /* RoundedImageView.swift in Sources */,
 				FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */,
 				FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */,
@@ -491,7 +499,7 @@
 				FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */,
 				FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */,
 				FBD7A2E81F9262800038DD30 /* ISClient.swift in Sources */,
-				FB5FC4F61F8D36E20022720D /* ClinicCell.swift in Sources */,
+				FE1F94391FAFFB8500193E2D /* ClinicTableCell.swift in Sources */,
 				FBE2018F1F7DF69F00C51A0D /* ViewController.swift in Sources */,
 				FB4854231F7F8D4F00B758A4 /* HomeVC.swift in Sources */,
 				FE0FAAAC1FACBFA700C27C16 /* RoundedButton.swift in Sources */,

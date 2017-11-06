@@ -23,6 +23,10 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
         self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
 
+        let classBundle2 = Bundle(for: ClinicTableCell.self)
+        let nibProd2 = UINib(nibName:"ClinicTableCell", bundle:classBundle2)
+        self.myTableView.register(nibProd2, forCellReuseIdentifier:"ClinicTableCell")
+
 
 
         if #available(iOS 11.0, *) {
@@ -72,7 +76,8 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.subView.center.x == self.clinicsBt.center.x {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ClinicCell", for: indexPath) as! ClinicCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ClinicTableCell", for: indexPath) as! ClinicTableCell
+            //cell.updateWith(clinic: clinic, location: loc)
             return cell
         }
         else{

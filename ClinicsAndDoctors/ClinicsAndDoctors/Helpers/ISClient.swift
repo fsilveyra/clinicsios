@@ -527,5 +527,32 @@ class ISClient: NSObject {
         }
     }
 
+
+    func getTermsOrPrivacy(endPoint:String) -> Promise<String> {
+        let headers = ["Content-Type" : "application/json"]
+        let parameters : Parameters = [:]
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js != JSON.null {
+                            let result = js["description"].stringValue
+                            fulfill(result)
+                        }else{
+                            reject(LPError(code: "error", description: "Server error ocurred"))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
+            }
+        }
+    }
+
+
 }
 

@@ -101,5 +101,16 @@ class LeftMenuVC: UIViewController {
        
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if segue.identifier == "toTerms" {
+            let vc:TermsPolicyVC = segue.destination as! TermsPolicyVC
+            vc.isTerms = true
+        }else if segue.identifier == "toPrivacy" {
+            let vc:TermsPolicyVC = segue.destination as! TermsPolicyVC
+            vc.isTerms = false
+        }
+    }
 
 }
