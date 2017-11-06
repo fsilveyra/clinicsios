@@ -863,7 +863,7 @@
         <!--DETAIL-->
         <scene sceneID="uAv-1y-f0I">
             <objects>
-                <viewController id="Uj0-yo-EwR" customClass="DoctorDetailVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DoctorDetailVC" id="Uj0-yo-EwR" customClass="DoctorDetailVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t6I-BS-8XF"/>
                         <viewControllerLayoutGuide type="bottom" id="cne-eh-8L1"/>
@@ -1077,6 +1077,7 @@
                         <outlet property="loadingIm" destination="RI7-UI-QSh" id="LjW-Jz-hfG"/>
                         <outlet property="nameLb" destination="NUL-2c-6sO" id="A1b-AH-PmB"/>
                         <outlet property="phoneBt" destination="4Xd-9S-gFO" id="97W-Av-2rA"/>
+                        <outlet property="rMenuBtn" destination="H4S-ok-cS7" id="QJ6-9Q-Ry4"/>
                         <outlet property="rateView" destination="odz-jR-iVa" id="GEy-pm-0q6"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="SJY-cP-rMk"/>
                         <segue destination="blR-Qa-TLo" kind="show" identifier="toClinicDetails" id="f02-Q0-d2C"/>
@@ -1710,30 +1711,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_line_progress" translatesAutoresizingMaskIntoConstraints="NO" id="gNa-lK-eNn">
-                                <rect key="frame" x="18" y="75" width="95" height="95"/>
+                                <rect key="frame" x="8" y="75" width="95" height="95"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYL-EO-GRb" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                <rect key="frame" x="26" y="81" width="82" height="82"/>
+                                <rect key="frame" x="16" y="81" width="82" height="82"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mayo Clinic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71F-rx-tal">
-                                <rect key="frame" x="121" y="83" width="192" height="35"/>
+                                <rect key="frame" x="112" y="83" width="192" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Medial Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2e-OR-1he">
-                                <rect key="frame" x="121" y="123" width="200" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Medical Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U2e-OR-1he">
+                                <rect key="frame" x="112" y="123" width="200" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dallas, TX, United States" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzL-UO-fMO">
-                                <rect key="frame" x="121" y="146" width="245" height="22"/>
+                                <rect key="frame" x="112" y="146" width="245" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1779,7 +1780,7 @@
                                 <state key="normal" image="filledStart"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-Ns-Byz">
-                                <rect key="frame" x="121" y="173" width="147" height="30"/>
+                                <rect key="frame" x="112" y="173" width="147" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.2242627739906311" green="0.52748280763626099" blue="0.51368343830108643" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>

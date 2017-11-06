@@ -110,22 +110,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
 
 
-    // MARK: - TableView Delegates
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.doctors.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
-        cell.updateWith(doctor: self.doctors[indexPath.row], mylocation: self.mylocation)
-        return cell
-    }
-
-
     @IBAction func rateBtnAction(_ sender: Any) {
         if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
@@ -149,7 +133,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
 
         var strPhoneNumber = clinic.phone_number!
         strPhoneNumber = strPhoneNumber.replacingOccurrences(of: " ", with: "")
-        //strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "+", with: "")
+
         strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "-", with: "")
 
 
@@ -216,3 +200,41 @@ extension ClinincDetailVC {
 
 }
 
+
+
+
+//================================================
+// MARK: - TableView
+//================================================
+
+extension ClinincDetailVC {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.doctors.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
+        cell.updateWith(doctor: self.doctors[indexPath.row], mylocation: self.mylocation)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DoctorDetailVC") as! DoctorDetailVC
+        vc.rMenuBtnVisible = false
+        vc.docId = self.doctors[indexPath.row].id
+
+        navigationController?.pushViewController(vc,
+                                                 animated: true)
+
+    }
+
+}

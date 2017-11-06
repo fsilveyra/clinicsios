@@ -20,8 +20,9 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var phoneBt:UIButton!
     @IBOutlet weak var addFavoriteBt:UIButton!
     @IBOutlet weak var rateView:UIView!
+    @IBOutlet weak var rMenuBtn: UIBarButtonItem!
 
-
+    var rMenuBtnVisible = true
     var docId = ""
     var mylocation:CLLocation?
 
@@ -32,6 +33,11 @@ class DoctorDetailVC: UIViewController {
         if let doctor = DoctorModel.by(id: self.docId){
             self.updateWith(doctor: doctor)
         }
+
+        if rMenuBtnVisible == false {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        //rMenuBtn.  = !rMenuBtnVisible
     }
 
     private func updateWith(doctor: DoctorModel){
