@@ -25,4 +25,10 @@ class SpecialityModel: NSObject {
         self.name = representationJSON["name"].stringValue
         self.icon = representationJSON["icon"].stringValue
     }
+
+    static func by(id:String) ->SpecialityModel? {
+        return SpecialityModel.specialities.filter { (c) -> Bool in
+            c.id == id
+            }.first
+    }
 }

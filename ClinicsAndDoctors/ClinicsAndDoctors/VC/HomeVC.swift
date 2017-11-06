@@ -482,8 +482,18 @@ extension HomeVC {
             let docId = sender as! String
             let vc:DoctorDetailVC = segue.destination as! DoctorDetailVC
             vc.docId = docId
+            vc.mylocation = self.locationManager.location
 
         }
+
+        if segue.identifier == "goClinicDetails" {
+            let vc:ClinincDetailVC = segue.destination as! ClinincDetailVC
+            if let clinic = ClinicModel.by(id: tappedMarker.userData as! String){
+                vc.clinicId = clinic.id
+                vc.mylocation = self.locationManager.location
+            }
+        }
+
     }
 
 }
@@ -517,13 +527,9 @@ extension HomeVC {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row != 0{
-            return CGSize(width: 115, height: 50)
-        }
-        else {
-            return CGSize(width: 40, height: 50)
-        }
 
+        let size: CGSize = specialitysNames[indexPath.row].size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0)])
+        return CGSize(width: size.width + 20, height: 50)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

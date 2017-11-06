@@ -14,7 +14,7 @@ class ClinicModel: NSObject {
     var phone_number : String!
     var password : String!
     var profile_picture : String!
-    var specialtys = [String]()
+    var specialties = [String]()
     var email : String!
     var address : String!
     var city: String!
@@ -54,7 +54,7 @@ class ClinicModel: NSObject {
         self.isFavorite = representationJSON["is_favorite"].boolValue
         let specialtysJSON = representationJSON["specialties"].arrayValue
         for specialty in specialtysJSON {
-            self.specialtys.append(SpecialityModel(representationJSON: specialty).id)
+            self.specialties.append(SpecialityModel(representationJSON: specialty).id)
         }
     }
 
@@ -64,6 +64,11 @@ class ClinicModel: NSObject {
             }.count
     }
 
+    func getDoctors() -> [DoctorModel] {
+        return DoctorModel.doctors.filter { (d) -> Bool in
+            d.idClinic == self.id
+        }
+    }
 
     static var clinics = [ClinicModel]()
 

@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import MapKit
 
 class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var avatarClinicIm:UIImageView!
+    @IBOutlet weak var avatarClinicIm:RoundedImageView!
     @IBOutlet weak var nameClinicLb:UILabel!
     @IBOutlet weak var centerLb:UILabel!
     @IBOutlet weak var addressLb:UILabel!
@@ -28,6 +29,9 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     var specialitysNames = ["All"]
     var currentSelectedEspec = 0
 
+    var mylocation : CLLocation?
+    var clinicId = ""
+    var doctors = [DoctorModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +48,9 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
         self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
 
-
-
-        self.specialitysNames = ["All"]
-        for sp in SpecialityModel.specialities{
-            self.specialitysNames.append(sp.name)
+        if let clinic = ClinicModel.by(id: self.clinicId){
+            self.updateWith(clinic: clinic)
         }
-
-        specialitiesCollection.reloadData()
 
     }
 
@@ -81,61 +80,49 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         self.navigationController?.popViewController(animated: true)
     }
     
-    
+
+    private func updateWith(clinic: ClinicModel){
+
+        self.nameClinicLb.text = clinic.full_name
+        if let url = URL(string: clinic.profile_picture){
+            self.avatarClinicIm.url = url
+        }
+
+        self.addressLb.text = clinic.state + ", " + clinic.city + ", " + clinic.country
+
+        self.doctors = clinic.getDoctors()
+        self.myTableView.reloadData()
+
+
+
+        self.specialitysNames = ["All"]
+        for sp in clinic.specialties {
+            if let spec = SpecialityModel.by(id: sp){
+                self.specialitysNames.append(spec.name)
+            }
+        }
+        if clinic.specialties.count == 1 { self.specialitysNames.remove(at: 0)}
+
+        specialitiesCollection.reloadData()
+
+        if clinic.phone_number.isEmpty { self.callBt.isHidden = true }
+
+    }
+
+
     // MARK: - TableView Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.doctors.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
-
-        //cell.updateWith(doctor: self.doctorInClinics[indexPath.row])
+        cell.updateWith(doctor: self.doctors[indexPath.row], mylocation: self.mylocation)
         return cell
-    }
-    
-    // MARK: - Collection Delegates
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return specialitysNames.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = specialitiesCollection.dequeueReusableCell(withReuseIdentifier: "SpecialityButtonCell", for: indexPath) as! SpecialityButtonCell
-        cell.specialityBt.setTitle(specialitysNames[indexPath.row], for: .normal)
-        if currentSelectedEspec != indexPath.row {
-            cell.subButtonView.alpha = 0
-        }
-        cell.specialityBt.tag = indexPath.row
-        cell.specialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row != 0{
-            return CGSize(width: 100, height: 50)
-        }
-        else {
-            return CGSize(width: 40, height: 50)
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 
 
@@ -156,6 +143,76 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     }
 
 
+    @IBAction func callBtnAction(_ sender: Any) {
 
+        guard let clinic = ClinicModel.by(id: self.clinicId) else { return }
+
+        var strPhoneNumber = clinic.phone_number!
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: " ", with: "")
+        //strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "+", with: "")
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "-", with: "")
+
+
+        if let phoneCallURL:URL = URL(string: "tel:\(strPhoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                let alertController = UIAlertController(title: "ClinicsAndDoctors", message: "Are you sure you want to call \n\(clinic.phone_number!)?", preferredStyle: .alert)
+                let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                    UIApplication.shared.openURL(phoneCallURL)
+                })
+                let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+
+                })
+                alertController.addAction(yesPressed)
+                alertController.addAction(noPressed)
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
 
 }
+
+
+
+//================================================
+// MARK: - Collection Delegates
+//================================================
+
+extension ClinincDetailVC {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return specialitysNames.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = specialitiesCollection.dequeueReusableCell(withReuseIdentifier: "SpecialityButtonCell", for: indexPath) as! SpecialityButtonCell
+        cell.specialityBt.setTitle(specialitysNames[indexPath.row], for: .normal)
+        if currentSelectedEspec != indexPath.row {
+            cell.subButtonView.alpha = 0
+        }
+        cell.specialityBt.tag = indexPath.row
+        cell.specialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size: CGSize = specialitysNames[indexPath.row].size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15.0)])
+
+        return CGSize(width: size.width + 20, height: 50)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+}
+

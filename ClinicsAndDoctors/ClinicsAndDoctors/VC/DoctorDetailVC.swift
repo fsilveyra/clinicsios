@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import MapKit
 
 class DoctorDetailVC: UIViewController {
     @IBOutlet weak var loadingIm:UIImageView!
-    @IBOutlet weak var doctorAvatarIm:UIImageView!
+    @IBOutlet weak var doctorAvatarIm:RoundedImageView!
     @IBOutlet weak var nameLb:UILabel!
     @IBOutlet weak var gentilizeLb:UILabel!
     @IBOutlet weak var addressLb:UILabel!
@@ -19,58 +20,100 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var phoneBt:UIButton!
     @IBOutlet weak var addFavoriteBt:UIButton!
     @IBOutlet weak var rateView:UIView!
-    @IBOutlet weak var star1:UIButton!
-    @IBOutlet weak var star2:UIButton!
-    @IBOutlet weak var star3:UIButton!
-    @IBOutlet weak var star4:UIButton!
-    @IBOutlet weak var star5:UIButton!
+
 
     var docId = ""
+    var mylocation:CLLocation?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
 
-        doctorAvatarIm.layer.cornerRadius = doctorAvatarIm.frame.width / 2
-        
-
+        if let doctor = DoctorModel.by(id: self.docId){
+            self.updateWith(doctor: doctor)
+        }
     }
 
+    private func updateWith(doctor: DoctorModel){
+
+        if let url = URL(string: doctor.profile_picture){
+            self.doctorAvatarIm.url = url
+        }
+
+        self.nameLb.text = doctor.full_name
+        self.gentilizeLb.text = doctor.nationality
+        self.addressLb.text = ""
+
+        self.especialityLb.text = ""
+        if let esp = SpecialityModel.by(id: doctor.idSpecialty){
+            self.especialityLb.text = esp.name
+        }
+
+        if let clinic = ClinicModel.by(id: doctor.idClinic) {
+            //self.clinicNameLbl.text = clinic.full_name
+
+            if let loc = mylocation {
+                let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
+                let distance = loc.distance(from: clinicCoord) / 1000.0
+                self.distanceLb.text = "\(distance.rounded(toPlaces: 2)) Km"
+            }
+        }
+
+        if doctor.phone_number.isEmpty {
+            self.phoneBt.isHidden = true
+        }else{
+            self.phoneBt.setTitle(" " + doctor.phone_number, for: .normal)
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        showRMenu(false)
+    }
+
+
     // MARK: - Actions
+
     @IBAction func BackView(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
     }
-    
-    @IBAction func GoToClinicPage(_ sender: AnyObject){
 
-    }
-
-    @IBAction func ShowHideRateView(_ sender: AnyObject){
-        if rateView.isHidden {
-             self.view.bringSubview(toFront: self.rateView)
+    func showRMenu(_ show : Bool){
+        if show {
+            self.view.bringSubview(toFront: self.rateView)
             rateView.isHidden = false
-            UIView.animate(withDuration: 0.5, animations: {
-                self.rateView.frame.origin.x -= self.rateView.frame.width
+            UIView.animate(withDuration: 0.3, animations: {
+                self.rateView.frame.origin.x = self.view.frame.width - self.rateView.frame.width
             })
         }
         else{
-            UIView.animate(withDuration: 0.5, animations: {
-                self.rateView.frame.origin.x += self.rateView.frame.width
+            UIView.animate(withDuration: 0.3, animations: {
+                self.rateView.frame.origin.x = self.view.frame.width
             }, completion: { _ in
                 self.rateView.isHidden = true
                 self.view.sendSubview(toBack: self.rateView)
             })
         }
+
     }
 
+    @IBAction func ShowHideRateView(_ sender: AnyObject){
+        showRMenu(rateView.isHidden)
+    }
+
+    @IBAction func GoToClinicPage(_ sender: AnyObject){
+        showRMenu(false)
+        self.performSegue(withIdentifier: "toClinicDetails", sender: nil)
+    }
 
     @IBAction func rateBtnAction(_ sender: Any) {
+        showRMenu(false)
+
         if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
         }
@@ -85,15 +128,47 @@ class DoctorDetailVC: UIViewController {
 
         }
     }
-    
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func phoneBtnAction(_ sender: Any) {
+
+        guard let doctor = DoctorModel.by(id: self.docId) else { return }
+
+        var strPhoneNumber = doctor.phone_number!
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: " ", with: "")
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "-", with: "")
+
+
+        if let phoneCallURL:URL = URL(string: "tel:\(strPhoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                let alertController = UIAlertController(title: "ClinicsAndDoctors", message: "Are you sure you want to call \n\(doctor.phone_number!)?", preferredStyle: .alert)
+                let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                    UIApplication.shared.openURL(phoneCallURL)
+                })
+                let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+
+                })
+                alertController.addAction(yesPressed)
+                alertController.addAction(noPressed)
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+
     }
-    
+
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "toClinicDetails" {
+            let vc:ClinincDetailVC = segue.destination as! ClinincDetailVC
+            if let doctor = DoctorModel.by(id: self.docId){
+                vc.clinicId = doctor.idClinic
+                vc.mylocation = self.mylocation
+            }
+
+        }
+        
+    }
 
 }

@@ -36,4 +36,12 @@ class DoctorModel: NSObject {
         self.idClinic = representationJSON["clinic","id"].stringValue
 
     }
+
+    static func by(id:String) ->DoctorModel? {
+        return DoctorModel.doctors.filter { (c) -> Bool in
+            c.id == id
+            }.first
+    }
+
+
 }

@@ -876,7 +876,7 @@
                                 <rect key="frame" x="112" y="164" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="doctorAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="hzu-5K-SWn">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMedium" translatesAutoresizingMaskIntoConstraints="NO" id="hzu-5K-SWn" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
                                 <rect key="frame" x="122" y="175" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -906,14 +906,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cardiologist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLb-9i-x1K">
-                                        <rect key="frame" x="200" y="10" width="100" height="28"/>
+                                        <rect key="frame" x="201" y="10" width="100" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bigHeart" translatesAutoresizingMaskIntoConstraints="NO" id="hHd-TK-bs9">
-                                        <rect key="frame" x="157" y="6" width="37" height="39"/>
+                                        <rect key="frame" x="158" y="6" width="37" height="39"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-2T-dzG">
@@ -955,6 +955,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="phoneBtnAction:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="mpD-bt-Hvr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzt-mq-tjP" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
                                 <rect key="frame" x="56" y="599" width="262" height="48"/>
@@ -1003,7 +1006,6 @@
                                         </state>
                                         <connections>
                                             <action selector="GoToClinicPage:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="ap8-lY-YcD"/>
-                                            <segue destination="blR-Qa-TLo" kind="show" id="vdQ-Sl-OCc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1069,19 +1071,15 @@
                         <outlet property="addFavoriteBt" destination="fzt-mq-tjP" id="6cb-4W-Nbt"/>
                         <outlet property="addressLb" destination="Q15-6M-XGN" id="c1v-fI-4rZ"/>
                         <outlet property="distanceLb" destination="RYT-f3-2b0" id="4V5-xy-taV"/>
-                        <outlet property="doctorAvatarIm" destination="hzu-5K-SWn" id="eKI-A3-LcM"/>
+                        <outlet property="doctorAvatarIm" destination="hzu-5K-SWn" id="OHK-NF-ed0"/>
                         <outlet property="especialityLb" destination="nLb-9i-x1K" id="Hn8-Oo-MVh"/>
                         <outlet property="gentilizeLb" destination="Shc-ZD-Bn0" id="KRm-yW-83Y"/>
                         <outlet property="loadingIm" destination="RI7-UI-QSh" id="LjW-Jz-hfG"/>
                         <outlet property="nameLb" destination="NUL-2c-6sO" id="A1b-AH-PmB"/>
                         <outlet property="phoneBt" destination="4Xd-9S-gFO" id="97W-Av-2rA"/>
                         <outlet property="rateView" destination="odz-jR-iVa" id="GEy-pm-0q6"/>
-                        <outlet property="star1" destination="q26-7J-OwF" id="ZCc-kT-WsB"/>
-                        <outlet property="star2" destination="WzR-w6-AAT" id="dgM-8h-HKs"/>
-                        <outlet property="star3" destination="MNn-T8-i2Z" id="BTb-xa-gfe"/>
-                        <outlet property="star4" destination="IOA-Vl-Rif" id="rDb-dn-wVk"/>
-                        <outlet property="star5" destination="Z85-8n-dpa" id="i1s-nm-Dmq"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="SJY-cP-rMk"/>
+                        <segue destination="blR-Qa-TLo" kind="show" identifier="toClinicDetails" id="f02-Q0-d2C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S75-k0-vdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1715,12 +1713,13 @@
                                 <rect key="frame" x="18" y="75" width="95" height="95"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mayoClinic" translatesAutoresizingMaskIntoConstraints="NO" id="LYL-EO-GRb">
-                                <rect key="frame" x="25" y="82" width="82" height="82"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYL-EO-GRb" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
+                                <rect key="frame" x="26" y="81" width="82" height="82"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mayo Clinic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71F-rx-tal">
-                                <rect key="frame" x="121" y="83" width="200" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mayo Clinic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71F-rx-tal">
+                                <rect key="frame" x="121" y="83" width="192" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1734,7 +1733,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dallas, TX, United States" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzL-UO-fMO">
-                                <rect key="frame" x="121" y="146" width="200" height="22"/>
+                                <rect key="frame" x="121" y="146" width="245" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1745,6 +1744,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.2242627739906311" green="0.52748280763626099" blue="0.51368343830108643" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="whiteFillPhone"/>
+                                <connections>
+                                    <action selector="callBtnAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="RkN-O0-5gJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvd-5U-TYw">
                                 <rect key="frame" x="290" y="173" width="19" height="17"/>
@@ -1862,7 +1864,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressLb" destination="FzL-UO-fMO" id="sws-tR-iF2"/>
-                        <outlet property="avatarClinicIm" destination="LYL-EO-GRb" id="FZA-Np-mvR"/>
+                        <outlet property="avatarClinicIm" destination="LYL-EO-GRb" id="VFh-Pg-2fj"/>
                         <outlet property="callBt" destination="rTa-Ch-zVM" id="6Ko-sA-JH8"/>
                         <outlet property="centerLb" destination="U2e-OR-1he" id="DcS-w7-84W"/>
                         <outlet property="directionBt" destination="v1A-Ns-Byz" id="dYo-Pl-9Cs"/>
@@ -1880,7 +1882,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KmF-oh-YVQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="-137"/>
+            <point key="canvasLocation" x="1084" y="-137.18140929535232"/>
         </scene>
         <!--REVIEWS-->
         <scene sceneID="IEO-TU-jOc">
@@ -1898,7 +1900,7 @@
                                 <rect key="frame" x="112" y="121" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="doctorAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="f0T-rL-PwZ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMedium" translatesAutoresizingMaskIntoConstraints="NO" id="f0T-rL-PwZ">
                                 <rect key="frame" x="122" y="132" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -2075,7 +2077,6 @@
         <image name="backIcon" width="15" height="25"/>
         <image name="bigHeart" width="86" height="80"/>
         <image name="circle_line_progress" width="387" height="387"/>
-        <image name="doctorAvatar" width="343" height="343"/>
         <image name="emptyStart" width="53" height="51"/>
         <image name="face1" width="64" height="64"/>
         <image name="face2" width="64" height="64"/>
@@ -2108,7 +2109,7 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Mhn-Og-OoO"/>
+        <segue reference="f02-Q0-d2C"/>
         <segue reference="SJY-cP-rMk"/>
     </inferredMetricsTieBreakers>
 </document>
