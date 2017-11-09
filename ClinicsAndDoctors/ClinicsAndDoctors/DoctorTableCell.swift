@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Cosmos
 
 class DoctorTableCell: UITableViewCell {
 
@@ -15,8 +16,8 @@ class DoctorTableCell: UITableViewCell {
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var clinicNameLbl: UILabel!
     @IBOutlet weak var distanceLbl: UILabel!
-    
-    
+    @IBOutlet weak var ratingView: CosmosView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -31,6 +32,7 @@ class DoctorTableCell: UITableViewCell {
 
         self.clinicNameLbl.text = ""
         self.distanceLbl.text = ""
+        self.ratingView.rating = doctor.rating
 
         if let clinic = ClinicModel.by(id: doctor.idClinic) {
             self.clinicNameLbl.text = clinic.full_name

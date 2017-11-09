@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Cosmos
 
 extension Double {
     /// Rounds the double to decimal places value
@@ -26,6 +27,9 @@ class CustomInfoVIew: UIView {
     @IBOutlet weak var infoBt:UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var internalContentView: RoundedView!
+    @IBOutlet weak var ratingView: CosmosView!
+
+
     var mylocation:CLLocation?
 
     class func instanceFromNib() -> UIView {
@@ -35,7 +39,7 @@ class CustomInfoVIew: UIView {
 
     func updateWith(clinic: ClinicModel){
         self.clinicNameLb.text = clinic.full_name
-
+        self.ratingView.rating = clinic.rating
         self.numberDoctorsLb.text = "\(clinic.getDoctorNumber()) doctors"
 
         if let loc = self.mylocation {

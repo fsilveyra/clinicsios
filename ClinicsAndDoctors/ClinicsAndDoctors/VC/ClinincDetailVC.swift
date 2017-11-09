@@ -16,12 +16,10 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var addressLb:UILabel!
     @IBOutlet weak var directionBt:UIButton!
     @IBOutlet weak var callBt:UIButton!
-    @IBOutlet weak var start1:UIButton!
-    @IBOutlet weak var start2:UIButton!
-    @IBOutlet weak var start3:UIButton!
-    @IBOutlet weak var start4:UIButton!
-    @IBOutlet weak var start5:UIButton!
 
+
+
+    @IBOutlet weak var rMenuView: UIView!
     @IBOutlet weak var specialitiesCollection:UICollectionView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
@@ -51,12 +49,12 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         if let clinic = ClinicModel.by(id: self.clinicId){
             self.updateWith(clinic: clinic)
         }
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
+        self.showRMenu(false, animated:false)
     }
     
     // MARK: - Actions
@@ -79,7 +77,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBAction func GoBack(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
     }
-    
 
     private func updateWith(clinic: ClinicModel){
 
@@ -108,24 +105,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         if clinic.phone_number.isEmpty { self.callBt.isHidden = true }
 
     }
-
-
-    @IBAction func rateBtnAction(_ sender: Any) {
-        if UserModel.currentUser != nil {
-            self.performSegue(withIdentifier: "toRating", sender: nil)
-        }
-        else{
-
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-            vc.futureVC = "RatingVC"
-            
-            navigationController?.pushViewController(vc,
-                                                     animated: true)
-
-        }
-    }
-
 
     @IBAction func callBtnAction(_ sender: Any) {
 
@@ -200,6 +179,71 @@ extension ClinincDetailVC {
 
 }
 
+
+
+//================================================
+// MARK: - RMenu
+//================================================
+extension ClinincDetailVC {
+
+    func showRMenu(_ show : Bool, animated: Bool = true){
+
+        if show {
+            self.view.bringSubview(toFront: self.rMenuView)
+            rMenuView.isHidden = false
+            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {
+                self.rMenuView.frame.origin.x = self.view.frame.width - self.rMenuView.frame.width
+            })
+        }
+        else{
+            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {
+                self.rMenuView.frame.origin.x = self.view.frame.width
+            }, completion: { _ in
+                self.rMenuView.isHidden = true
+                self.view.sendSubview(toBack: self.rMenuView)
+            })
+        }
+
+    }
+
+    @IBAction func rateMenuAction(_ sender: Any) {
+        if UserModel.currentUser != nil {
+            self.performSegue(withIdentifier: "toRating", sender: nil)
+        }
+        else{
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+            vc.futureVC = "RatingVC"
+
+            navigationController?.pushViewController(vc,
+                                                     animated: true)
+
+        }
+    }
+
+    @IBAction func addFavMenuAction(_ sender: Any) {
+        if UserModel.currentUser != nil {
+
+        }
+        else{
+
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+//            vc.futureVC = "RatingVC"
+//
+//            navigationController?.pushViewController(vc,
+//                                                     animated: true)
+
+        }
+    }
+
+    @IBAction func rateBtnAction(_ sender: Any) {
+        showRMenu(rMenuView.isHidden)
+    }
+
+
+}
 
 
 

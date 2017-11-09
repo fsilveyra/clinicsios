@@ -12,7 +12,7 @@ pod 'SwiftyJSON'
 pod 'PKHUD'
 pod 'PromiseKit'
 pod 'PromiseKit/Alamofire', '~> 4.0'
-
+pod 'Cosmos', '~> 12.0'
 pod 'ARSLineProgress'
 #pod 'SwiftMessages'
 #pod 'NotificationBannerSwift'

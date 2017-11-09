@@ -21,6 +21,7 @@ class DoctorModel: NSObject {
     var idSpecialty : String!
     var idClinic: String!
     var id: String!
+    var rating: Double!
     
     override init() {
     }
@@ -34,7 +35,7 @@ class DoctorModel: NSObject {
         self.id = representationJSON["id"].stringValue
         self.idSpecialty = representationJSON["specialty","id"].stringValue
         self.idClinic = representationJSON["clinic","id"].stringValue
-
+        self.rating = representationJSON["rating"].doubleValue
     }
 
     static func by(id:String) ->DoctorModel? {

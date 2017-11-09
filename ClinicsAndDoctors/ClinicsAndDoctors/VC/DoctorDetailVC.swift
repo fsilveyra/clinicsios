@@ -37,7 +37,7 @@ class DoctorDetailVC: UIViewController {
         if rMenuBtnVisible == false {
             self.navigationItem.rightBarButtonItem = nil
         }
-        //rMenuBtn.  = !rMenuBtnVisible
+
     }
 
     private func updateWith(doctor: DoctorModel){

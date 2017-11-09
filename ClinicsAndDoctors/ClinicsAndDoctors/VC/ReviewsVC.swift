@@ -13,11 +13,7 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var doctorAvatarIm:UIImageView!
     @IBOutlet weak var nameLb:UILabel!
     @IBOutlet weak var myTableView:UITableView!
-    @IBOutlet weak var star1:UIButton!
-    @IBOutlet weak var star2:UIButton!
-    @IBOutlet weak var star3:UIButton!
-    @IBOutlet weak var star4:UIButton!
-    @IBOutlet weak var star5:UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)

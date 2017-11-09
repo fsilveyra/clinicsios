@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Cosmos
 
 class ClinicTableCell: UITableViewCell {
 
@@ -15,6 +16,7 @@ class ClinicTableCell: UITableViewCell {
     @IBOutlet weak var clinicNameLb:UILabel!
     @IBOutlet weak var millesLb:UILabel!
     @IBOutlet weak var markImage: UIImageView!
+    @IBOutlet weak var ratingView: CosmosView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +30,7 @@ class ClinicTableCell: UITableViewCell {
         }
 
         self.clinicNameLb.text = clinic.full_name
-
+        self.ratingView.rating = clinic.rating
         self.millesLb.text = ""
         self.markImage.isHidden = true
         if let loc = location{

@@ -24,7 +24,7 @@ class ClinicModel: NSObject {
     var latitude : Double!
     var longitude : Double!
     var id: String!
-    var rating: Int!
+    var rating: Double!
     var isFavorite: Bool!
 
 
@@ -39,18 +39,15 @@ class ClinicModel: NSObject {
         self.profile_picture = representationJSON["picture"].stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
         let string = self.profile_picture.replacingOccurrences(of: "http", with: "https")
         self.profile_picture = string
-        print("image url: \(self.profile_picture)")
-        //self.category = Category.init(representationJSON: representationJSON["category"])
         self.email = representationJSON["email"].stringValue
         self.address = representationJSON["address"].stringValue
         self.city = representationJSON["city"].string
         self.state = representationJSON["state"].string
         self.country = representationJSON["country"].string
-        //self.zipcode = representationJSON["zipcode"].intValue
         self.latitude = representationJSON["latitude"].doubleValue
         self.longitude = representationJSON["longitude"].doubleValue
         self.id = representationJSON["id"].stringValue
-        self.rating = representationJSON["rating"].intValue
+        self.rating = representationJSON["rating"].doubleValue
         self.isFavorite = representationJSON["is_favorite"].boolValue
         let specialtysJSON = representationJSON["specialties"].arrayValue
         for specialty in specialtysJSON {
