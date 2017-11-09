@@ -1526,7 +1526,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mayo Clinic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PuY-4O-u30">
-                                        <rect key="frame" x="109" y="37" width="239" height="35"/>
+                                        <rect key="frame" x="109" y="36" width="239" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="21"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
@@ -1545,8 +1545,8 @@
                                             <action selector="optionsAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="44w-SF-FJL"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-pr-1Mz" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="36" y="20" width="66" height="70"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-pr-1Mz" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
+                                        <rect key="frame" x="34" y="20" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The attention wasn’t good." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ3-TE-lGJ">

@@ -132,6 +132,7 @@ class DoctorDetailVC: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
             vc.futureVC = "RatingVC"
+            vc.futureDoctorId = self.docId
 
             navigationController?.pushViewController(vc,
                                                      animated: true)

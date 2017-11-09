@@ -27,6 +27,8 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     var imagePlayer = UIImage()
     let loading = ActivityData()
     var futureVC = ""
+    var futureClinicId:String?
+    var futureDoctorId:String?
 
     @IBOutlet weak var keyboard:TPKeyboardAvoidingScrollView!
 
@@ -107,6 +109,13 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                 if let fvc = self?.futureVC, fvc.isEmpty == false {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+
+                    if let vcRating = vc as? RatingVC {
+                        vcRating.clinicId = self?.futureClinicId
+                        vcRating.doctorId = self?.futureDoctorId
+                    }
+
+                    
                     let c = nav.viewControllers.count
                     nav.viewControllers.insert(vc, at: c - 2)
                     nav.popToViewController(vc, animated: true)

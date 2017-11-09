@@ -18,9 +18,13 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginBt: UIButton!
     @IBOutlet weak var viewLogin:UIView!
 
+    
     let loading = ActivityData()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     var futureVC = ""
+    var futureClinicId:String?
+    var futureDoctorId:String?
     
     //MARK: Actions
     @IBAction func Login(_ sender: Any) {
@@ -47,6 +51,13 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
                         if let fvc = self?.futureVC, fvc.isEmpty == false {
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+
+                            if let vcRating = vc as? RatingVC {
+                                vcRating.clinicId = self?.futureClinicId
+                                vcRating.doctorId = self?.futureDoctorId
+                            }
+
+
                             let c = nav.viewControllers.count
                             nav.viewControllers.insert(vc, at: c - 2)
                             nav.popToViewController(vc, animated: true)

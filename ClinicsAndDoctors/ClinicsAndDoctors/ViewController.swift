@@ -18,6 +18,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var registerHereBt:UIButton!
 
     var futureVC = ""
+    var futureClinicId:String?
+    var futureDoctorId:String?
+
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let loading = ActivityData()
 
@@ -98,6 +101,12 @@ class ViewController: UIViewController {
                     if let fvc = self?.futureVC, fvc.isEmpty == false {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: fvc)
+
+                        if let vcRating = vc as? RatingVC {
+                            vcRating.clinicId = self?.futureClinicId
+                            vcRating.doctorId = self?.futureDoctorId
+                        }
+
                         let c = nav.viewControllers.count
                         nav.viewControllers.insert(vc, at: c - 1)
                         self?.navigationController?.popToViewController(vc, animated: true)
@@ -115,8 +124,14 @@ class ViewController: UIViewController {
 
         if segue.identifier == "toLoginWithEmail" {
             (segue.destination as! LoginWithEmailVC).futureVC = self.futureVC
+            (segue.destination as! LoginWithEmailVC).futureClinicId = self.futureClinicId
+            (segue.destination as! LoginWithEmailVC).futureDoctorId = self.futureDoctorId
+
         }else if segue.identifier == "toRegister" {
             (segue.destination as! RegisterVC).futureVC = self.futureVC
+            (segue.destination as! RegisterVC).futureClinicId = self.futureClinicId
+            (segue.destination as! RegisterVC).futureDoctorId = self.futureDoctorId
+
         }
 
 

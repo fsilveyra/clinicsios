@@ -230,6 +230,7 @@ extension ClinincDetailVC {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
             vc.futureVC = "RatingVC"
+            vc.futureClinicId = self.clinicId
 
             navigationController?.pushViewController(vc,
                                                      animated: true)

@@ -129,9 +129,9 @@ class RatingVC: UIViewController {
 
         if t >= 3 {
             questionLbl.text = "Tell us what did you like?"
-            for (index,lb) in optionsLb.enumerated() { lb.text = optionsText[0][index] }
-        }else{
             for (index,lb) in optionsLb.enumerated() { lb.text = optionsText[1][index] }
+        }else{
+            for (index,lb) in optionsLb.enumerated() { lb.text = optionsText[0][index] }
             questionLbl.text = "Tell us what we can improve?"
         }
 
