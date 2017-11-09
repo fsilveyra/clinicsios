@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Cosmos
 
 class DoctorDetailVC: UIViewController {
     @IBOutlet weak var loadingIm:UIImageView!
@@ -19,8 +20,10 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var distanceLb:UILabel!
     @IBOutlet weak var phoneBt:UIButton!
     @IBOutlet weak var addFavoriteBt:UIButton!
-    @IBOutlet weak var rateView:UIView!
+    @IBOutlet weak var rateMenuView:UIView!
     @IBOutlet weak var rMenuBtn: UIBarButtonItem!
+    @IBOutlet weak var rateView: CosmosView!
+
 
     var rMenuBtnVisible = true
     var docId = ""
@@ -49,6 +52,7 @@ class DoctorDetailVC: UIViewController {
         self.nameLb.text = doctor.full_name
         self.gentilizeLb.text = doctor.nationality
         self.addressLb.text = ""
+        self.rateView.rating = doctor.rating
 
         self.especialityLb.text = ""
         if let esp = SpecialityModel.by(id: doctor.idSpecialty){
@@ -91,25 +95,25 @@ class DoctorDetailVC: UIViewController {
 
     func showRMenu(_ show : Bool){
         if show {
-            self.view.bringSubview(toFront: self.rateView)
-            rateView.isHidden = false
+            self.view.bringSubview(toFront: self.rateMenuView)
+            rateMenuView.isHidden = false
             UIView.animate(withDuration: 0.3, animations: {
-                self.rateView.frame.origin.x = self.view.frame.width - self.rateView.frame.width
+                self.rateMenuView.frame.origin.x = self.view.frame.width - self.rateMenuView.frame.width
             })
         }
         else{
             UIView.animate(withDuration: 0.3, animations: {
-                self.rateView.frame.origin.x = self.view.frame.width
+                self.rateMenuView.frame.origin.x = self.view.frame.width
             }, completion: { _ in
-                self.rateView.isHidden = true
-                self.view.sendSubview(toBack: self.rateView)
+                self.rateMenuView.isHidden = true
+                self.view.sendSubview(toBack: self.rateMenuView)
             })
         }
 
     }
 
     @IBAction func ShowHideRateView(_ sender: AnyObject){
-        showRMenu(rateView.isHidden)
+        showRMenu(rateMenuView.isHidden)
     }
 
     @IBAction func GoToClinicPage(_ sender: AnyObject){
@@ -173,6 +177,9 @@ class DoctorDetailVC: UIViewController {
                 vc.mylocation = self.mylocation
             }
 
+        }else if segue.identifier == "toReviews" {
+            let vc:ReviewsVC = segue.destination as! ReviewsVC
+            vc.docId = self.docId
         }
         
     }

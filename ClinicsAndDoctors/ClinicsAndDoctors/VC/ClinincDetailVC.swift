@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Cosmos
 
 class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var avatarClinicIm:RoundedImageView!
@@ -16,6 +17,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var addressLb:UILabel!
     @IBOutlet weak var directionBt:UIButton!
     @IBOutlet weak var callBt:UIButton!
+    @IBOutlet weak var rateView: CosmosView!
 
 
 
@@ -84,6 +86,8 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         if let url = URL(string: clinic.profile_picture){
             self.avatarClinicIm.url = url
         }
+
+        self.rateView.rating = clinic.rating
 
         self.addressLb.text = clinic.state + ", " + clinic.city + ", " + clinic.country
 

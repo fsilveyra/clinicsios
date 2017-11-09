@@ -7,25 +7,39 @@
 //
 
 import UIKit
+import Cosmos
+
 
 class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var loadingIm:UIImageView!
-    @IBOutlet weak var doctorAvatarIm:UIImageView!
+    @IBOutlet weak var doctorAvatarIm:RoundedImageView!
     @IBOutlet weak var nameLb:UILabel!
     @IBOutlet weak var myTableView:UITableView!
+    @IBOutlet weak var rateView: CosmosView!
+
+    var docId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
         
-        // Do any additional setup after loading the view.
+        if let doctor = DoctorModel.by(id: self.docId){
+            self.updateWith(doctor: doctor)
+        }
+
+
     }
 
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func updateWith(doctor: DoctorModel){
+        if let url = URL(string: doctor.profile_picture){
+            self.doctorAvatarIm.url = url
+        }
+
+        self.nameLb.text = doctor.full_name
+        self.rateView.rating = doctor.rating
     }
+    
+    
     // MARK: - Actions
     
     @IBAction func BackView(_ sender: AnyObject){

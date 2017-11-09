@@ -696,7 +696,7 @@
                                         <rect key="frame" x="0.0" y="50" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wzg-dd-bjX" id="sda-KC-8Jt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="POU-8q-UWd">
@@ -766,10 +766,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="y5a-18-DgE" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za7-p0-fVa">
@@ -986,7 +986,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="iEA-Wy-DqU" kind="show" id="W8d-Dw-BHL"/>
+                                    <segue destination="iEA-Wy-DqU" kind="show" identifier="toReviews" id="W8d-Dw-BHL"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sqb-A9-Nde" customClass="CosmosView" customModule="Cosmos">
@@ -1050,7 +1050,8 @@
                         <outlet property="nameLb" destination="NUL-2c-6sO" id="A1b-AH-PmB"/>
                         <outlet property="phoneBt" destination="4Xd-9S-gFO" id="97W-Av-2rA"/>
                         <outlet property="rMenuBtn" destination="H4S-ok-cS7" id="QJ6-9Q-Ry4"/>
-                        <outlet property="rateView" destination="odz-jR-iVa" id="GEy-pm-0q6"/>
+                        <outlet property="rateMenuView" destination="odz-jR-iVa" id="JQc-Dp-OOe"/>
+                        <outlet property="rateView" destination="Sqb-A9-Nde" id="EWV-WE-Ka8"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="SJY-cP-rMk"/>
                         <segue destination="blR-Qa-TLo" kind="show" identifier="toClinicDetails" id="f02-Q0-d2C"/>
                     </connections>
@@ -1743,10 +1744,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="EOJ-ov-irK" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYm-HN-vRo">
@@ -1890,6 +1891,7 @@
                         <outlet property="myTableView" destination="BZm-Tk-5lM" id="HgN-ha-ISC"/>
                         <outlet property="nameClinicLb" destination="71F-rx-tal" id="dU1-OP-4uK"/>
                         <outlet property="rMenuView" destination="UBZ-eP-C3j" id="m0I-He-0g1"/>
+                        <outlet property="rateView" destination="QDz-z8-18a" id="dBY-cB-10Y"/>
                         <outlet property="separetorView" destination="67q-DP-VTd" id="O9h-wD-ROk"/>
                         <outlet property="specialitiesCollection" destination="eah-Qd-3O1" id="PFY-jj-lRS"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="KMf-W4-iLd"/>
@@ -1966,7 +1968,7 @@
                                         <rect key="frame" x="0.0" y="40" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JUI-Bs-FaB" id="1YB-B8-YA0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-sA-WN4">
@@ -1984,7 +1986,7 @@
                                         <rect key="frame" x="0.0" y="80" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TWb-qm-HfF" id="OTo-qQ-Rxf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Excellent Profesional she is an extraordinary doctor, Excellent Profesional she is an extraordinary doctor." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XXp-jt-9Yf">
@@ -2073,10 +2075,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="doctorAvatarIm" destination="f0T-rL-PwZ" id="beh-Ao-5lr"/>
+                        <outlet property="doctorAvatarIm" destination="f0T-rL-PwZ" id="A8t-iy-4qf"/>
                         <outlet property="loadingIm" destination="dhX-SA-jOf" id="KFC-2w-zC8"/>
                         <outlet property="myTableView" destination="FKO-cr-GaC" id="YOy-Gw-h2Z"/>
                         <outlet property="nameLb" destination="zwB-eR-4Uj" id="ybF-fC-Q0Q"/>
+                        <outlet property="rateView" destination="L8A-Hg-hFz" id="LAo-cy-hxn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A8T-M8-Cqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2118,7 +2121,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f02-Q0-d2C"/>
-        <segue reference="KMf-W4-iLd"/>
+        <segue reference="SJY-cP-rMk"/>
         <segue reference="5JF-rS-P72"/>
     </inferredMetricsTieBreakers>
 </document>
