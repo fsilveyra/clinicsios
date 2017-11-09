@@ -696,7 +696,7 @@
                                         <rect key="frame" x="0.0" y="50" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wzg-dd-bjX" id="sda-KC-8Jt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="POU-8q-UWd">
@@ -766,10 +766,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="y5a-18-DgE" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
+                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za7-p0-fVa">
@@ -1475,22 +1475,22 @@
                                 <rect key="frame" x="0.0" y="103" width="375" height="564"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swy-Lk-Hgh">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swy-Lk-Hgh">
                                         <rect key="frame" x="87" y="98" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.074509803921568626" green="0.16078431372549018" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="face2"/>
                                         <connections>
-                                            <action selector="Face2:" destination="WOc-nj-4EI" eventType="touchUpInside" id="q47-wg-nJ3"/>
+                                            <action selector="facesAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="gEU-X9-1fe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxt-Ke-ScX">
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxt-Ke-ScX">
                                         <rect key="frame" x="296" y="98" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.074509803921568626" green="0.16078431372549018" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="face5"/>
                                         <connections>
-                                            <action selector="Face5:" destination="WOc-nj-4EI" eventType="touchUpInside" id="os6-Vx-MJt"/>
+                                            <action selector="facesAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="rp2-lA-uGj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-eP-zDZ" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
@@ -1511,18 +1511,18 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Other." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaW-1O-DWr">
-                                        <rect key="frame" x="57" y="331" width="289" height="25"/>
+                                        <rect key="frame" x="57" y="346" width="289" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRw-Gi-2ne">
-                                        <rect key="frame" x="27" y="265" width="25" height="25"/>
+                                        <rect key="frame" x="27" y="270" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="icon_ok"/>
                                         <connections>
-                                            <action selector="AddRemoveOptions:" destination="WOc-nj-4EI" eventType="touchUpInside" id="96M-s9-h47"/>
+                                            <action selector="optionsAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="5da-SB-tap"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mayo Clinic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PuY-4O-u30">
@@ -1533,38 +1533,38 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UI8-hm-PDD">
-                                        <rect key="frame" x="27" y="436" width="319" height="1"/>
+                                        <rect key="frame" x="27" y="461" width="319" height="1"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJu-Oz-rQl">
-                                        <rect key="frame" x="27" y="331" width="25" height="25"/>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJu-Oz-rQl">
+                                        <rect key="frame" x="27" y="346" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="grayEllipse"/>
                                         <connections>
-                                            <action selector="AddRemoveOptions:" destination="WOc-nj-4EI" eventType="touchUpInside" id="uvb-wE-wc7"/>
+                                            <action selector="optionsAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="44w-SF-FJL"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mayoClinic" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-pr-1Mz">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-pr-1Mz" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
                                         <rect key="frame" x="36" y="20" width="66" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The attention wasn’t good." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ3-TE-lGJ">
-                                        <rect key="frame" x="57" y="265" width="289" height="25"/>
+                                        <rect key="frame" x="57" y="270" width="289" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tell us what we can improve?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfb-07-zns">
-                                        <rect key="frame" x="29" y="198" width="317" height="26"/>
+                                        <rect key="frame" x="29" y="193" width="317" height="26"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="It was too expensive." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afN-Ly-qIT">
-                                        <rect key="frame" x="57" y="298" width="289" height="25"/>
+                                        <rect key="frame" x="57" y="308" width="289" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
@@ -1575,7 +1575,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="grayEllipse"/>
                                         <connections>
-                                            <action selector="AddRemoveOptions:" destination="WOc-nj-4EI" eventType="touchUpInside" id="Eb5-NF-3Gl"/>
+                                            <action selector="optionsAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="nqu-M8-MNQ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The waiting was too long." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6r7-fL-q0v">
@@ -1585,30 +1585,30 @@
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJZ-Oq-bdU">
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJZ-Oq-bdU">
                                         <rect key="frame" x="226" y="98" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.074509803921568626" green="0.16078431372549018" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="face4"/>
                                         <connections>
-                                            <action selector="Face4:" destination="WOc-nj-4EI" eventType="touchUpInside" id="bNq-hH-cMY"/>
+                                            <action selector="facesAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="fdV-uK-tfl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF2-aC-99B">
-                                        <rect key="frame" x="27" y="298" width="25" height="25"/>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aF2-aC-99B">
+                                        <rect key="frame" x="27" y="308" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="grayEllipse"/>
                                         <connections>
-                                            <action selector="AddRemoveOptions:" destination="WOc-nj-4EI" eventType="touchUpInside" id="Hlg-By-kt7"/>
+                                            <action selector="optionsAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="SlG-dE-ZBa"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HV-MP-kNT">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HV-MP-kNT">
                                         <rect key="frame" x="156" y="98" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.13725490196078433" green="0.62745098039215685" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="face3"/>
                                         <connections>
-                                            <action selector="Face3:" destination="WOc-nj-4EI" eventType="touchUpInside" id="dAP-HZ-AFE"/>
+                                            <action selector="facesAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="5QX-dB-gN9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UST-Ng-sGb">
@@ -1617,18 +1617,18 @@
                                         <color key="tintColor" red="0.074509803921568626" green="0.16078431372549018" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="face1"/>
                                         <connections>
-                                            <action selector="Face1:" destination="WOc-nj-4EI" eventType="touchUpInside" id="0LW-d5-UwI"/>
+                                            <action selector="facesAction:" destination="WOc-nj-4EI" eventType="touchUpInside" id="B9r-zf-WLp"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Leave a comment:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d37-CN-WG9">
-                                        <rect key="frame" x="29" y="373" width="289" height="25"/>
+                                        <rect key="frame" x="29" y="398" width="289" height="25"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
                                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUr-DJ-rzw">
-                                        <rect key="frame" x="27" y="404" width="319" height="30"/>
+                                        <rect key="frame" x="27" y="429" width="319" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -1648,23 +1648,27 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="avatarClinicIm" destination="4Gh-pr-1Mz" id="hjf-Yy-OSP"/>
-                        <outlet property="face1" destination="UST-Ng-sGb" id="pRn-AP-KFY"/>
-                        <outlet property="face2" destination="swy-Lk-Hgh" id="QpQ-0n-p29"/>
-                        <outlet property="face3" destination="2HV-MP-kNT" id="UFo-qV-fBB"/>
-                        <outlet property="face4" destination="aJZ-Oq-bdU" id="I1z-dc-7mP"/>
-                        <outlet property="face5" destination="cxt-Ke-ScX" id="IiL-YP-wPL"/>
-                        <outlet property="option1Bt" destination="cMY-bQ-Bhf" id="P7p-9v-BGq"/>
-                        <outlet property="option1Lb" destination="6r7-fL-q0v" id="2aR-nh-Mnp"/>
-                        <outlet property="option2Bt" destination="ZRw-Gi-2ne" id="yYO-8K-yTs"/>
-                        <outlet property="option2Lb" destination="HQ3-TE-lGJ" id="KqT-cE-avq"/>
-                        <outlet property="option3Bt" destination="aF2-aC-99B" id="Vb8-gv-ac2"/>
-                        <outlet property="option3Lb" destination="afN-Ly-qIT" id="lmr-er-gwE"/>
-                        <outlet property="option4Bt" destination="hJu-Oz-rQl" id="YU6-jc-jme"/>
+                        <outlet property="avatarClinicIm" destination="4Gh-pr-1Mz" id="TNv-Lf-wTV"/>
+                        <outlet property="itemTitleLbl" destination="PuY-4O-u30" id="leZ-aq-EQG"/>
                         <outlet property="questionLbl" destination="Nfb-07-zns" id="of0-mJ-Y94"/>
                         <outlet property="scrollView" destination="mqh-UP-tz0" id="ZPw-cZ-NXc"/>
                         <outlet property="submitBt" destination="6f7-eP-zDZ" id="wIb-NK-O6y"/>
                         <outlet property="titleLb" destination="6NU-77-uHk" id="M8P-0A-ci8"/>
+                        <outletCollection property="faces" destination="UST-Ng-sGb" collectionClass="NSMutableArray" id="BOD-y8-hK7"/>
+                        <outletCollection property="faces" destination="swy-Lk-Hgh" collectionClass="NSMutableArray" id="hBw-46-po4"/>
+                        <outletCollection property="faces" destination="2HV-MP-kNT" collectionClass="NSMutableArray" id="sHh-sy-1oC"/>
+                        <outletCollection property="faces" destination="aJZ-Oq-bdU" collectionClass="NSMutableArray" id="bWN-xR-G8L"/>
+                        <outletCollection property="faces" destination="cxt-Ke-ScX" collectionClass="NSMutableArray" id="kee-dK-rPq"/>
+                        <outletCollection property="optionsLb" destination="6r7-fL-q0v" collectionClass="NSMutableArray" id="IBp-J0-hHj"/>
+                        <outletCollection property="optionsLb" destination="HQ3-TE-lGJ" collectionClass="NSMutableArray" id="HIb-Pc-0pC"/>
+                        <outletCollection property="optionsLb" destination="afN-Ly-qIT" collectionClass="NSMutableArray" id="xlF-fn-826"/>
+                        <outletCollection property="optionsBtns" destination="ZRw-Gi-2ne" collectionClass="NSMutableArray" id="qW2-Zz-k3s"/>
+                        <outletCollection property="optionsBtns" destination="aF2-aC-99B" collectionClass="NSMutableArray" id="Goe-yb-6fS"/>
+                        <outletCollection property="optionsBtns" destination="hJu-Oz-rQl" collectionClass="NSMutableArray" id="3U5-tB-MXG"/>
+                        <outletCollection property="optionsBtns" destination="cMY-bQ-Bhf" collectionClass="NSMutableArray" id="kIU-Ee-1ei"/>
+                        <outletCollection property="commentsView" destination="d37-CN-WG9" collectionClass="NSMutableArray" id="wE0-MV-ZMX"/>
+                        <outletCollection property="commentsView" destination="zUr-DJ-rzw" collectionClass="NSMutableArray" id="gmu-Gl-YvN"/>
+                        <outletCollection property="commentsView" destination="UI8-hm-PDD" collectionClass="NSMutableArray" id="JVa-L1-ayy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Wn-22-Sgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1744,10 +1748,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpecialityButtonCell" id="EOJ-ov-irK" customClass="SpecialityButtonCell" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1" width="65" height="48"/>
+                                        <rect key="frame" x="0.0" y="-1.5" width="65" height="48.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="65" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="65" height="48.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYm-HN-vRo">
@@ -1968,7 +1972,7 @@
                                         <rect key="frame" x="0.0" y="40" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JUI-Bs-FaB" id="1YB-B8-YA0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeJ-sA-WN4">
@@ -1986,7 +1990,7 @@
                                         <rect key="frame" x="0.0" y="80" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TWb-qm-HfF" id="OTo-qQ-Rxf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Excellent Profesional she is an extraordinary doctor, Excellent Profesional she is an extraordinary doctor." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XXp-jt-9Yf">
@@ -2112,7 +2116,6 @@
         <image name="logo" width="264" height="380"/>
         <image name="logoMedium" width="50" height="72"/>
         <image name="mapVector" width="750" height="1334"/>
-        <image name="mayoClinic" width="100" height="100"/>
         <image name="menuLeft" width="23" height="15"/>
         <image name="menuRigth" width="23" height="21"/>
         <image name="sidemenu_icon_world " width="25" height="25"/>
@@ -2121,7 +2124,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f02-Q0-d2C"/>
-        <segue reference="SJY-cP-rMk"/>
+        <segue reference="KMf-W4-iLd"/>
         <segue reference="5JF-rS-P72"/>
     </inferredMetricsTieBreakers>
 </document>

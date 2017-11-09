@@ -137,6 +137,17 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         }
     }
 
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+       if segue.identifier == "toRating" {
+            let vc:RatingVC = segue.destination as! RatingVC
+            vc.clinicId = self.clinicId
+        }
+
+    }
+
 }
 
 

@@ -180,6 +180,10 @@ class DoctorDetailVC: UIViewController {
         }else if segue.identifier == "toReviews" {
             let vc:ReviewsVC = segue.destination as! ReviewsVC
             vc.docId = self.docId
+
+        }else if segue.identifier == "toRating" {
+            let vc:RatingVC = segue.destination as! RatingVC
+            vc.doctorId = self.docId
         }
         
     }
