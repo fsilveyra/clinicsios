@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import NVActivityIndicatorView
 
 
 class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -17,6 +18,7 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var rateView: CosmosView!
 
+    var reviews = [ReviewModel]()
     var docId = ""
 
     override func viewDidLoad() {
@@ -26,8 +28,12 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if let doctor = DoctorModel.by(id: self.docId){
             self.updateWith(doctor: doctor)
         }
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
+        self.loadData()
     }
 
     private func updateWith(doctor: DoctorModel){
@@ -38,7 +44,25 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.nameLb.text = doctor.full_name
         self.rateView.rating = doctor.rating
     }
-    
+
+
+    func loadData(){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        ISClient.sharedInstance.getReviews(clinicOrDoctorId: self.docId, objType: "doctor")
+            .then { reviews -> Void in
+
+                self.reviews = reviews
+                self.myTableView.reloadData()
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError { e.show() }
+        }
+
+    }
+
     
     // MARK: - Actions
     
@@ -52,7 +76,7 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return reviews.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -62,17 +86,8 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
+        cell.updateWithData(self.reviews[indexPath.row])
         return cell
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

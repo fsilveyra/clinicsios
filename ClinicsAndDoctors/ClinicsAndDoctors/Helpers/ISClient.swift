@@ -612,5 +612,49 @@ class ISClient: NSObject {
     }
 
 
+
+    func getReviews(clinicOrDoctorId:String, objType:String) -> Promise<[ReviewModel]> {
+        let headers = ["Content-Type" : "application/json"]
+        var parameters : Parameters = [:]
+
+        if objType != "clinic" && objType != "doctor" {
+            fatalError("must be clinic or doctor")
+        }
+
+        parameters.updateValue(clinicOrDoctorId, forKey: objType == "clinic" ? "clinic_id" : "doctor_id")
+
+        let endPoint = "get_reviews"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+
+                        if js != JSON.null {
+                            if js["code"].stringValue == "GET_REVIEWS_UNSUCCESSFUL" {
+                                reject(LPError(code: "error", description: "Server error ocurred"))
+                            }else{
+                                var list = [ReviewModel]()
+                                for item in js.arrayValue {
+                                    list.append(ReviewModel(representationJSON: item))
+                                }
+                                fulfill(list)
+                            }
+
+                        }else{
+                            reject(LPError(code: "error", description: "Server error ocurred"))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
+            }
+        }
+    }
+
+
 }
 
