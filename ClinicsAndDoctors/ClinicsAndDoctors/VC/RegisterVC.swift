@@ -85,7 +85,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             ISClient.sharedInstance.registerWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!)
                 .then {[weak self] user -> Void in
 
-                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register Success.")
+                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration.")
 
                     self?.registerSuccess()
 

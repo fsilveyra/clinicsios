@@ -6,6 +6,7 @@ target 'ClinicsAndDoctors' do
   use_frameworks!
 
   # Pods for ClinicsAndDoctors
+
 pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.2'
 pod 'SwiftyJSON'
@@ -14,17 +15,10 @@ pod 'PromiseKit'
 pod 'PromiseKit/Alamofire', '~> 4.0'
 pod 'Cosmos', '~> 12.0'
 pod 'ARSLineProgress'
-#pod 'SwiftMessages'
-#pod 'NotificationBannerSwift'
-
 pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
-#pod 'ObjectMapper', '~> 2.2'
-#pod 'AlamofireObjectMapper', '~> 4.0'
-#pod 'Argo'
 pod 'AELog'
-#pod 'IHKeyboardAvoiding'
 pod 'SideMenu'
 pod 'TPKeyboardAvoiding'
 pod 'GoogleMaps'

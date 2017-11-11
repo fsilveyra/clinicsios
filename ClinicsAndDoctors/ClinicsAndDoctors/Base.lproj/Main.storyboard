@@ -940,44 +940,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odz-jR-iVa">
-                                <rect key="frame" x="375" y="64" width="200" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOG-DE-ifP">
-                                        <rect key="frame" x="0.0" y="35" width="200" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Rate Doctor">
-                                            <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="rateBtnAction:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="rki-tB-0cA"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uSA-UJ-pKS">
-                                        <rect key="frame" x="0.0" y="35" width="200" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de4-z3-X8r">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Go To Clinics Page">
-                                            <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="GoToClinicPage:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="ap8-lY-YcD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiI-Uf-4DE">
                                 <rect key="frame" x="96" y="119" width="166" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -1024,8 +986,68 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="odz-jR-iVa">
+                                <rect key="frame" x="375" y="64" width="200" height="67"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WVB-gL-hyK">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="67"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="de4-z3-X8r">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="33"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="TUL-Dw-9Vg"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Go To Clinics Page">
+                                                    <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="GoToClinicPage:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="ap8-lY-YcD"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSA-UJ-pKS">
+                                                <rect key="frame" x="0.0" y="33" width="200" height="1"/>
+                                                <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="QPT-ZL-vNN"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOG-DE-ifP">
+                                                <rect key="frame" x="0.0" y="34" width="200" height="33"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="gOq-i3-Iee"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Rate Doctor">
+                                                    <color key="titleColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="rateBtnAction:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="rki-tB-0cA"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="WVB-gL-hyK" secondAttribute="bottom" id="2m9-xM-3nZ"/>
+                                    <constraint firstItem="WVB-gL-hyK" firstAttribute="top" secondItem="odz-jR-iVa" secondAttribute="top" id="F06-us-pPg"/>
+                                    <constraint firstAttribute="width" constant="200" id="ROE-ku-MBB"/>
+                                    <constraint firstItem="WVB-gL-hyK" firstAttribute="leading" secondItem="odz-jR-iVa" secondAttribute="leading" id="dDq-cR-rpZ"/>
+                                    <constraint firstItem="WVB-gL-hyK" firstAttribute="centerX" secondItem="odz-jR-iVa" secondAttribute="centerX" id="vCI-fP-lhs"/>
+                                    <constraint firstAttribute="trailing" secondItem="WVB-gL-hyK" secondAttribute="trailing" id="yNP-HM-huU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.144858717918396" green="0.50779443979263306" blue="0.48552834987640381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="odz-jR-iVa" firstAttribute="top" secondItem="t6I-BS-8XF" secondAttribute="bottom" id="HGg-r2-WlM"/>
+                            <constraint firstAttribute="trailing" secondItem="odz-jR-iVa" secondAttribute="leading" id="iVb-7Z-DYH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="DETAIL" id="XX5-nU-FBZ">
                         <barButtonItem key="leftBarButtonItem" image="backIcon" id="Xj7-6d-QbH">
@@ -1046,10 +1068,13 @@
                         <outlet property="doctorAvatarIm" destination="hzu-5K-SWn" id="OHK-NF-ed0"/>
                         <outlet property="especialityLb" destination="nLb-9i-x1K" id="Hn8-Oo-MVh"/>
                         <outlet property="gentilizeLb" destination="Shc-ZD-Bn0" id="KRm-yW-83Y"/>
+                        <outlet property="gotoClinicPageBtn" destination="de4-z3-X8r" id="cjm-ef-0IX"/>
                         <outlet property="loadingIm" destination="RI7-UI-QSh" id="LjW-Jz-hfG"/>
                         <outlet property="nameLb" destination="NUL-2c-6sO" id="A1b-AH-PmB"/>
                         <outlet property="phoneBt" destination="4Xd-9S-gFO" id="97W-Av-2rA"/>
                         <outlet property="rMenuBtn" destination="H4S-ok-cS7" id="QJ6-9Q-Ry4"/>
+                        <outlet property="rMenuDistance" destination="iVb-7Z-DYH" id="Iy6-wC-XBx"/>
+                        <outlet property="rateDocBtn" destination="aOG-DE-ifP" id="BhE-Vk-Y0x"/>
                         <outlet property="rateMenuView" destination="odz-jR-iVa" id="JQc-Dp-OOe"/>
                         <outlet property="rateView" destination="Sqb-A9-Nde" id="EWV-WE-Ka8"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="SJY-cP-rMk"/>
@@ -1649,6 +1674,7 @@
                     </view>
                     <connections>
                         <outlet property="avatarClinicIm" destination="4Gh-pr-1Mz" id="TNv-Lf-wTV"/>
+                        <outlet property="commentText" destination="zUr-DJ-rzw" id="uGn-hL-116"/>
                         <outlet property="itemTitleLbl" destination="PuY-4O-u30" id="leZ-aq-EQG"/>
                         <outlet property="questionLbl" destination="Nfb-07-zns" id="of0-mJ-Y94"/>
                         <outlet property="scrollView" destination="mqh-UP-tz0" id="ZPw-cZ-NXc"/>
@@ -1795,43 +1821,60 @@
                                     <outlet property="delegate" destination="blR-Qa-TLo" id="4sq-wq-nNT"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBZ-eP-C3j">
-                                <rect key="frame" x="375" y="65" width="200" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBZ-eP-C3j">
+                                <rect key="frame" x="375" y="64" width="200" height="67"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDk-3U-WDL">
-                                        <rect key="frame" x="0.0" y="35" width="200" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Rate Clinic">
-                                            <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="rateMenuAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="1qm-gd-0Qb"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AQ5-nD-zf8">
-                                        <rect key="frame" x="0.0" y="35" width="200" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azw-30-Jpy">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Add to Favorites">
-                                            <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addFavMenuAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="BcR-8h-5NM"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="boF-H9-cdN">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="67"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azw-30-Jpy">
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="33"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="C7H-D1-YZg"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Add to Favorites">
+                                                    <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="addFavMenuAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="BcR-8h-5NM"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQ5-nD-zf8">
+                                                <rect key="frame" x="0.0" y="33" width="200" height="1"/>
+                                                <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="N1X-7f-1OP"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDk-3U-WDL">
+                                                <rect key="frame" x="0.0" y="34" width="200" height="33"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="Xbu-av-qeL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="Rate Clinic">
+                                                    <color key="titleColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="rateMenuAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="1qm-gd-0Qb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="boF-H9-cdN" firstAttribute="leading" secondItem="UBZ-eP-C3j" secondAttribute="leading" id="0Fs-3j-nf9"/>
+                                    <constraint firstAttribute="bottom" secondItem="boF-H9-cdN" secondAttribute="bottom" id="8WF-1E-ozA"/>
+                                    <constraint firstAttribute="trailing" secondItem="boF-H9-cdN" secondAttribute="trailing" id="ZNY-Ea-0fi"/>
+                                    <constraint firstItem="boF-H9-cdN" firstAttribute="top" secondItem="UBZ-eP-C3j" secondAttribute="top" id="fFZ-fE-eAq"/>
+                                    <constraint firstAttribute="width" constant="200" id="h9f-HH-GMt"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDz-z8-18a" customClass="CosmosView" customModule="Cosmos">
                                 <rect key="frame" x="267" y="177" width="97" height="22"/>
@@ -1873,6 +1916,10 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.14452835917472839" green="0.50385886430740356" blue="0.48592811822891235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="UBZ-eP-C3j" firstAttribute="top" secondItem="XWv-YO-Ys8" secondAttribute="bottom" id="fKE-Mf-qst"/>
+                            <constraint firstAttribute="trailing" secondItem="UBZ-eP-C3j" secondAttribute="leading" id="khb-9N-72C"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="DETAIL" id="hCM-l5-x3b">
                         <barButtonItem key="leftBarButtonItem" image="backIcon" id="J4Q-TC-pJD">
@@ -1894,7 +1941,9 @@
                         <outlet property="directionBt" destination="v1A-Ns-Byz" id="dYo-Pl-9Cs"/>
                         <outlet property="myTableView" destination="BZm-Tk-5lM" id="HgN-ha-ISC"/>
                         <outlet property="nameClinicLb" destination="71F-rx-tal" id="dU1-OP-4uK"/>
+                        <outlet property="rMenuDistance" destination="khb-9N-72C" id="6tf-4c-Erk"/>
                         <outlet property="rMenuView" destination="UBZ-eP-C3j" id="m0I-He-0g1"/>
+                        <outlet property="rateClinicBtn" destination="rDk-3U-WDL" id="xod-RR-gWN"/>
                         <outlet property="rateView" destination="QDz-z8-18a" id="dBY-cB-10Y"/>
                         <outlet property="separetorView" destination="67q-DP-VTd" id="O9h-wD-ROk"/>
                         <outlet property="specialitiesCollection" destination="eah-Qd-3O1" id="PFY-jj-lRS"/>
@@ -2124,7 +2173,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f02-Q0-d2C"/>
-        <segue reference="KMf-W4-iLd"/>
+        <segue reference="SJY-cP-rMk"/>
         <segue reference="5JF-rS-P72"/>
     </inferredMetricsTieBreakers>
 </document>

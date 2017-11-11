@@ -8,12 +8,13 @@
 
 import UIKit
 import TPKeyboardAvoiding
-
+import NVActivityIndicatorView
 
 class RatingVC: UIViewController {
 
     var doctorId:String?
     var clinicId:String?
+    var reason:String = ""
 
     @IBOutlet weak var itemTitleLbl: UILabel!
     @IBOutlet var faces: [UIButton]!
@@ -24,6 +25,7 @@ class RatingVC: UIViewController {
     @IBOutlet weak var submitBt:UIButton!
     @IBOutlet weak var titleLb:UILabel!
 
+    @IBOutlet weak var commentText: UITextField!
     @IBOutlet var commentsView: [UIView]!
 
     @IBOutlet weak var scrollView:TPKeyboardAvoidingScrollView!
@@ -141,6 +143,7 @@ class RatingVC: UIViewController {
 
     @IBAction func optionsAction(_ sender: UIButton) {
         self.selectedOption = sender.tag
+        self.reason = (sender.tag < 3) ? optionsLb[sender.tag].text! : "Other"
     }
 
     @IBAction func facesAction(_ sender: UIButton) {
@@ -148,7 +151,40 @@ class RatingVC: UIViewController {
     }
 
     @IBAction func SubmitRating(_ sender: AnyObject){
-        self.navigationController?.popViewController(animated: true)
+
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        let id = (self.clinicId ?? self.doctorId)!
+        let isClinic = (self.clinicId != nil)
+
+
+        ISClient.sharedInstance.sendRating(clinicOrDoctorId: id, objType: (isClinic ? "clinic" : "doctor"), value: Float(self.rating), reason: self.reason, comment: (self.selectedOption == 3) ? commentText.text! : nil)
+
+            .then {[weak self] user -> Void in
+
+                if isClinic {
+                    ClinicModel.setRated(cId: (self?.clinicId)!)
+                }else{
+                    DoctorModel.setRated(docId: (self?.doctorId)!)
+                }
+
+                self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Rating Successful.")
+
+                self?.navigationController?.popViewController(animated: true)
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                self.view.endEditing(true)
+
+            }.catch { error in
+                if let e: LPError = error as? LPError {
+                    e.show()
+                }
+        }
+
+
+
     }
 
 }

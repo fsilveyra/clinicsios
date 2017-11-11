@@ -23,7 +23,11 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var rateMenuView:UIView!
     @IBOutlet weak var rMenuBtn: UIBarButtonItem!
     @IBOutlet weak var rateView: CosmosView!
+    @IBOutlet weak var rateDocBtn: UIButton!
 
+    @IBOutlet weak var gotoClinicPageBtn: UIButton!
+
+    @IBOutlet weak var rMenuDistance: NSLayoutConstraint!
 
     var rMenuBtnVisible = true
     var docId = ""
@@ -38,7 +42,7 @@ class DoctorDetailVC: UIViewController {
         }
 
         if rMenuBtnVisible == false {
-            self.navigationItem.rightBarButtonItem = nil
+            self.gotoClinicPageBtn.removeFromSuperview()
         }
 
     }
@@ -79,6 +83,18 @@ class DoctorDetailVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
+
+        if DoctorModel.isRated(docId: self.docId) {
+
+            if self.rateDocBtn != nil{
+                self.rateDocBtn.removeFromSuperview()
+            }
+
+            if rMenuBtnVisible == false {
+                self.navigationItem.rightBarButtonItem = nil
+                
+            }
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -97,16 +113,18 @@ class DoctorDetailVC: UIViewController {
         if show {
             self.view.bringSubview(toFront: self.rateMenuView)
             rateMenuView.isHidden = false
-            UIView.animate(withDuration: 0.3, animations: {
-                self.rateMenuView.frame.origin.x = self.view.frame.width - self.rateMenuView.frame.width
+
+            self.rMenuDistance.constant = self.rateMenuView.frame.size.width
+            UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                self?.view.layoutIfNeeded()
             })
         }
         else{
-            UIView.animate(withDuration: 0.3, animations: {
-                self.rateMenuView.frame.origin.x = self.view.frame.width
+            self.rMenuDistance.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                self?.view.layoutIfNeeded()
             }, completion: { _ in
                 self.rateMenuView.isHidden = true
-                self.view.sendSubview(toBack: self.rateMenuView)
             })
         }
 

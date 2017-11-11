@@ -554,5 +554,63 @@ class ISClient: NSObject {
     }
 
 
+
+    func sendRating(clinicOrDoctorId:String, objType:String, value:Float, reason:String, comment:String?) -> Promise<Bool>{
+        let headers = ["Content-Type" : "application/json"]
+
+        if objType != "clinic" && objType != "doctor" {
+            fatalError("must be clinic or doctor")
+        }
+
+        guard let user = UserModel.currentUser else {
+            return Promise { fulfill, reject in
+                reject(LPError(code: "error", description: "Must be logged"))
+            }
+        }
+
+        var parameters : Parameters = [
+            "user_id": user.id,
+            "value":value,
+            "reason":reason
+        ]
+
+        if let comment = comment {
+            parameters.updateValue(comment, forKey: "comment")
+        }
+
+        parameters.updateValue(clinicOrDoctorId, forKey: objType == "clinic" ? "clinic_id" : "doctor_id")
+
+        let endPoint = "send_rating"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+                        if js == JSON.null {
+                            reject(LPError(code: "error", description: "Network error ocurred"))
+                        }else{
+
+                            fulfill(true)
+
+//                            if js["code"].stringValue == "SEND_RATING_UNSUCCESSFUL" {
+//                                reject(LPError(code: "error", description: "Server error ocurred."))
+//                            }
+//                            else{
+//                                fulfill(true)
+//                            }
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred"))
+                    }
+            }
+        }
+
+    }
+
+
 }
 

@@ -92,7 +92,7 @@ class ViewController: UIViewController {
 
 
     func fbRegisterSuccess(){
-        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Register with Facebook success.")
+        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration with facebook.")
 
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + 1, execute: {[weak self] in

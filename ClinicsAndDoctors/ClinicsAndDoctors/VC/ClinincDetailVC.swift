@@ -18,7 +18,8 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var directionBt:UIButton!
     @IBOutlet weak var callBt:UIButton!
     @IBOutlet weak var rateView: CosmosView!
-
+    @IBOutlet weak var rMenuDistance: NSLayoutConstraint!
+    @IBOutlet weak var rateClinicBtn: UIButton!
 
 
     @IBOutlet weak var rMenuView: UIView!
@@ -51,12 +52,20 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         if let clinic = ClinicModel.by(id: self.clinicId){
             self.updateWith(clinic: clinic)
         }
+
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.showRMenu(false, animated:false)
+
+        if ClinicModel.isRated(cId: self.clinicId) {
+            if self.rateClinicBtn != nil {
+                self.rateClinicBtn.removeFromSuperview()
+            }
+        }
     }
     
     // MARK: - Actions
@@ -202,20 +211,20 @@ extension ClinincDetailVC {
 extension ClinincDetailVC {
 
     func showRMenu(_ show : Bool, animated: Bool = true){
-
         if show {
             self.view.bringSubview(toFront: self.rMenuView)
             rMenuView.isHidden = false
-            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {
-                self.rMenuView.frame.origin.x = self.view.frame.width - self.rMenuView.frame.width
+            self.rMenuDistance.constant = self.rMenuView.frame.width
+            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: { [weak self] in
+                self?.view.layoutIfNeeded()
             })
         }
         else{
-            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {
-                self.rMenuView.frame.origin.x = self.view.frame.width
+            self.rMenuDistance.constant = 0
+            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {[weak self] in
+                self?.view.layoutIfNeeded()
             }, completion: { _ in
                 self.rMenuView.isHidden = true
-                self.view.sendSubview(toBack: self.rMenuView)
             })
         }
 

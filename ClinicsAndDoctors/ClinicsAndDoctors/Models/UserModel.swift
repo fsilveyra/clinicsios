@@ -17,14 +17,14 @@ class UserModel: NSObject {
     var password : String = ""
     var profile_picture : String = ""
     var email : String = ""
-    var id: Int!
+    var id: String!
     var access_token: String = ""
 
     override init() {
     }
     
     required init(representationJSON:SwiftyJSON.JSON) {
-        self.id = representationJSON["id"].intValue
+        self.id = representationJSON["id"].stringValue
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue

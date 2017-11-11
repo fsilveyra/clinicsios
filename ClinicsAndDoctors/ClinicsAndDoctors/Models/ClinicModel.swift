@@ -87,5 +87,19 @@ class ClinicModel: NSObject {
         return result
     }
 
+    static func isRated(cId:String) ->Bool{
+        if let user = UserModel.currentUser {
+            return UserDefaults.standard.bool(forKey: "rate_clin_" + cId + "_" + user.id)
+        }
+
+        return false
+    }
+
+    static func setRated(cId:String){
+        if let user = UserModel.currentUser {
+            UserDefaults.standard.set(true, forKey: "rate_clin_" + cId + "_" + user.id)
+            UserDefaults.standard.synchronize()
+        }
+    }
 
 }

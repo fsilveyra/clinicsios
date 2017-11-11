@@ -44,5 +44,20 @@ class DoctorModel: NSObject {
             }.first
     }
 
+    static func isRated(docId:String) ->Bool{
+        if let user = UserModel.currentUser {
+            return UserDefaults.standard.bool(forKey: "rate_doc_" + docId + "_" + user.id)
+        }
+
+        return false
+    }
+
+    static func setRated(docId:String){
+        if let user = UserModel.currentUser {
+            UserDefaults.standard.set(true, forKey: "rate_doc_" + docId + "_" + user.id)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
 
 }
