@@ -9,6 +9,9 @@
 import UIKit
 import MapKit
 import Cosmos
+import NVActivityIndicatorView
+import PromiseKit
+
 
 class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var avatarClinicIm:RoundedImageView!
@@ -230,10 +233,13 @@ extension ClinincDetailVC {
     }
 
     @IBAction func rateMenuAction(_ sender: Any) {
+        self.showRMenu(false)
+
         if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
         }
         else{
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
@@ -247,23 +253,46 @@ extension ClinincDetailVC {
     }
 
     @IBAction func addFavMenuAction(_ sender: Any) {
+        self.showRMenu(false)
+
         if UserModel.currentUser != nil {
 
+            addToFav()
+            
         }
         else{
 
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-//            vc.futureVC = "RatingVC"
-//
-//            navigationController?.pushViewController(vc,
-//                                                     animated: true)
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
+
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
 
         }
     }
 
     @IBAction func rateBtnAction(_ sender: Any) {
         showRMenu(rMenuView.isHidden)
+    }
+
+
+    func addToFav(){
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.clinicId, objType: "clinic")
+            .then { ok -> Void in
+                if ok {
+                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "Clinics and Doctors", body: "Added to favorites")
+                }
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError { e.show() }
+        }
+
     }
 
 

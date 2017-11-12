@@ -93,6 +93,8 @@ class LeftMenuVC: UIViewController {
     }
 
     func pressentLogin(_ futureVC:String = ""){
+        self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
         vc.futureVC = futureVC
