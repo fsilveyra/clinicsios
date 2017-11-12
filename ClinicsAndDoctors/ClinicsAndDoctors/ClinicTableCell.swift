@@ -23,7 +23,7 @@ class ClinicTableCell: UITableViewCell {
         // Initialization code
     }
 
-    func updateWith(clinic: ClinicModel, location: CLLocation?){
+    func updateWith(clinic: ClinicModel){
 
         if let url = URL(string: clinic.profile_picture){
             self.avatarIcon.url = url
@@ -33,7 +33,7 @@ class ClinicTableCell: UITableViewCell {
         self.ratingView.rating = clinic.rating
         self.millesLb.text = ""
         self.markImage.isHidden = true
-        if let loc = location{
+        if let loc = UserModel.currentUser?.mylocation {
             self.markImage.isHidden = false
 
             let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)

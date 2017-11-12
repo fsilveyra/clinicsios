@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import PromiseKit
+import MapKit
 
 class UserModel: NSObject {
     static var currentUser :UserModel?
@@ -19,6 +20,8 @@ class UserModel: NSObject {
     var email : String = ""
     var id: String!
     var access_token: String = ""
+
+    var mylocation:CLLocation?
 
     override init() {
     }

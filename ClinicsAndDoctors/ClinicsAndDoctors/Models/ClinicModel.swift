@@ -25,7 +25,7 @@ class ClinicModel: NSObject {
     var longitude : Double!
     var id: String!
     var rating: Double!
-    var isFavorite: Bool!
+    var is_favorite: Bool!
 
 
 
@@ -48,7 +48,7 @@ class ClinicModel: NSObject {
         self.longitude = representationJSON["longitude"].doubleValue
         self.id = representationJSON["id"].stringValue
         self.rating = representationJSON["rating"].doubleValue
-        self.isFavorite = representationJSON["is_favorite"].boolValue
+        self.is_favorite = representationJSON["is_favorite"].boolValue
         let specialtysJSON = representationJSON["specialties"].arrayValue
         for specialty in specialtysJSON {
             self.specialties.append(SpecialityModel(representationJSON: specialty).id)

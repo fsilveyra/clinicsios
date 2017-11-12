@@ -31,7 +31,7 @@ class DoctorDetailVC: UIViewController {
 
     var rMenuBtnVisible = true
     var docId = ""
-    var mylocation:CLLocation?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +66,7 @@ class DoctorDetailVC: UIViewController {
         if let clinic = ClinicModel.by(id: doctor.idClinic) {
             //self.clinicNameLbl.text = clinic.full_name
 
-            if let loc = mylocation {
+            if let loc = UserModel.currentUser?.mylocation {
                 let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
                 let distance = loc.distance(from: clinicCoord) / 1000.0
                 self.distanceLb.text = "\(distance.rounded(toPlaces: 2)) Km"
@@ -193,7 +193,6 @@ class DoctorDetailVC: UIViewController {
             let vc:ClinincDetailVC = segue.destination as! ClinincDetailVC
             if let doctor = DoctorModel.by(id: self.docId){
                 vc.clinicId = doctor.idClinic
-                vc.mylocation = self.mylocation
             }
 
         }else if segue.identifier == "toReviews" {

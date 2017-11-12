@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import MapKit
 import CoreLocation
 import SideMenu
 import GoogleMaps
@@ -242,8 +241,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
-
-        return ISClient.sharedInstance.getClinics(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, radius: radius,
+        let location = locationManager.location ?? CLLocation(latitude: 0, longitude: 0)
+        return ISClient.sharedInstance.getClinics(latitude: location.coordinate.latitude,
+                                                  longitude: location.coordinate.longitude,
+                                                  radius: radius,
                                                   specialty_id: specialityId)
             .then { clist -> Void in
                 ClinicModel.clinics = clist
@@ -367,6 +368,9 @@ extension HomeVC {
         let latitude = location?.coordinate.latitude
         let longitude = location?.coordinate.longitude
         let currentLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+
+        UserModel.currentUser?.mylocation = location
+
         let howRecent = eventDate?.timeIntervalSinceNow
         if fabs(howRecent!) < 15 {
 
@@ -460,7 +464,7 @@ extension HomeVC {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
 
-        cell.updateWith(doctor: self.doctorInClinics[indexPath.row], mylocation: self.locationManager.location)
+        cell.updateWith(doctor: self.doctorInClinics[indexPath.row])
         return cell
     }
 
@@ -482,15 +486,12 @@ extension HomeVC {
             let docId = sender as! String
             let vc:DoctorDetailVC = segue.destination as! DoctorDetailVC
             vc.docId = docId
-            vc.mylocation = self.locationManager.location
-
         }
 
         if segue.identifier == "goClinicDetails" {
             let vc:ClinincDetailVC = segue.destination as! ClinincDetailVC
             if let clinic = ClinicModel.by(id: tappedMarker.userData as! String){
                 vc.clinicId = clinic.id
-                vc.mylocation = self.locationManager.location
             }
         }
 

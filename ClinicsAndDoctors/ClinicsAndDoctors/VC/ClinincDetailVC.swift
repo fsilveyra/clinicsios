@@ -30,7 +30,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     var specialitysNames = ["All"]
     var currentSelectedEspec = 0
 
-    var mylocation : CLLocation?
     var clinicId = ""
     var doctors = [DoctorModel]()
     
@@ -288,7 +287,7 @@ extension ClinincDetailVC {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorTableCell", for: indexPath) as! DoctorTableCell
-        cell.updateWith(doctor: self.doctors[indexPath.row], mylocation: self.mylocation)
+        cell.updateWith(doctor: self.doctors[indexPath.row])
         return cell
     }
 

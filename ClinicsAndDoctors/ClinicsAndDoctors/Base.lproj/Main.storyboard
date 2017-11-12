@@ -457,14 +457,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="74" sectionHeaderHeight="34" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="f0s-f8-pzm">
-                                <rect key="frame" x="0.0" y="106" width="375" height="506"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <rect key="frame" x="0.0" y="106" width="375" height="561"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="faw-dX-Owe" id="8p3-F4-hjY"/>
-                                    <outlet property="delegate" destination="faw-dX-Owe" id="bSh-Si-Lye"/>
-                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIS-tL-7ug">
                                 <rect key="frame" x="0.0" y="64" width="188" height="42"/>
@@ -1205,12 +1201,12 @@
                                                 <rect key="frame" x="132.5" y="0.0" width="110" height="110"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logoMedium" translatesAutoresizingMaskIntoConstraints="NO" id="EzX-ud-cA3">
-                                                        <rect key="frame" x="5" y="5" width="101" height="99"/>
+                                                        <rect key="frame" x="5" y="5" width="100" height="99"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8k-VY-muw">
-                                                        <rect key="frame" x="75" y="75" width="29" height="26"/>
+                                                        <rect key="frame" x="75" y="75" width="28" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                         <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-1"/>
                                                         <state key="normal" image="iconAddImage">
@@ -1704,7 +1700,7 @@
         <!--DETAIL-->
         <scene sceneID="wZ3-kc-f7T">
             <objects>
-                <viewController id="blR-Qa-TLo" customClass="ClinincDetailVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ClinincDetailVC" id="blR-Qa-TLo" customClass="ClinincDetailVC" customModule="ClinicsAndDoctors" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XWv-YO-Ys8"/>
                         <viewControllerLayoutGuide type="bottom" id="vtT-VD-Mi6"/>
@@ -2042,8 +2038,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Excellent Profesional she is an extraordinary doctor, Excellent Profesional she is an extraordinary doctor." lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XXp-jt-9Yf">
-                                                    <rect key="frame" x="16" y="6" width="344" height="49"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Excellent Profesional she is an extraordinary doctor, Excellent Profesional she is an extraordinary doctor." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XXp-jt-9Yf">
+                                                    <rect key="frame" x="16" y="6" width="344" height="48"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
                                                     <color key="textColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
@@ -2172,7 +2168,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="f02-Q0-d2C"/>
-        <segue reference="SJY-cP-rMk"/>
+        <segue reference="KMf-W4-iLd"/>
         <segue reference="5JF-rS-P72"/>
     </inferredMetricsTieBreakers>
 </document>
