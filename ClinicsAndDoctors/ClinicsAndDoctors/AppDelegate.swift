@@ -23,8 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userAvatarURL = ""
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        GMSServices.provideAPIKey("AIzaSyD4YJgOX4NjtGwJDJpLtSwIYpy13ykGxOg")
-
+        let apikey = "AIzaSyD4YJgOX4NjtGwJDJpLtSwIYpy13ykGxOg"
+        GMSServices.provideAPIKey(apikey)
+        UserDefaults.standard.set(apikey, forKey: "google_key")
+        UserDefaults.standard.synchronize()
 
         // Override point for customization after application launch.
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

@@ -33,7 +33,7 @@ class ClinicTableCell: UITableViewCell {
         self.ratingView.rating = clinic.rating
         self.millesLb.text = ""
         self.markImage.isHidden = true
-        if let loc = UserModel.currentUser?.mylocation {
+        if let loc = UserModel.mylocation {
             self.markImage.isHidden = false
 
             let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)

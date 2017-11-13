@@ -17,9 +17,10 @@ import PromiseKit
 import YYWebImage
 import FBSDKCoreKit
 import FBSDKLoginKit
+import SwiftyJSON
 
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISideMenuNavigationControllerDelegate {
     
     @IBOutlet weak var especialitysCollection:UICollectionView!
     @IBOutlet weak var myMap:GMSMapView!
@@ -27,9 +28,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var locationBt:UIButton!
 
 
+
     var myPoint: GMSMarker?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var currentMilles = 100
     var locationManager = CLLocationManager()
     var specialitysNames = ["All"]
     var doctorInClinics = [DoctorModel]()
@@ -38,6 +39,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     let loading = ActivityData()
     var infoView = CustomInfoVIew.instanceFromNib() as! CustomInfoVIew
     var tappedMarker = GMSMarker()
+    var isFromSideMenuOrigin = false
+    var polylines = [GMSPolyline]()
 
 
     override func viewDidLoad() {
@@ -81,7 +84,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
         initLocation()
 
-        self.loadData()
+
 
     }
 
@@ -89,6 +92,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         self.navigationController?.navigationBar.isHidden = false
 
@@ -97,20 +101,37 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         self.infoView.removeFromSuperview()
+
+
+        self.updateSpecialitySelection()
+
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        //reload!
+        if !self.isFromSideMenuOrigin { self.loadData() }
+        self.isFromSideMenuOrigin = false
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
         self.infoView.removeFromSuperview()
+
+        self.isFromSideMenuOrigin = false
     }
 
     func configureSideMenu(){
         SideMenuManager.default.menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenu") as? UISideMenuNavigationController
         SideMenuManager.default.menuPresentMode = .menuSlideIn
         SideMenuManager.default.menuFadeStatusBar = false
+        
     }
     
     @IBAction func ShowMapOrListView(_sender:AnyObject){
@@ -149,20 +170,23 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if let touchEvent = event.allTouches?.first{
             switch touchEvent.phase{
             case .ended:
-                currentMilles =  lroundf(slider.value)
-                print("Current Milles: \(currentMilles)")
-                //case .began:
+                let newval = lroundf(slider.value) * 1000
+                if newval != UserModel.radiusLocationMeters {
+                    UserModel.radiusLocationMeters = newval
+                    print("Current Meters: \(UserModel.radiusLocationMeters)")
 
-                //case .moved:
-                //
-                //case .stationary:
-                //
-                //case .cancelled:
-            //
+                    self.loadData()
+                }
             default:
                 break
             }
             
+        }
+    }
+
+    func updateSpecialitySelection(){
+        for cell in especialitysCollection.visibleCells as! [SpecialityButtonCell] {
+            cell.selectedCell = (currentSelectedEspec == cell.specialityBt.tag)
         }
     }
     
@@ -170,30 +194,31 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let button = sender as! UIButton
         currentSelectedEspec = button.tag
         print("Especiliality pos: \(currentSelectedEspec)")
-        //especialitysCollection.reloadData()
-        
-        for cell in especialitysCollection.visibleCells as! [SpecialityButtonCell] {
-            if button != cell.specialityBt{
-                cell.subButtonView.alpha = 0
-            }
-            else {
-                cell.subButtonView.alpha = 1
-            }
-        }
+
+        updateSpecialitySelection()
+
+        self.loadData()
     }
 
-    
     @IBAction func GoClinicDetails(_ sender: AnyObject){
         self.performSegue(withIdentifier: "goClinicDetails", sender: nil)
+    }
+
+    @IBAction func GoMap(_ sender: AnyObject){
+        self.infoView.removeFromSuperview()
+        self.drawPath()
     }
 
     func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
+        let spec = SpecialityModel.by(name: self.specialitysNames[self.currentSelectedEspec])
+
         self.loadSpecialitys().then {
-                self.loadClinics(radius: 1000000000)
+
+            self.loadClinics(radius: UserModel.radiusLocationMeters, specialityId: spec?.id ?? nil)
             }.then {
-                self.loadDoctors(specialityId:nil, clinicId: nil)
+                self.loadDoctors(specialityId:spec?.id ?? nil, clinicId: nil)
             }.then { _ -> Void in
 
                 self.doctorInClinics = ClinicModel.allDoctorsInClinics()
@@ -236,6 +261,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     }
 
                     self.especialitysCollection.reloadData()
+                    //self.updateSpecialitySelection()
                 }
         }
     }
@@ -316,6 +342,7 @@ extension HomeVC {
             self.infoView.updateWith(clinic: clinic)
 
             self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
+            self.infoView.callBt.addTarget(self, action: #selector(GoMap(_:)), for: .touchUpInside)
 
             if let image = (marker.iconView as! UIImageView).image {
                 self.infoView.imageView.image = image
@@ -369,7 +396,7 @@ extension HomeVC {
         let longitude = location?.coordinate.longitude
         let currentLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
 
-        UserModel.currentUser?.mylocation = location
+        UserModel.mylocation = location
 
         let howRecent = eventDate?.timeIntervalSinceNow
         if fabs(howRecent!) < 15 {
@@ -458,6 +485,7 @@ extension HomeVC {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SliderMillesCell") as! SliderMillesCell
+        cell.kms = Float(UserModel.radiusLocationMeters / 1000)
         return cell
     }
 
@@ -518,9 +546,9 @@ extension HomeVC {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = especialitysCollection.dequeueReusableCell(withReuseIdentifier: "SpecialityButtonCell", for: indexPath) as! SpecialityButtonCell
         cell.specialityBt.setTitle(specialitysNames[indexPath.row], for: .normal)
-        if currentSelectedEspec != indexPath.row {
-            cell.subButtonView.alpha = 0
-        }
+        
+        cell.selectedCell = (currentSelectedEspec == indexPath.row)
+
         cell.specialityBt.tag = indexPath.row
         cell.specialityBt.addTarget(self, action: #selector(SelectEspeciality(_:)), for: .touchUpInside)
 
@@ -544,3 +572,63 @@ extension HomeVC {
 }
 
 
+//==========================================================
+// MARK: - sideMenu Events
+//==========================================================
+
+extension HomeVC {
+
+    func sideMenuWillAppear(menu: UISideMenuNavigationController, animated: Bool){
+        self.isFromSideMenuOrigin = true
+    }
+
+    func sideMenuDidAppear(menu: UISideMenuNavigationController, animated: Bool){
+        self.isFromSideMenuOrigin = true
+    }
+
+    func sideMenuWillDisappear(menu: UISideMenuNavigationController, animated: Bool){
+        self.isFromSideMenuOrigin = true
+    }
+
+    func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool){
+        //self.isFromSideMenuOrigin = true
+    }
+}
+
+
+extension HomeVC {
+
+    func drawPath() {
+
+        for pl in polylines {
+            pl.map = nil
+        }
+        polylines = [GMSPolyline]()
+
+
+        guard let currentLocation = UserModel.mylocation else { return }
+        guard let clinic = ClinicModel.by(id: tappedMarker.userData as! String) else { return }
+        let finalLoc:CLLocation = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
+        guard let key = UserDefaults.standard.string(forKey: "google_key") else { return }
+
+        let origin = "\(currentLocation.coordinate.latitude ),\(currentLocation.coordinate.longitude)"
+        let destination = "\(finalLoc.coordinate.latitude ),\(finalLoc.coordinate.longitude)"
+
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(key)"
+
+        Alamofire.request(url).responseJSON {[weak self] response in
+            let json = JSON(data: response.data!)
+            let routes = json["routes"].arrayValue
+
+            for route in routes {
+                let routeOverviewPolyline = route["overview_polyline"].dictionary
+                let points = routeOverviewPolyline?["points"]?.stringValue
+                let path = GMSPath.init(fromEncodedPath: points!)
+                let polyline = GMSPolyline.init(path: path)
+                polyline.map = self?.myMap
+                self?.polylines.append(polyline)
+            }
+        }
+    }
+
+}

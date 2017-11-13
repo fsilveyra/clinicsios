@@ -30,13 +30,13 @@ class DoctorModel: NSObject {
     required init(representationJSON:SwiftyJSON.JSON) {
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
-        self.profile_picture = representationJSON["profile_picture"].stringValue
+        self.profile_picture = representationJSON["picture"].stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
         self.email = representationJSON["email"].stringValue
         self.nationality = representationJSON["nationality"].stringValue
         self.id = representationJSON["id"].stringValue
         self.idSpecialty = representationJSON["specialty","id"].stringValue
         self.idClinic = representationJSON["clinic","id"].stringValue
-        self.rating = representationJSON["rating"].doubleValue
+        self.rating = representationJSON["raiting"].doubleValue
         self.is_favorite = representationJSON["is_favorite"].boolValue
     }
 

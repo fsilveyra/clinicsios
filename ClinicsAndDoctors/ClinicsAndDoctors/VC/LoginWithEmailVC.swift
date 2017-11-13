@@ -11,6 +11,7 @@ import PKHUD
 import NVActivityIndicatorView
 import PromiseKit
 import SwiftMessages
+import MapKit
 
 class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTf: UITextField!
@@ -43,7 +44,11 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
             ISClient.sharedInstance.login(phone: phoneTf.text!, password: passwordTf.text!)
-                .then {[weak self] user -> Void in
+                .then {user in
+                    self.loadClinics(radius: UserModel.radiusLocationMeters)
+                }.then { clinics in
+                    self.loadDoctors(specialityId:nil, clinicId: nil)
+                }.then {[weak self] _ -> Void in
 
                     if let nav = self?.navigationController{
                         let c = nav.viewControllers.count
@@ -139,6 +144,31 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         return true
     }
 
+}
+
+
+extension LoginWithEmailVC {
+
+    func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
+
+        let location = UserModel.mylocation ?? CLLocation(latitude: 0, longitude: 0)
+
+        return ISClient.sharedInstance.getClinics(latitude: location.coordinate.latitude,
+                                                  longitude: location.coordinate.longitude,
+                                                  radius: radius,
+                                                  specialty_id: specialityId)
+            .then { clist -> Void in
+                ClinicModel.clinics = clist
+            }
+    }
+
+    func loadDoctors(specialityId: String?, clinicId:String?) -> Promise<Void>{
+        return ISClient.sharedInstance.getDoctors(specialty_id: specialityId, clinic_id:clinicId)
+            .then { doctors -> Void in
+                DoctorModel.doctors = doctors
+        }
+    }
+    
 }
 
 extension UIViewController {

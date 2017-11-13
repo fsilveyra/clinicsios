@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Cosmos
+import NVActivityIndicatorView
 
 class DoctorDetailVC: UIViewController {
     @IBOutlet weak var loadingIm:UIImageView!
@@ -24,6 +25,8 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var rMenuBtn: UIBarButtonItem!
     @IBOutlet weak var rateView: CosmosView!
     @IBOutlet weak var rateDocBtn: UIButton!
+    @IBOutlet weak var awayLbl: UILabel!
+    @IBOutlet weak var specialityImageView: RoundedImageView!
 
     @IBOutlet weak var gotoClinicPageBtn: UIButton!
 
@@ -61,15 +64,19 @@ class DoctorDetailVC: UIViewController {
         self.especialityLb.text = ""
         if let esp = SpecialityModel.by(id: doctor.idSpecialty){
             self.especialityLb.text = esp.name
+            if let url = URL(string: esp.icon){
+                self.specialityImageView.url = url
+            }
         }
 
+        self.distanceLb.text = ""
+        self.awayLbl.text = ""
         if let clinic = ClinicModel.by(id: doctor.idClinic) {
-            //self.clinicNameLbl.text = clinic.full_name
-
-            if let loc = UserModel.currentUser?.mylocation {
+            if let loc = UserModel.mylocation {
                 let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
                 let distance = loc.distance(from: clinicCoord) / 1000.0
                 self.distanceLb.text = "\(distance.rounded(toPlaces: 2)) Km"
+                self.awayLbl.text = "away"
             }
         }
 
@@ -84,17 +91,31 @@ class DoctorDetailVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
 
-        if DoctorModel.isRated(docId: self.docId) {
+        updateRmenu()
+    }
 
+    func updateRmenu(){
+
+        var menus = 0
+
+        if DoctorModel.isRated(docId: self.docId) {
             if self.rateDocBtn != nil{
                 self.rateDocBtn.removeFromSuperview()
             }
-
-            if rMenuBtnVisible == false {
-                self.navigationItem.rightBarButtonItem = nil
-                
-            }
+            menus += 1
         }
+
+        if let doc = DoctorModel.by(id: self.docId), doc.is_favorite {
+            if self.addFavoriteBt != nil {
+                self.addFavoriteBt.removeFromSuperview()
+            }
+            menus += 1
+        }
+
+        if rMenuBtnVisible == false && menus >= 2 {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -148,17 +169,63 @@ class DoctorDetailVC: UIViewController {
         else{
 
             self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-            vc.futureVC = "RatingVC"
-            vc.futureDoctorId = self.docId
 
-            navigationController?.pushViewController(vc,
-                                                     animated: true)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                vc.futureVC = "RatingVC"
+                vc.futureDoctorId = self?.docId
+
+                self?.navigationController?.pushViewController(vc,
+                                                         animated: true)
+            })
 
         }
     }
+
+
+    @IBAction func addToFavAction(_ sender: Any) {
+
+        self.showRMenu(false)
+
+        if UserModel.currentUser != nil {
+            addToFav()
+        }else{
+
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
+
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
+
+        }
+    }
+
+
+    func addToFav() {
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.docId, objType: "doctor")
+            .then { ok -> Void in
+
+                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "Clinics and Doctors", body: "Added to favorites")
+
+                DoctorModel.by(id: self.docId)?.is_favorite = true
+
+
+                self.updateRmenu()
+
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError { e.show() }
+        }
+
+    }
+
 
     @IBAction func phoneBtnAction(_ sender: Any) {
 

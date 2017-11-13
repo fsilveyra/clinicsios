@@ -23,6 +23,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var rateView: CosmosView!
     @IBOutlet weak var rMenuDistance: NSLayoutConstraint!
     @IBOutlet weak var rateClinicBtn: UIButton!
+    @IBOutlet weak var addToFavBtn: UIButton!
 
 
     @IBOutlet weak var rMenuView: UIView!
@@ -58,15 +59,37 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
 
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        showRMenu(false)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.showRMenu(false, animated:false)
 
+        updateRmenu()
+    }
+
+    func updateRmenu(){
+        var menus = 0
         if ClinicModel.isRated(cId: self.clinicId) {
             if self.rateClinicBtn != nil {
                 self.rateClinicBtn.removeFromSuperview()
             }
+            menus += 1
+        }
+
+        if let clinic = ClinicModel.by(id: self.clinicId), clinic.is_favorite {
+            if self.addToFavBtn != nil {
+                self.addToFavBtn.removeFromSuperview()
+            }
+            menus += 1
+        }
+
+        if menus >= 2 {
+              self.navigationItem.rightBarButtonItem = nil
         }
     }
     
@@ -241,13 +264,15 @@ extension ClinincDetailVC {
         else{
             self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
 
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-            vc.futureVC = "RatingVC"
-            vc.futureClinicId = self.clinicId
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                vc.futureVC = "RatingVC"
+                vc.futureClinicId = self?.clinicId
 
-            navigationController?.pushViewController(vc,
-                                                     animated: true)
+                self?.navigationController?.pushViewController(vc,
+                                                         animated: true)
+            })
 
         }
     }
@@ -283,9 +308,12 @@ extension ClinincDetailVC {
 
         ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.clinicId, objType: "clinic")
             .then { ok -> Void in
-                if ok {
-                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "Clinics and Doctors", body: "Added to favorites")
-                }
+
+                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "Clinics and Doctors", body: "Added to favorites")
+
+                ClinicModel.by(id: self.clinicId)?.is_favorite = true
+
+                self.updateRmenu()
 
             }.always {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()

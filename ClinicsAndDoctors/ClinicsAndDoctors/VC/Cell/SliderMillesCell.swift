@@ -14,17 +14,25 @@ class SliderMillesCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // Initialization code
-    }
-    
-    @IBAction func SliderMovedInCell(_ slider: UISlider){
-        millesLb.text =  "\(lroundf(slider.value))"
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
+
+    var kms:Float = 100.0 {
+        didSet{
+            self.slider.value = kms
+            self.updateLabelValue()
+        }
+    }
+
+    func updateLabelValue(){
+        millesLb.text =  "\(lroundf(slider.value))"
+
+    }
+
+    @IBAction func SliderMovedInCell(_ slider: UISlider){
+        self.kms = slider.value
+    }
+    
+
 
 }

@@ -31,4 +31,10 @@ class SpecialityModel: NSObject {
             c.id == id
             }.first
     }
+
+    static func by(name:String) ->SpecialityModel? {
+        return SpecialityModel.specialities.filter { (c) -> Bool in
+            c.name == name
+            }.first
+    }
 }

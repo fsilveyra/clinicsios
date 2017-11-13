@@ -12,8 +12,11 @@ import YYWebImage
 
 class RoundedImageView: UIImageView {
 
-
-    var borderRadius:CGFloat = 2.0;
+    @IBInspectable var borderRadius: CGFloat = 2.0 {
+        didSet{
+            self.setNeedsDisplay()
+        }
+    }
     var borderColor = UIColor.white.cgColor
     public var placeholderImage : UIImage?
 

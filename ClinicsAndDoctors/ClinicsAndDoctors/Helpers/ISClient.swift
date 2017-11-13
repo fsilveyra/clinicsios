@@ -417,7 +417,8 @@ class ISClient: NSObject {
                             reject(LPError(code: "error", description: "Network error ocurred"))
                         }else{
                             if js["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Server error ocurred."))
+//                                reject(LPError(code: "error", description: "Server error ocurred."))
+                                fulfill(false)
                             }
                             else{
                                 fulfill(true)

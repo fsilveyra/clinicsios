@@ -141,7 +141,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b3t-ol-j1V" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Mdy-pV-BsU">
-                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.144858717918396" green="0.50779443979263306" blue="0.48552834987640381" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -324,7 +324,7 @@
                                 <color key="backgroundColor" red="0.16078431372549018" green="0.29019607843137252" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XtO-XC-VGg">
-                                <rect key="frame" x="34" y="240" width="172" height="39"/>
+                                <rect key="frame" x="34" y="240" width="233" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="       Home" image="sidemenu_icon_world ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -339,9 +339,9 @@
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.2901960784" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ea-ef-DUZ">
-                                <rect key="frame" x="34" y="304" width="172" height="39"/>
+                                <rect key="frame" x="34" y="304" width="233" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="        Favorites" image="icon_favorite_side_menu">
+                                <state key="normal" title="       Favorites" image="icon_favorite_side_menu">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -354,9 +354,9 @@
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.2901960784" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60c-0x-mMi">
-                                <rect key="frame" x="34" y="370" width="172" height="39"/>
+                                <rect key="frame" x="34" y="370" width="233" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="      Terms of Use" image="icon_term_use">
+                                <state key="normal" title="       Terms of Use" image="icon_term_use">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -369,7 +369,7 @@
                                 <color key="backgroundColor" red="0.16078431369999999" green="0.2901960784" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9v-97-F8c">
-                                <rect key="frame" x="34" y="434" width="172" height="39"/>
+                                <rect key="frame" x="34" y="434" width="233" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="       Privacy Policy" image="icon_privacy_policy_sideMenu">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -410,7 +410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d43-os-4GL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3007" y="-137"/>
+            <point key="canvasLocation" x="3005.5999999999999" y="-137.18140929535232"/>
         </scene>
         <!--Terms PolicyVC-->
         <scene sceneID="zSi-1i-dRC">
@@ -421,11 +421,11 @@
                         <viewControllerLayoutGuide type="bottom" id="FlN-14-QXc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YGP-YA-A4Z">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ae-Ug-gOx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -840,7 +840,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="hzu-5K-SWn" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                <rect key="frame" x="122" y="175" width="130" height="130"/>
+                                <rect key="frame" x="122" y="174" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="M. D. Sara Kiton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUL-2c-6sO">
@@ -865,22 +865,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p34-BI-fsq">
-                                <rect key="frame" x="37" y="437" width="300" height="54"/>
+                                <rect key="frame" x="36" y="437" width="300" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cardiologist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLb-9i-x1K">
-                                        <rect key="frame" x="201" y="10" width="100" height="28"/>
+                                        <rect key="frame" x="203" y="11" width="98" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bigHeart" translatesAutoresizingMaskIntoConstraints="NO" id="hHd-TK-bs9">
-                                        <rect key="frame" x="158" y="6" width="37" height="39"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="hHd-TK-bs9" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
+                                        <rect key="frame" x="155" y="3" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7C1-2T-dzG">
-                                        <rect key="frame" x="149.11161731207358" y="0.0" width="0.99999999999954525" height="50"/>
+                                        <rect key="frame" x="148.59677832048283" y="0.0" width="0.99999999999955946" height="50.000000000000114"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -935,6 +940,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addToFavAction:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="L67-VS-ah5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiI-Uf-4DE">
                                 <rect key="frame" x="96" y="119" width="166" height="30"/>
@@ -1003,11 +1011,11 @@
                                                     <action selector="GoToClinicPage:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="ap8-lY-YcD"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSA-UJ-pKS">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noQ-Tb-1b9">
                                                 <rect key="frame" x="0.0" y="33" width="200" height="1"/>
                                                 <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="QPT-ZL-vNN"/>
+                                                    <constraint firstAttribute="height" constant="1" id="mZl-C9-G0g"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOG-DE-ifP">
@@ -1060,6 +1068,7 @@
                     <connections>
                         <outlet property="addFavoriteBt" destination="fzt-mq-tjP" id="6cb-4W-Nbt"/>
                         <outlet property="addressLb" destination="Q15-6M-XGN" id="c1v-fI-4rZ"/>
+                        <outlet property="awayLbl" destination="Bqd-Kg-niS" id="UeI-We-MfU"/>
                         <outlet property="distanceLb" destination="RYT-f3-2b0" id="4V5-xy-taV"/>
                         <outlet property="doctorAvatarIm" destination="hzu-5K-SWn" id="OHK-NF-ed0"/>
                         <outlet property="especialityLb" destination="nLb-9i-x1K" id="Hn8-Oo-MVh"/>
@@ -1073,6 +1082,7 @@
                         <outlet property="rateDocBtn" destination="aOG-DE-ifP" id="BhE-Vk-Y0x"/>
                         <outlet property="rateMenuView" destination="odz-jR-iVa" id="JQc-Dp-OOe"/>
                         <outlet property="rateView" destination="Sqb-A9-Nde" id="EWV-WE-Ka8"/>
+                        <outlet property="specialityImageView" destination="hHd-TK-bs9" id="0C6-GX-vWV"/>
                         <segue destination="WOc-nj-4EI" kind="show" identifier="toRating" id="SJY-cP-rMk"/>
                         <segue destination="blR-Qa-TLo" kind="show" identifier="toClinicDetails" id="f02-Q0-d2C"/>
                     </connections>
@@ -1463,7 +1473,7 @@
                 <navigationController storyboardIdentifier="LeftMenu" automaticallyAdjustsScrollViewInsets="NO" id="DZT-JE-mHZ" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="Wje-s8-2Sx">
-                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.14645373819999999" green="0.51173281670000004" blue="0.48512166740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1930,6 +1940,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addToFavBtn" destination="azw-30-Jpy" id="miM-ED-XjV"/>
                         <outlet property="addressLb" destination="FzL-UO-fMO" id="sws-tR-iF2"/>
                         <outlet property="avatarClinicIm" destination="LYL-EO-GRb" id="VFh-Pg-2fj"/>
                         <outlet property="callBt" destination="rTa-Ch-zVM" id="6Ko-sA-JH8"/>
@@ -2140,7 +2151,6 @@
         <image name="GeoLocationIcon" width="63" height="84"/>
         <image name="arrowWhiteFilled" width="12" height="12"/>
         <image name="backIcon" width="15" height="25"/>
-        <image name="bigHeart" width="86" height="80"/>
         <image name="circle_line_progress" width="387" height="387"/>
         <image name="emptyProfile" width="125" height="125"/>
         <image name="face1" width="64" height="64"/>
@@ -2149,26 +2159,27 @@
         <image name="face4" width="64" height="64"/>
         <image name="face5" width="64" height="64"/>
         <image name="grayEllipse" width="54" height="54"/>
+        <image name="heart" width="50" height="50"/>
         <image name="iconAddImage" width="100" height="100"/>
         <image name="icon_detail" width="24" height="6"/>
         <image name="icon_edit" width="20" height="20"/>
-        <image name="icon_favorite_side_menu" width="21" height="25"/>
+        <image name="icon_favorite_side_menu" width="32" height="32"/>
         <image name="icon_location_button" width="40" height="40"/>
         <image name="icon_ok" width="100" height="100"/>
-        <image name="icon_privacy_policy_sideMenu" width="25" height="25"/>
-        <image name="icon_term_use" width="27" height="25"/>
+        <image name="icon_privacy_policy_sideMenu" width="32" height="32"/>
+        <image name="icon_term_use" width="32" height="32"/>
         <image name="logo" width="264" height="380"/>
         <image name="logoMedium" width="50" height="72"/>
         <image name="mapVector" width="750" height="1334"/>
         <image name="menuLeft" width="23" height="15"/>
         <image name="menuRigth" width="23" height="21"/>
-        <image name="sidemenu_icon_world " width="25" height="25"/>
+        <image name="sidemenu_icon_world " width="32" height="32"/>
         <image name="titleApp" width="492" height="45"/>
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="f02-Q0-d2C"/>
-        <segue reference="KMf-W4-iLd"/>
+        <segue reference="Mhn-Og-OoO"/>
+        <segue reference="SJY-cP-rMk"/>
         <segue reference="5JF-rS-P72"/>
     </inferredMetricsTieBreakers>
 </document>

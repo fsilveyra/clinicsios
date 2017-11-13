@@ -93,7 +93,7 @@ extension FavoritesVC {
 
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
-        self.loadClinics(radius: 1000000000).then {
+        self.loadClinics(radius: 100000000).then {
                 self.loadDoctors(specialityId:nil, clinicId: nil)
             }.then { _ -> Void in
 
@@ -116,6 +116,10 @@ extension FavoritesVC {
                             self?.reload()
                         }))
 
+                        alert.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: {[weak self] action in
+                            self?.navigationController?.popViewController(animated: true)
+                        }))
+
                         self.present(alert, animated: true, completion: nil)
                 })
         }
@@ -126,7 +130,7 @@ extension FavoritesVC {
 
     func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
 
-        let location = UserModel.currentUser?.mylocation ?? CLLocation(latitude: 0, longitude: 0)
+        let location = UserModel.mylocation ?? CLLocation(latitude: 0, longitude: 0)
 
         return ISClient.sharedInstance.getClinics(latitude: location.coordinate.latitude,
                                                   longitude: location.coordinate.longitude,

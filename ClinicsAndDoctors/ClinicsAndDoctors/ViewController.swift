@@ -11,6 +11,8 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import SwiftyJSON
 import NVActivityIndicatorView
+import PromiseKit
+import MapKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var loginBt:UIButton!
@@ -65,16 +67,22 @@ class ViewController: UIViewController {
 
                                     self.appDelegate.userAvatarURL = json["picture"]["data"]["url"].stringValue
 
-                                    ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue).then {[weak self] user -> Void in
+                                    ISClient.sharedInstance.registerWithFacebook(fb_social_token: FBSDKAccessToken.current().tokenString,fb_id: json["id"].stringValue)
+
+                                        .then {[weak self] user in
+                                            self?.loadClinics(radius: UserModel.radiusLocationMeters)
+
+                                        }.then {[weak self] clinics in
+                                            self?.loadDoctors(specialityId:nil, clinicId: nil)
+
+                                        }.then {[weak self] docs in
 
                                             self?.fbRegisterSuccess()
 
                                         }.always {
                                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                                         }.catch { error in
-                                            if let e: LPError = error as? LPError {
-                                                e.show()
-                                            }
+                                            if let e: LPError = error as? LPError { e.show() }
                                     }
 
                                 }
@@ -142,6 +150,31 @@ class ViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
+
+}
+
+
+extension ViewController {
+
+    func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
+
+        let location = UserModel.mylocation ?? CLLocation(latitude: 0, longitude: 0)
+
+        return ISClient.sharedInstance.getClinics(latitude: location.coordinate.latitude,
+                                                  longitude: location.coordinate.longitude,
+                                                  radius: radius,
+                                                  specialty_id: specialityId)
+            .then { clist -> Void in
+                ClinicModel.clinics = clist
+        }
+    }
+
+    func loadDoctors(specialityId: String?, clinicId:String?) -> Promise<Void>{
+        return ISClient.sharedInstance.getDoctors(specialty_id: specialityId, clinic_id:clinicId)
+            .then { doctors -> Void in
+                DoctorModel.doctors = doctors
+        }
+    }
 
 }
 

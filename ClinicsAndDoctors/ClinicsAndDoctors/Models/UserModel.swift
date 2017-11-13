@@ -21,7 +21,8 @@ class UserModel: NSObject {
     var id: String!
     var access_token: String = ""
 
-    var mylocation:CLLocation?
+    static var mylocation:CLLocation?
+    static var radiusLocationMeters:Int = 100000
 
     override init() {
     }

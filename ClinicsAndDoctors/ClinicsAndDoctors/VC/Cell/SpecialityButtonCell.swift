@@ -14,4 +14,10 @@ class SpecialityButtonCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    var selectedCell : Bool = false {
+        didSet{
+            subButtonView.alpha = selectedCell ? 1 : 0
+        }
+    }
 }

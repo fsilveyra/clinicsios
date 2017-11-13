@@ -11,6 +11,7 @@ import NVActivityIndicatorView
 import TPKeyboardAvoiding
 import PromiseKit
 import SwiftMessages
+import MapKit
 
 class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
@@ -83,7 +84,14 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
             ISClient.sharedInstance.registerWhitEmail(fullName: full_nameTf.text!, phone_number: phone_numberTf.text!, email: emailTf.text!, password: passwordTf.text!, picture: avatarImage.image!)
-                .then {[weak self] user -> Void in
+
+                .then {[weak self] user in
+                    self?.loadClinics(radius: UserModel.radiusLocationMeters)
+
+                }.then {[weak self] clinics in
+                    self?.loadDoctors(specialityId:nil, clinicId: nil)
+
+                }.then {[weak self] docs -> Void in
 
                     self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration.")
 
@@ -241,6 +249,31 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         self.navigationController?.popViewController(animated: true)
     }
 
-    
+}
+
+
+
+
+extension RegisterVC {
+
+    func loadClinics(radius: Int, specialityId: String? = nil) -> Promise<Void>{
+
+        let location = UserModel.mylocation ?? CLLocation(latitude: 0, longitude: 0)
+
+        return ISClient.sharedInstance.getClinics(latitude: location.coordinate.latitude,
+                                                  longitude: location.coordinate.longitude,
+                                                  radius: radius,
+                                                  specialty_id: specialityId)
+            .then { clist -> Void in
+                ClinicModel.clinics = clist
+        }
+    }
+
+    func loadDoctors(specialityId: String?, clinicId:String?) -> Promise<Void>{
+        return ISClient.sharedInstance.getDoctors(specialty_id: specialityId, clinic_id:clinicId)
+            .then { doctors -> Void in
+                DoctorModel.doctors = doctors
+        }
+    }
 
 }
