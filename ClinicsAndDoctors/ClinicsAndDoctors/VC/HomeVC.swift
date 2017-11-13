@@ -233,7 +233,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 DispatchQueue.main.asyncAfter(
                     deadline: DispatchTime.now() + 1, execute: {
 
-                        let alert = UIAlertController(title:"Clinics And Doctors", message: "Error loading from server. Please, try again.", preferredStyle: .alert)
+                        let alert = UIAlertController(title:"Clinics And Doctors", message: "Error loading from server. Please, try again.".localized, preferredStyle: .alert)
 
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {[weak self] action in
                             self?.loadData()
@@ -591,7 +591,7 @@ extension HomeVC {
     }
 
     func sideMenuDidDisappear(menu: UISideMenuNavigationController, animated: Bool){
-        //self.isFromSideMenuOrigin = true
+        
     }
 }
 

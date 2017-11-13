@@ -76,7 +76,7 @@ class DoctorDetailVC: UIViewController {
                 let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
                 let distance = loc.distance(from: clinicCoord) / 1000.0
                 self.distanceLb.text = "\(distance.rounded(toPlaces: 2)) Km"
-                self.awayLbl.text = "away"
+                self.awayLbl.text = "away".localized
             }
         }
 
@@ -168,7 +168,7 @@ class DoctorDetailVC: UIViewController {
         }
         else{
 
-            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
 
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -192,7 +192,7 @@ class DoctorDetailVC: UIViewController {
             addToFav()
         }else{
 
-            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "Clinics and Doctors", body: "Must be logged in first")
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
 
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -210,7 +210,7 @@ class DoctorDetailVC: UIViewController {
         ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.docId, objType: "doctor")
             .then { ok -> Void in
 
-                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "Clinics and Doctors", body: "Added to favorites")
+                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Added to favorites".localized)
 
                 DoctorModel.by(id: self.docId)?.is_favorite = true
 
@@ -239,11 +239,11 @@ class DoctorDetailVC: UIViewController {
         if let phoneCallURL:URL = URL(string: "tel:\(strPhoneNumber)") {
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
-                let alertController = UIAlertController(title: "ClinicsAndDoctors", message: "Are you sure you want to call \n\(doctor.phone_number!)?", preferredStyle: .alert)
-                let yesPressed = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                let alertController = UIAlertController(title: "ClinicsAndDoctors", message: "Are you sure you want to call".localized + " \n\(doctor.phone_number!)?", preferredStyle: .alert)
+                let yesPressed = UIAlertAction(title: "Yes".localized, style: .default, handler: { (action) in
                     UIApplication.shared.openURL(phoneCallURL)
                 })
-                let noPressed = UIAlertAction(title: "No", style: .default, handler: { (action) in
+                let noPressed = UIAlertAction(title: "No".localized, style: .default, handler: { (action) in
 
                 })
                 alertController.addAction(yesPressed)

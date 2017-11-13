@@ -110,13 +110,13 @@ extension FavoritesVC {
                 DispatchQueue.main.asyncAfter(
                     deadline: DispatchTime.now() + 1, execute: {
 
-                        let alert = UIAlertController(title:"Clinics And Doctors", message: "Error loading from server. Please, try again.", preferredStyle: .alert)
+                        let alert = UIAlertController(title:"ClinicsAndDoctors", message: "Error loading from server. Please, try again.".localized, preferredStyle: .alert)
 
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {[weak self] action in
+                        alert.addAction(UIAlertAction(title: "Ok".localized, style: .default, handler: {[weak self] action in
                             self?.reload()
                         }))
 
-                        alert.addAction(UIAlertAction(title: "CANCEL", style: .default, handler: {[weak self] action in
+                        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .default, handler: {[weak self] action in
                             self?.navigationController?.popViewController(animated: true)
                         }))
 

@@ -41,11 +41,11 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     @IBAction func SelectAvatar(_ sender: Any) {
 
         if isCameraAvailable() {
-            let alert = UIAlertController(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
-            let cameraSource = UIAlertAction(title: "From Camera", style: .default) { _ in
+            let alert = UIAlertController(title: "Picture", message: "Select the source of your picture".localized, preferredStyle: .alert)
+            let cameraSource = UIAlertAction(title: "From Camera".localized, style: .default) { _ in
                 self.shootPhoto()
             }
-            let galery = UIAlertAction(title: "From Galery", style: .default) { _ in
+            let galery = UIAlertAction(title: "From Galery".localized, style: .default) { _ in
                 self.photoFromLibrary()
             }
 
@@ -65,18 +65,18 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         passwordTf.resignFirstResponder()
         if passwordTf.text=="" || full_nameTf.text=="" || passwordCheckTf.text=="" || phone_numberTf.text==""{
             viewRegister.layer.shake(duration: TimeInterval(0.7))
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields".localized)
         }
         else if !(emailTf.text?.isEmpty)! && !isValidEmail(testStr: emailTf.text!){
             self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Email format")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Email format".localized)
         }
         else if !isValidPhone(testStr: phone_numberTf.text!){
             //self.phone_numberTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers".localized)
         }
         else if passwordTf.text != passwordCheckTf.text{
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The password and Re-Type Password are not same, please check")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The password and Re-Type Password are not same, please check".localized)
             self.passwordCheckTf.textColor = .yellow
         }
         else{
@@ -93,7 +93,7 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
 
                 }.then {[weak self] docs -> Void in
 
-                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration.")
+                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration".localized)
 
                     self?.registerSuccess()
 

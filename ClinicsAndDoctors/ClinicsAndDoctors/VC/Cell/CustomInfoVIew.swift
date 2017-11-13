@@ -38,14 +38,17 @@ class CustomInfoVIew: UIView {
 
 
     func updateWith(clinic: ClinicModel){
+        self.callBt.setTitle("GO".localized, for: .normal)
+        self.infoBt.setTitle("INFO".localized, for: .normal)
+
         self.clinicNameLb.text = clinic.full_name
         self.ratingView.rating = clinic.rating
-        self.numberDoctorsLb.text = "\(clinic.getDoctorNumber()) doctors"
+        self.numberDoctorsLb.text = "\(clinic.getDoctorNumber()) " + "doctors".localized
 
         if let loc = self.mylocation {
             let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
             let distance = loc.distance(from: clinicCoord) / 1000.0
-            self.millLb.text = "\(distance.rounded(toPlaces: 2)) Km Away"
+            self.millLb.text = "\(distance.rounded(toPlaces: 2)) " + "Km Away".localized
         }else{
             self.millLb.text = ""
         }

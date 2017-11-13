@@ -81,7 +81,7 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
             NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.systemFont(ofSize: 15),
             NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
             NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
-        let attributeString = NSMutableAttributedString(string: "Change Password",
+        let attributeString = NSMutableAttributedString(string: "Change Password".localized,
                                                         attributes: attribRegBut)
         changePasswordBt.setAttributedTitle(attributeString, for: .normal)
     }
@@ -119,15 +119,15 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
 
         if !(emailTf.text?.isEmpty)! && !isValidEmail(testStr: emailTf.text!){
             self.emailTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email format")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Email format".localized)
         }
         else if !isValidPhone(testStr: mobileTf.text!){
             self.mobileTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers".localized)
         }
         else if nameTf.text == nil || nameTf.text!.isEmpty {
             self.nameTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The Name can not be empty.")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The Name can not be empty".localized)
         }
         else{
 
@@ -143,7 +143,7 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
                                                 picture: avatarIm.image ?? nil)
                 .then {[weak self] user -> Void in
 
-                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful profile editing")
+                    self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful profile editing".localized)
 
                     self?.editSuccess()
 
@@ -194,12 +194,12 @@ extension ProfileVC {
 
         let currentPass = UserModel.currentSessionPassword()
         if current != currentPass{
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The current password not match")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The current password not match".localized)
             return false
         }
 
         if newPass != retype{
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The new password and Re-Type Password are not same, please check")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The new password and Re-Type Password are not same, please check".localized)
             return false
         }
 
@@ -207,9 +207,9 @@ extension ProfileVC {
     }
 
     func presentPasswordAlert() {
-        let alertController = UIAlertController(title: "Change Password", message: "Please input your current and new password:", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Change Password".localized, message: "Please input your current and new password:".localized, preferredStyle: .alert)
 
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default) {[weak self] (_) in
+        let confirmAction = UIAlertAction(title: "Confirm".localized, style: .default) {[weak self] (_) in
             if let field1 = alertController.textFields?[0].text, !field1.isEmpty,
                 let field2 = alertController.textFields?[1].text, !field2.isEmpty,
                 let field3 = alertController.textFields?[2].text, !field3.isEmpty
@@ -226,7 +226,7 @@ extension ProfileVC {
                         password: field2,
                         picture: nil)
                         .then {[weak self] user -> Void in
-                            self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Password changed successful")
+                            self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Password changed successful".localized)
                         }.always {
                             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                         }.catch { error in
@@ -237,21 +237,21 @@ extension ProfileVC {
                 }
 
             } else {
-                self?.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
+                self?.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields".localized)
 
             }
         }
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel) { (_) in }
 
         alertController.addTextField { (textField) in
-            textField.placeholder = "Current password"
+            textField.placeholder = "Current password".localized
         }
         alertController.addTextField { (textField) in
-            textField.placeholder = "New password"
+            textField.placeholder = "New password".localized
         }
         alertController.addTextField { (textField) in
-            textField.placeholder = "Re-type the new password"
+            textField.placeholder = "Re-type the new password".localized
         }
 
 
@@ -272,11 +272,11 @@ extension ProfileVC {
     @IBAction func SelectAvatar(_ sender: Any) {
 
         if isCameraAvailable() {
-            let alert = UIAlertController(title: "Picture", message: "Select the source of your picture", preferredStyle: .alert)
-            let cameraSource = UIAlertAction(title: "From Camera", style: .default) { _ in
+            let alert = UIAlertController(title: "Picture".localized, message: "Select the source of your picture".localized, preferredStyle: .alert)
+            let cameraSource = UIAlertAction(title: "From Camera".localized, style: .default) { _ in
                 self.shootPhoto()
             }
-            let galery = UIAlertAction(title: "From Galery", style: .default) { _ in
+            let galery = UIAlertAction(title: "From Galery".localized, style: .default) { _ in
                 self.photoFromLibrary()
             }
 

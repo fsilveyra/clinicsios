@@ -22,12 +22,12 @@ class ForgotPasswordVC: UIViewController {
     @IBAction func RecoverPassword(_ sender: Any) {
         if  phoneTf.text==""{
             viewRecover.layer.shake(duration: TimeInterval(0.7))
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Type a Phone Number")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Type a Phone Number".localized)
         }
         else if !isValidPhone(testStr: phoneTf.text!){
             self.phoneTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, please check")
-            print("Incorrect Phone")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Incorrect Phone Number, please check".localized)
+
             
         }
         else{
@@ -36,7 +36,7 @@ class ForgotPasswordVC: UIViewController {
 
             ISClient.sharedInstance.forgotPassword(phone_number: phoneTf.text!)
                 .then { _ -> Void in
-                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "User recovery was successful, wait for sms...")
+                    self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "User recovery was successful, wait for sms...".localized)
                 }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                 }.catch { error in

@@ -38,7 +38,7 @@ class ClinicTableCell: UITableViewCell {
 
             let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
             let distance = loc.distance(from: clinicCoord) / 1000.0
-            self.millesLb.text = "\(distance.rounded(toPlaces: 2)) Km Away"
+            self.millesLb.text = "\(distance.rounded(toPlaces: 2)) " + "Km Away".localized
         }
 
 

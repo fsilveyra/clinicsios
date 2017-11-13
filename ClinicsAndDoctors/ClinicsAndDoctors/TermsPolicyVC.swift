@@ -21,7 +21,7 @@ class TermsPolicyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = isTerms ? "Terms Of Use" : "Privacy Policy"
+        self.navigationItem.title = isTerms ? "Terms Of Use".localized : "Privacy Policy".localized
     }
 
     override func viewDidAppear(_ animated: Bool) {

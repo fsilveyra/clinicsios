@@ -48,13 +48,13 @@ class RatingVC: UIViewController {
     }
 
     let optionsText = [
-        ["The waiting was too long.",
-        "The attention wasn’t good.",
-        "It was too expensive."],
+        ["The waiting was too long.".localized,
+        "The attention wasn’t good.".localized,
+        "It was too expensive.".localized],
 
-        ["The attention was so good.",
-         "The places is clean and modern.",
-         "The waiting was short."]
+        ["The attention was so good.".localized,
+         "The places is clean and modern.".localized,
+         "The waiting was short.".localized]
     ]
 
     override func viewDidLoad() {
@@ -74,7 +74,7 @@ class RatingVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.backBarButtonItem?.title = "Back"
+        self.navigationItem.backBarButtonItem?.title = "Back".localized
         self.navigationController?.navigationBar.isHidden = false
 
         self.selectRatin(3)
@@ -130,11 +130,11 @@ class RatingVC: UIViewController {
         let t = r - 1
 
         if t >= 3 {
-            questionLbl.text = "Tell us what did you like?"
+            questionLbl.text = "Tell us what did you like?".localized
             for (index,lb) in optionsLb.enumerated() { lb.text = optionsText[1][index] }
         }else{
             for (index,lb) in optionsLb.enumerated() { lb.text = optionsText[0][index] }
-            questionLbl.text = "Tell us what we can improve?"
+            questionLbl.text = "Tell us what we can improve?".localized
         }
 
         self.selectedOption = -1
@@ -169,7 +169,7 @@ class RatingVC: UIViewController {
                     DoctorModel.setRated(docId: (self?.doctorId)!)
                 }
 
-                self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Rating Successful.")
+                self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Rating Successful".localized)
 
                 self?.navigationController?.popViewController(animated: true)
 

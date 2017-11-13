@@ -118,11 +118,11 @@ class ISClient: NSObject {
 
                             fulfill(UserModel.currentUser!)
                         }else{
-                            reject(LPError(code: "error", description: "Wrong mobile or password"))
+                            reject(LPError(code: "error", description: "Wrong mobile or password".localized))
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -156,11 +156,11 @@ class ISClient: NSObject {
 
                             fulfill(UserModel.currentUser!)
                         }else{
-                            reject(LPError(code: "error", description: "Register error. Please tray again with another credentials."))
+                            reject(LPError(code: "error", description: "Register error. Please tray again with another credentials".localized))
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -184,17 +184,17 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
                             if js["code"].stringValue == "RECOVERY_SUCCESS" {
                                 //fulfill()
                             }else{
-                                reject(LPError(code: "error", description: "The specified user does not exist."))
+                                reject(LPError(code: "error", description: "The specified user does not exist".localized))
                             }
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -220,7 +220,7 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
                             if js["code"].stringValue == "REGISTER_WITH_FB_SUCCESSFUL" {
                                 UserModel.currentUser = UserModel(representationJSON: js)
@@ -229,12 +229,12 @@ class ISClient: NSObject {
 
                                 fulfill(UserModel.currentUser!)
                             }else{
-                                reject(LPError(code: "error", description: "Register error. Please tray again."))
+                                reject(LPError(code: "error", description: "Register error. Please tray again".localized))
                             }
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -257,11 +257,11 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
                             if js["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "No specialties found."))
+                                reject(LPError(code: "error", description: "No specialties found".localized))
                             }
                             else{
                                 var list = [SpecialityModel]()
@@ -273,7 +273,7 @@ class ISClient: NSObject {
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -311,11 +311,11 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
                             if js["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Server error ocurred."))
+                                reject(LPError(code: "error", description: "Server error ocurred".localized))
                             }
                             else{
                                 print("Get CLinics \(js.arrayValue)")
@@ -328,7 +328,7 @@ class ISClient: NSObject {
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -364,11 +364,11 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
                             if js["code"].stringValue == "GET_CLINICS_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Server error ocurred."))
+                                reject(LPError(code: "error", description: "Server error ocurred.".localized))
                             }
                             else{
                                 var list = [DoctorModel]()
@@ -395,7 +395,7 @@ class ISClient: NSObject {
 
         guard let user = UserModel.currentUser else {
             return Promise { fulfill, reject in
-                reject(LPError(code: "error", description: "Must be logged"))
+                reject(LPError(code: "error", description: "Must be logged in".localized))
             }
         }
 
@@ -414,7 +414,7 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
                             if js["code"].stringValue == "ADD_FAVORITE_UNSUCCESSFUL" {
 //                                reject(LPError(code: "error", description: "Server error ocurred."))
@@ -426,7 +426,7 @@ class ISClient: NSObject {
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -444,7 +444,7 @@ class ISClient: NSObject {
 
         guard let user = UserModel.currentUser else {
             return Promise { fulfill, reject in
-                reject(LPError(code: "error", description: "Must be logged"))
+                reject(LPError(code: "error", description: "Must be logged in".localized))
             }
         }
 
@@ -463,10 +463,10 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
                             if js["code"].stringValue == "REMOVE_FAVORITE_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Server error ocurred."))
+                                reject(LPError(code: "error", description: "Server error ocurred.".localized))
                             }
                             else{
                                 fulfill(true)
@@ -474,7 +474,7 @@ class ISClient: NSObject {
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -508,7 +508,7 @@ class ISClient: NSObject {
 
                         if js != JSON.null {
                             if js["code"].stringValue == "EDIT_PROFILE_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Unsuccessful profile editing"))
+                                reject(LPError(code: "error", description: "Unsuccessful profile editing".localized))
                             }else{
                                 UserModel.currentUser = UserModel(representationJSON: js)
                                 UserModel.currentUser?.password = password ?? ""
@@ -518,11 +518,11 @@ class ISClient: NSObject {
                             }
 
                         }else{
-                            reject(LPError(code: "error", description: "Server error ocurred"))
+                            reject(LPError(code: "error", description: "Server error ocurred".localized))
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -544,11 +544,11 @@ class ISClient: NSObject {
                             let result = js["description"].stringValue
                             fulfill(result)
                         }else{
-                            reject(LPError(code: "error", description: "Server error ocurred"))
+                            reject(LPError(code: "error", description: "Server error ocurred".localized))
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -565,7 +565,7 @@ class ISClient: NSObject {
 
         guard let user = UserModel.currentUser else {
             return Promise { fulfill, reject in
-                reject(LPError(code: "error", description: "Must be logged"))
+                reject(LPError(code: "error", description: "Must be logged in".localized))
             }
         }
 
@@ -591,7 +591,7 @@ class ISClient: NSObject {
                     case .success(let json):
                         let js = JSON(json)
                         if js == JSON.null {
-                            reject(LPError(code: "error", description: "Network error ocurred"))
+                            reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
                             fulfill(true)
@@ -605,7 +605,7 @@ class ISClient: NSObject {
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }
@@ -636,7 +636,7 @@ class ISClient: NSObject {
 
                         if js != JSON.null {
                             if js["code"].stringValue == "GET_REVIEWS_UNSUCCESSFUL" {
-                                reject(LPError(code: "error", description: "Server error ocurred"))
+                                reject(LPError(code: "error", description: "Server error ocurred".localized))
                             }else{
                                 var list = [ReviewModel]()
                                 for item in js.arrayValue {
@@ -646,11 +646,11 @@ class ISClient: NSObject {
                             }
 
                         }else{
-                            reject(LPError(code: "error", description: "Server error ocurred"))
+                            reject(LPError(code: "error", description: "Server error ocurred".localized))
                         }
 
                     case .failure(_):
-                        reject(LPError(code: "error", description: "Network error ocurred"))
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
                     }
             }
         }

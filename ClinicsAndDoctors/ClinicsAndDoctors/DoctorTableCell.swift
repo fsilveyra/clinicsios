@@ -23,6 +23,7 @@ class DoctorTableCell: UITableViewCell {
 
     }
 
+
     func updateWith(doctor: DoctorModel){
 
         if let url = URL(string: doctor.profile_picture){
@@ -40,7 +41,7 @@ class DoctorTableCell: UITableViewCell {
             if let loc = UserModel.mylocation {
                 let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
                 let distance = loc.distance(from: clinicCoord) / 1000.0
-                self.distanceLbl.text = "\(distance.rounded(toPlaces: 2)) Km Away"
+                self.distanceLbl.text = "\(distance.rounded(toPlaces: 2)) " + "Km Away".localized
             }
         }
 

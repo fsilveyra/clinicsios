@@ -46,6 +46,8 @@
 		FE1F94391FAFFB8500193E2D /* ClinicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F94371FAFFB8500193E2D /* ClinicTableCell.swift */; };
 		FE1F943A1FAFFB8500193E2D /* ClinicTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE1F94381FAFFB8500193E2D /* ClinicTableCell.xib */; };
 		FE1F943D1FB0188300193E2D /* TermsPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */; };
+		FE230B861FB9D47900A1F19D /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE230B841FB9D47900A1F19D /* Localizable.swift */; };
+		FE230B891FB9DC6800A1F19D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE230B8B1FB9DC6800A1F19D /* Localizable.strings */; };
 		FE6F0EEC1FB7AD3800F98406 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */; };
 		FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */; };
 		FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */; };
@@ -141,6 +143,9 @@
 		FE1F94371FAFFB8500193E2D /* ClinicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicTableCell.swift; sourceTree = "<group>"; };
 		FE1F94381FAFFB8500193E2D /* ClinicTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClinicTableCell.xib; sourceTree = "<group>"; };
 		FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsPolicyVC.swift; sourceTree = "<group>"; };
+		FE230B841FB9D47900A1F19D /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		FE230B8A1FB9DC6800A1F19D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FE230B8C1FB9DCF200A1F19D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE6D681A1FAAA03F0032CD16 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorTableCell.swift; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 		FBD7A2E61F9262620038DD30 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FE230B841FB9D47900A1F19D /* Localizable.swift */,
 				FE0FAAA91FACBFA600C27C16 /* RoundedButton.swift */,
 				FE0FAAAA1FACBFA600C27C16 /* RoundedImageView.swift */,
 				FE0FAAA71FACBFA500C27C16 /* RoundedView.swift */,
@@ -202,6 +208,7 @@
 		FBE201801F7DF69F00C51A0D = {
 			isa = PBXGroup;
 			children = (
+				FE230B8B1FB9DC6800A1F19D /* Localizable.strings */,
 				FBE2018B1F7DF69F00C51A0D /* ClinicsAndDoctors */,
 				FBE2018A1F7DF69F00C51A0D /* Products */,
 				31E9BFAC841487F6718F609C /* Pods */,
@@ -345,6 +352,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = FBE201801F7DF69F00C51A0D;
 			productRefGroup = FBE2018A1F7DF69F00C51A0D /* Products */;
@@ -388,6 +396,7 @@
 				FBE201971F7DF69F00C51A0D /* Assets.xcassets in Resources */,
 				FB02285E1F8676C700853B1B /* CustomInfoVIewX.xib in Resources */,
 				FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */,
+				FE230B891FB9DC6800A1F19D /* Localizable.strings in Resources */,
 				FE1F943A1FAFFB8500193E2D /* ClinicTableCell.xib in Resources */,
 				FBE201921F7DF69F00C51A0D /* Main.storyboard in Resources */,
 			);
@@ -511,6 +520,7 @@
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,
 				FB4854211F7F8B2000B758A4 /* RegisterVC.swift in Sources */,
+				FE230B861FB9D47900A1F19D /* Localizable.swift in Sources */,
 				FBD7A2EE1F926B9B0038DD30 /* CategoryModel.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
 				FB54694A1F9AE88300B42712 /* SpecialityModel.swift in Sources */,
@@ -557,6 +567,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		FE230B8B1FB9DC6800A1F19D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE230B8A1FB9DC6800A1F19D /* en */,
+				FE230B8C1FB9DCF200A1F19D /* ar */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -564,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -615,6 +635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

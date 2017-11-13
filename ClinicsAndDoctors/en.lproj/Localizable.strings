@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  ClinicsAndDoctors
+
+  Created by Osmely Fernandez on 13/11/17.
+  Copyright © 2017 InfinixSoft. All rights reserved.
+*/
+
+
+"Wrong mobile or password" = "Wrong mobile or password";
+"Network error ocurred" = "Network error ocurred";
+"Register error. Please tray again with another credentials" = "Register error. Please tray again with another credentials";
+"The specified user does not exist" = "The specified user does not exist";
+"Register error. Please tray again" = "Register error. Please tray again";
+"No specialties found" = "No specialties found";
+"Server error ocurred" = "Server error ocurred";
+"Must be logged in" = "Must be logged in";
+"Unsuccessful profile editing" = "Unsuccessful profile editing";
+"GO" = "GO";
+"INFO" = "INFO";
+"doctors" = "doctors";
+"Km Away" = "Km Away";
+"Complete all blank fields" = "Complete all blank fields";
+"Wrong Movile, it should only be between 6 and 14 numbers" = "Wrong Movile, it should only be between 6 and 14 numbers";
+"Select the source of your picture" = "Select the source of your picture";
+"From Camera" = "From Camera";
+"From Galery" = "From Galery";
+"Wrong Email format" = "Wrong Email format";
+"The password and Re-Type Password are not same, please check" = "The password and Re-Type Password are not same, please check";
+"The password and Re-Type Password are not same, please check" = "The password and Re-Type Password are not same, please check";
+"Successful registration" = "Successful registration";
+"Type a Phone Number" = "Type a Phone Number";
+"Incorrect Phone Number, please check" = "Incorrect Phone Number, please check";
+"User recovery was successful, wait for sms..." = "User recovery was successful, wait for sms...";
+"Error loading from server. Please, try again." = "Error loading from server. Please, try again.";
+"Must be logged in first" = "Must be logged in first";
+"Change Password" = "Change Password";
+"Incorrect Email format" = "Incorrect Email format";
+"The Name can not be empty" = "The Name can not be empty";
+"Successful profile editing" = "Successful profile editing";
+"The current password not match" = "The current password not match";
+"The new password and Re-Type Password are not same, please check" = "The new password and Re-Type Password are not same, please check";
+"Change Password" = "Change Password";
+"Please input your current and new password:" = "Please input your current and new password:";
+"Confirm" = "Confirm";
+"Password changed successful" = "Password changed successful";
+"Cancel" = "Cancel";
+"Current password" = "Current password";
+"Re-type the new password" = "Re-type the new password";
+"Picture" = "Picture";
+"Select the source of your picture" = "Select the source of your picture";
+"From Camera" = "From Camera";
+"From Galery" = "From Galery";
+"away" = "away";
+"Must be logged in first" = "Must be logged in first";
+"Added to favorites" = "Added to favorites";
+"Are you sure you want to call" = "Are you sure you want to call";
+"Yes" = "Yes";
+"No" = "No";
+"Error loading from server. Please, try again." = "Error loading from server. Please, try again.";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
+"The waiting was too long." = "The waiting was too long.";
+"The attention wasn’t good." = "The attention wasn’t good.";
+"It was too expensive." = "It was too expensive.";
+"The attention was so good." = "The attention was so good.";
+"The places is clean and modern." = "The places is clean and modern.";
+"The waiting was short." = "The waiting was short.";
+"Back" = "Back";
+"Tell us what did you like?" = "Tell us what did you like?";
+"Tell us what we can improve?" = "Tell us what we can improve?";
+"Rating Successful" = "Rating Successful";
+"Terms Of Use" = "Terms Of Use";
+"Privacy Policy" = "Privacy Policy";

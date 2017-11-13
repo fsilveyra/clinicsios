@@ -31,13 +31,11 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBAction func Login(_ sender: Any) {
         if phoneTf.text=="" || passwordTf.text==""{
             viewLogin.layer.shake(duration: TimeInterval(0.7))
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields")
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Complete all blank fields".localized)
         }
         else if !isValidPhone(testStr: phoneTf.text!){
             self.phoneTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers")
-            print("Incorrect phone")
-            
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers".localized)
         }
         else{
 
