@@ -7,6 +7,69 @@
 */
 
 
-
+"Wrong mobile or password" = "كلمة مرور أو كلمة مرور خاطئة";
+"Network error ocurred" = "حدث خطأ في الشبكة";
+"Register error. Please tray again with another credentials" = "الرجاء إعادة المحاولة باستخدام بيانات اعتماد أخرى";
+"The specified user does not exist" = "عدم وجود المستخدم المحدد";
+"Register error. Please tray again" = "سجل خطأ. حاول مرة اخرى";
+"No specialties found" = "لم يتم العثور على أية تخصصات";
+"Server error ocurred" = "حدث خطأ في الخادم";
+"Must be logged in" = "يجب تسجيل الدخول";
+"Unsuccessful profile editing" = "لم يتم تعديل الملف الشخصي بنجاح";
+"GO" = "اذهب";
+"INFO" = "معلومات";
+"doctors" = "الأطباء";
+"km away" = "على بعد كيلومترات";
+"Complete all blank fields" = "أكمل جميع الحقول الفارغة";
+"Wrong Mobile, it should only be between 6 and 14 numbers" = "ميل خاطئ، يجب أن يكون فقط بين 6 و 14 أرقام";
+"Select the source of your picture" = "حدد الخيار";
+"From Camera" = "من الكاميرا";
+"From Galery" = "من المعرض";
+"Wrong email format" = "تنسيق بريد إلكتروني غير صحيح";
+"The password and re-type password are not same, please check" = "كلمة المرور وإعادة كتابة كلمة المرور ليست هي نفسها، يرجى التحقق";
+"Successful registration" = "التسجيل الناجح";
+"Type a Phone Number" = "اكتب رقم هاتف";
+"Incorrect Phone Number, please check" = "رقم الهاتف غير صحيح، يرجى التحقق";
+"User recovery was successful, wait for sms..." = "كان انتعاش المستخدم ناجحا، انتظر الرسائل القصيرة";
+"Error loading from server. Please, try again." = "حدث خطأ أثناء التحميل من الخادم. حاول مرة اخرى";
+"Must be logged in first" = "يجب تسجيل الدخول أولا";
+"Change Password" = "تغيير كلمة السر";
+"Incorrect email format" = "تنسيق البريد الإلكتروني غير صحيح";
+"The name can not be empty" = "لا يمكن أن يكون الاسم فارغا";
+"Successful profile editing" = "تم تعديل الملف الشخصي بنجاح";
+"The current password not match" = "كلمة المرور الحالية غير متطابقة";
+"The new password and Re-Type Password are not same, please check" = "كلمة المرور الجديدة وإعادة كتابة كلمة المرور ليست هي نفسها، يرجى التحقق";
+"Change Password" = "تغيير كلمة السر";
+"Please enter your current and new password:" = "الرجاء إدخال كلمة المرور الحالية والجديدة";
+"Confirm" = "تؤكد";
+"Password changed successful" = "تم تغيير كلمة المرور بنجاح";
+"Cancel" = "إلغاء";
+"Current password" = "كلمة السر الحالية";
+"Re-type the new password" = "أعد كتابة كلمة السر الجديدة";
+"Picture" = "صورة";
+"Select the source of your picture" = "حدد الخيار";
+"From Camera" = "من الكاميرا";
+"From Galery" = "من المعرض";
+"away" = "بعيدا";
+"Must be logged in first" = "يجب تسجيل الدخول أولا";
+"Added to favorites" = "تمت الإضافة إلى المفضلة";
+"Are you sure you want to call" = "هل تريد بالتأكيد الاتصال";
+"Yes" = "نعم فعلا";
+"No" = "لا";
+"Error loading from server. Please, try again." = "حدث خطأ أثناء التحميل من الخادم. حاول مرة اخرى";
+"Ok" = "حسنا";
+"Cancel" = "إلغاء";
+"The waiting was too long." = "كان الانتظار طويلا جدا";
+"The attention wasn’t good." = "لم يكن الاهتمام جيدا.";
+"It was too expensive." = "أنها مكلفة للغاية";
+"The attention was so good." = "كان الاهتمام جيدا جدا";
+"The places is clean and modern." = "الأماكن نظيفة وحديثة";
+"The waiting was short." = "كان الانتظار قصير";
+"Back" = "الى الخلف";
+"Tell us what did you like?" = "أخبرنا ما الذي أعجبك؟";
+"Tell us what we can improve?" = "يقول لنا ما يمكننا تحسين؟";
+"Rating Successful" = "التقييم ناجح";
+"Terms Of Use" = "تعليمات الاستخدام";
+"Privacy Policy" = "سياسة الخصوصية";
 
 
