@@ -206,7 +206,31 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     @IBAction func GoMap(_ sender: AnyObject){
         self.infoView.removeFromSuperview()
-        self.drawPath()
+
+
+        guard let clinic = ClinicModel.by(id: tappedMarker.userData as! String) else { return }
+
+        var strPhoneNumber = clinic.phone_number!
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: " ", with: "")
+        strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "-", with: "")
+
+        if let phoneCallURL:URL = URL(string: "tel:\(strPhoneNumber)") {
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                let alertController = UIAlertController(title: "ClinicsAndDoctors", message: "Are you sure you want to call".localized + " \n\(clinic.phone_number!)?", preferredStyle: .alert)
+                let yesPressed = UIAlertAction(title: "Yes".localized, style: .default, handler: { (action) in
+                    UIApplication.shared.openURL(phoneCallURL)
+                })
+                let noPressed = UIAlertAction(title: "No".localized, style: .default, handler: { (action) in
+
+                })
+                alertController.addAction(yesPressed)
+                alertController.addAction(noPressed)
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+
+        //self.drawPath()
     }
 
     func loadData(){

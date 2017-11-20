@@ -594,14 +594,18 @@ class ISClient: NSObject {
                             reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
-                            fulfill(true)
+                            if js["code"].stringValue == "SEND_RATING_UNSUCCESSFUL" {
 
-//                            if js["code"].stringValue == "SEND_RATING_UNSUCCESSFUL" {
-//                                reject(LPError(code: "error", description: "Server error ocurred."))
-//                            }
-//                            else{
-//                                fulfill(true)
-//                            }
+                                if js["detail"].stringValue == "Already rated." {
+                                    reject(LPError(code: "error", description: "Already rated."))
+                                }else{
+                                    reject(LPError(code: "error", description: "Server error ocurred."))
+                                }
+
+                            }
+                            else{
+                                fulfill(true)
+                            }
                         }
 
                     case .failure(_):

@@ -36,7 +36,7 @@ class DoctorModel: NSObject {
         self.id = representationJSON["id"].stringValue
         self.idSpecialty = representationJSON["specialty","id"].stringValue
         self.idClinic = representationJSON["clinic","id"].stringValue
-        self.rating = representationJSON["raiting"].doubleValue
+        self.rating = representationJSON["rating"].doubleValue
         self.is_favorite = representationJSON["is_favorite"].boolValue
     }
 

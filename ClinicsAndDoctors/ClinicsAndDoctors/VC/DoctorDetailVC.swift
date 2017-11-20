@@ -15,22 +15,16 @@ class DoctorDetailVC: UIViewController {
     @IBOutlet weak var loadingIm:UIImageView!
     @IBOutlet weak var doctorAvatarIm:RoundedImageView!
     @IBOutlet weak var nameLb:UILabel!
-    @IBOutlet weak var gentilizeLb:UILabel!
-    @IBOutlet weak var addressLb:UILabel!
     @IBOutlet weak var especialityLb:UILabel!
-    @IBOutlet weak var distanceLb:UILabel!
     @IBOutlet weak var phoneBt:UIButton!
     @IBOutlet weak var addFavoriteBt:UIButton!
     @IBOutlet weak var rateMenuView:UIView!
     @IBOutlet weak var rMenuBtn: UIBarButtonItem!
     @IBOutlet weak var rateView: CosmosView!
     @IBOutlet weak var rateDocBtn: UIButton!
-    @IBOutlet weak var awayLbl: UILabel!
-    @IBOutlet weak var specialityImageView: RoundedImageView!
-
-    @IBOutlet weak var gotoClinicPageBtn: UIButton!
-
     @IBOutlet weak var rMenuDistance: NSLayoutConstraint!
+    @IBOutlet weak var ubicBtn: RoundedButton!
+    @IBOutlet weak var clinicBtn: RoundedButton!
 
     var rMenuBtnVisible = true
     var docId = ""
@@ -39,15 +33,8 @@ class DoctorDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
-
-        if let doctor = DoctorModel.by(id: self.docId){
-            self.updateWith(doctor: doctor)
-        }
-
-        if rMenuBtnVisible == false {
-            self.gotoClinicPageBtn.removeFromSuperview()
-        }
-
+        self.addFavoriteBt.setImage(UIImage(named:"ic_fav_off"), for: .normal)
+        self.addFavoriteBt.setImage(UIImage(named:"ic_favorite_profile"), for: .selected)
     }
 
     private func updateWith(doctor: DoctorModel){
@@ -57,65 +44,34 @@ class DoctorDetailVC: UIViewController {
         }
 
         self.nameLb.text = doctor.full_name
-        self.gentilizeLb.text = doctor.nationality
-        self.addressLb.text = ""
         self.rateView.rating = doctor.rating
 
         self.especialityLb.text = ""
         if let esp = SpecialityModel.by(id: doctor.idSpecialty){
             self.especialityLb.text = esp.name
-            if let url = URL(string: esp.icon){
-                self.specialityImageView.url = url
-            }
         }
 
-        self.distanceLb.text = ""
-        self.awayLbl.text = ""
         if let clinic = ClinicModel.by(id: doctor.idClinic) {
-            if let loc = UserModel.mylocation {
-                let clinicCoord = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
-                let distance = loc.distance(from: clinicCoord) / 1000.0
-                self.distanceLb.text = "\(distance.rounded(toPlaces: 2)) Km"
-                self.awayLbl.text = "away".localized
-            }
+            clinicBtn.isHidden = false
+            clinicBtn.setTitle(clinic.full_name , for: .normal)
+        }else{
+            clinicBtn.isHidden = true
         }
 
-        if doctor.phone_number.isEmpty {
-            self.phoneBt.isHidden = true
-        }else{
-            self.phoneBt.setTitle(" " + doctor.phone_number, for: .normal)
-        }
+        self.phoneBt.isHidden = doctor.phone_number.isEmpty
+        self.addFavoriteBt.isSelected = UserModel.currentUser != nil && doctor.is_favorite
+        self.clinicBtn.isHidden = !rMenuBtnVisible
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
 
+        if let doctor = DoctorModel.by(id: self.docId){
+            self.updateWith(doctor: doctor)
+        }
+
         updateRmenu()
-    }
-
-    func updateRmenu(){
-
-        var menus = 0
-
-        if DoctorModel.isRated(docId: self.docId) {
-            if self.rateDocBtn != nil{
-                self.rateDocBtn.removeFromSuperview()
-            }
-            menus += 1
-        }
-
-        if let doc = DoctorModel.by(id: self.docId), doc.is_favorite {
-            if self.addFavoriteBt != nil {
-                self.addFavoriteBt.removeFromSuperview()
-            }
-            menus += 1
-        }
-
-        if rMenuBtnVisible == false && menus >= 2 {
-            self.navigationItem.rightBarButtonItem = nil
-        }
-
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -123,118 +79,15 @@ class DoctorDetailVC: UIViewController {
         showRMenu(false)
     }
 
-
-    // MARK: - Actions
-
     @IBAction func BackView(_ sender: AnyObject){
         self.navigationController?.popViewController(animated: true)
     }
 
-    func showRMenu(_ show : Bool){
-        if show {
-            self.view.bringSubview(toFront: self.rateMenuView)
-            rateMenuView.isHidden = false
-
-            self.rMenuDistance.constant = self.rateMenuView.frame.size.width
-            UIView.animate(withDuration: 0.3, animations: {[weak self] in
-                self?.view.layoutIfNeeded()
-            })
-        }
-        else{
-            self.rMenuDistance.constant = 0
-            UIView.animate(withDuration: 0.3, animations: {[weak self] in
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self.rateMenuView.isHidden = true
-            })
-        }
-
-    }
-
-    @IBAction func ShowHideRateView(_ sender: AnyObject){
-        showRMenu(rateMenuView.isHidden)
-    }
-
-    @IBAction func GoToClinicPage(_ sender: AnyObject){
-        showRMenu(false)
-        self.performSegue(withIdentifier: "toClinicDetails", sender: nil)
-    }
-
-    @IBAction func rateBtnAction(_ sender: Any) {
-        showRMenu(false)
-
-        if UserModel.currentUser != nil {
-            self.performSegue(withIdentifier: "toRating", sender: nil)
-        }
-        else{
-
-            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
-
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-                vc.futureVC = "RatingVC"
-                vc.futureDoctorId = self?.docId
-
-                self?.navigationController?.pushViewController(vc,
-                                                         animated: true)
-            })
-
-        }
-    }
-
-
-    @IBAction func addToFavAction(_ sender: Any) {
-
-        self.showRMenu(false)
-
-        if UserModel.currentUser != nil {
-            addToFav()
-        }else{
-
-            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
-
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
-                self?.navigationController?.pushViewController(vc, animated: true)
-            })
-
-        }
-    }
-
-
-    func addToFav() {
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
-
-        ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.docId, objType: "doctor")
-            .then { ok -> Void in
-
-                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Added to favorites".localized)
-
-                DoctorModel.by(id: self.docId)?.is_favorite = true
-
-
-                self.updateRmenu()
-
-
-            }.always {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            }.catch { error in
-                if let e: LPError = error as? LPError { e.show() }
-        }
-
-    }
-
-
     @IBAction func phoneBtnAction(_ sender: Any) {
-
         guard let doctor = DoctorModel.by(id: self.docId) else { return }
-
         var strPhoneNumber = doctor.phone_number!
         strPhoneNumber = strPhoneNumber.replacingOccurrences(of: " ", with: "")
         strPhoneNumber = strPhoneNumber.replacingOccurrences(of: "-", with: "")
-
 
         if let phoneCallURL:URL = URL(string: "tel:\(strPhoneNumber)") {
             let application:UIApplication = UIApplication.shared
@@ -254,8 +107,19 @@ class DoctorDetailVC: UIViewController {
 
     }
 
+    @IBAction func gotoClinicAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "toClinicDetails", sender: nil)
+    }
+}
 
-    // MARK: - Navigation
+
+
+// ==========================================
+// MARK: - Navigation
+// ==========================================
+
+extension DoctorDetailVC {
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "toClinicDetails" {
@@ -272,7 +136,156 @@ class DoctorDetailVC: UIViewController {
             let vc:RatingVC = segue.destination as! RatingVC
             vc.doctorId = self.docId
         }
-        
+
+    }
+
+
+}
+
+
+
+// ==========================================
+// MARK: - RMenu
+// ==========================================
+
+extension DoctorDetailVC {
+
+    func updateRmenu(){
+
+        if DoctorModel.isRated(docId: self.docId) || rMenuBtnVisible == false {
+            if self.rateDocBtn != nil{
+                self.rateDocBtn.removeFromSuperview()
+                self.navigationItem.rightBarButtonItem = nil
+            }
+        }
+
+    }
+
+
+    func showRMenu(_ show : Bool){
+        if show {
+            self.view.bringSubview(toFront: self.rateMenuView)
+            rateMenuView.isHidden = false
+
+            self.rMenuDistance.constant = self.rateMenuView.frame.size.width
+            UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                self?.view.layoutIfNeeded()
+            })
+        }
+        else{
+            self.rMenuDistance.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {[weak self] in
+                self?.view.layoutIfNeeded()
+                }, completion: { _ in
+                    self.rateMenuView.isHidden = true
+            })
+        }
+
+    }
+
+    @IBAction func ShowHideRateView(_ sender: AnyObject){
+        showRMenu(rateMenuView.isHidden)
+    }
+
+    @IBAction func rateBtnAction(_ sender: Any) {
+        showRMenu(false)
+
+        if UserModel.currentUser != nil {
+            self.performSegue(withIdentifier: "toRating", sender: nil)
+        }
+        else{
+
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
+
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                vc.futureVC = "RatingVC"
+                vc.futureDoctorId = self?.docId
+
+                self?.navigationController?.pushViewController(vc,
+                                                               animated: true)
+            })
+
+        }
     }
 
 }
+
+
+
+// ==========================================
+// MARK: - Favorites
+// ==========================================
+
+extension DoctorDetailVC {
+
+    @IBAction func addToFavAction(_ sender: Any) {
+
+        self.showRMenu(false)
+
+        if UserModel.currentUser != nil {
+            addOrRemoveFav()
+        }else{
+
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
+
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
+
+        }
+    }
+
+
+    func addOrRemoveFav() {
+
+        guard let doctor = DoctorModel.by(id: self.docId) else { return }
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        if doctor.is_favorite {
+
+            ISClient.sharedInstance.removeFavorite(clinicOrDoctorId: self.docId, objType: "doctor")
+                .then { ok -> Void in
+
+                    if ok {
+                        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Removed from favorites".localized)
+
+                        DoctorModel.by(id: self.docId)?.is_favorite = false
+                        self.updateWith(doctor:DoctorModel.by(id: self.docId)!)
+                    }
+
+                }.always {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                }.catch { error in
+                    if let e: LPError = error as? LPError { e.show() }
+            }
+
+
+        }else{
+
+            ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.docId, objType: "doctor")
+                .then { ok -> Void in
+
+                    if ok {
+                        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Added to favorites".localized)
+
+                        DoctorModel.by(id: self.docId)?.is_favorite = true
+                        self.updateWith(doctor:DoctorModel.by(id: self.docId)!)
+                    }
+
+                }.always {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                }.catch { error in
+                    if let e: LPError = error as? LPError { e.show() }
+            }
+
+        }
+
+    }
+
+}
+

@@ -158,8 +158,9 @@ class RatingVC: UIViewController {
         let id = (self.clinicId ?? self.doctorId)!
         let isClinic = (self.clinicId != nil)
 
+        let content = (self.selectedOption == 3) ? commentText.text : self.reason
 
-        ISClient.sharedInstance.sendRating(clinicOrDoctorId: id, objType: (isClinic ? "clinic" : "doctor"), value: Float(self.rating), reason: self.reason, comment: (self.selectedOption == 3) ? commentText.text! : nil)
+        ISClient.sharedInstance.sendRating(clinicOrDoctorId: id, objType: (isClinic ? "clinic" : "doctor"), value: Float(self.rating), reason: self.reason, comment: content)
 
             .then {[weak self] user -> Void in
 

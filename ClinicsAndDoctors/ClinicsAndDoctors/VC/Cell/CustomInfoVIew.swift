@@ -38,7 +38,7 @@ class CustomInfoVIew: UIView {
 
 
     func updateWith(clinic: ClinicModel){
-        self.callBt.setTitle("GO".localized, for: .normal)
+        self.callBt.setTitle("CALL".localized, for: .normal)
         self.infoBt.setTitle("INFO".localized, for: .normal)
 
         self.clinicNameLb.text = clinic.full_name
