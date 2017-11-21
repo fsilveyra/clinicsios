@@ -22,6 +22,9 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var plusPhotoBtn: UIButton!
     @IBOutlet weak var scroll: TPKeyboardAvoidingScrollView!
     @IBOutlet weak var viewPlusBtn: UIView!
+    @IBOutlet weak var fullNameLbl: UILabel!
+    @IBOutlet weak var mobileLbl: UILabel!
+    @IBOutlet weak var emailLbl: UILabel!
 
     let imagePicker = UIImagePickerController()
 
@@ -38,8 +41,17 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
         }
     }
 
+    func translateStaticInterface(){
+        self.navigationItem.title = "PROFILE".localized
+        fullNameLbl.text = "Full Name".localized
+        mobileLbl.text = "Mobile".localized
+        emailLbl.text = "Email".localized
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
+
         CreateGradienBackGround(view: self.view)
         self.navigationController?.navigationBar.isHidden = false
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2

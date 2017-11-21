@@ -26,6 +26,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var myMap:GMSMapView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var locationBt:UIButton!
+    @IBOutlet weak var defaultView: UIView!
+    @IBOutlet weak var defaultLbl: UILabel!
+    
 
 
 
@@ -43,9 +46,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     var polylines = [GMSPolyline]()
 
 
+    func translateStaticInterface(){
+        defaultLbl.text = "Currently there are no doctors around you. Try increasing the search range with the above slider.".localized
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        translateStaticInterface()
 
         FBSDKLoginManager().logOut()
 
@@ -90,21 +98,27 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        self.navigationController?.navigationBar.isHidden = false
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         myTableView.frame.origin.y = especialitysCollection.frame.maxY
         myMap.frame.origin.y = especialitysCollection.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
         myMap.frame.size.height = view.frame.maxY - myMap.frame.minY
+
+        let delta = self.myTableView.sectionHeaderHeight
+        var fm = self.myTableView.frame
+        fm.origin.y += delta
+        fm.size.height -= delta
+        self.defaultView.frame = fm
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.navigationBar.isHidden = false
         self.infoView.removeFromSuperview()
-
-
         self.updateSpecialitySelection()
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -146,6 +160,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myTableView.alpha = 0
                 self.myTableView.isUserInteractionEnabled = false
                 self.view.sendSubview(toBack: self.myTableView)
+                self.view.bringSubview(toFront: self.defaultView)
                 self.view.bringSubview(toFront: self.myMap)
                 self.view.bringSubview(toFront: self.locationBt)
             })
@@ -162,6 +177,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.view.sendSubview(toBack: self.myMap)
                 self.view.sendSubview(toBack: self.locationBt)
                 self.view.bringSubview(toFront: self.myTableView)
+                self.view.bringSubview(toFront: self.defaultView)
             })
         }
     }
@@ -198,6 +214,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         updateSpecialitySelection()
 
         self.loadData()
+    }
+
+
+    @IBAction func getDirectionsAction(_ sender: AnyObject){
+        self.infoView.removeFromSuperview()
+        drawPath()
     }
 
     @IBAction func GoClinicDetails(_ sender: AnyObject){
@@ -247,6 +269,13 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
                 self.doctorInClinics = ClinicModel.allDoctorsInClinics()
                 self.myTableView.reloadData()
+
+                self.view.bringSubview(toFront: self.defaultView)
+                if self.doctorInClinics.count == 0 && self.myMap.alpha == 0{
+                    self.defaultView.isHidden = false
+                }else{
+                    self.defaultView.isHidden = true
+                }
 
             }.always {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -367,7 +396,7 @@ extension HomeVC {
 
             self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
             self.infoView.callBt.addTarget(self, action: #selector(GoMap(_:)), for: .touchUpInside)
-
+            self.infoView.getDirectionsBtn.addTarget(self, action: #selector(getDirectionsAction(_:)), for: .touchUpInside)
             if let image = (marker.iconView as! UIImageView).image {
                 self.infoView.imageView.image = image
             }

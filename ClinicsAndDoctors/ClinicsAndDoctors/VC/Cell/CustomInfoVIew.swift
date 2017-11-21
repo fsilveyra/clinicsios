@@ -28,6 +28,7 @@ class CustomInfoVIew: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var internalContentView: RoundedView!
     @IBOutlet weak var ratingView: CosmosView!
+    @IBOutlet weak var getDirectionsBtn: UIButton!
 
 
     var mylocation:CLLocation?
@@ -40,6 +41,7 @@ class CustomInfoVIew: UIView {
     func updateWith(clinic: ClinicModel){
         self.callBt.setTitle("CALL".localized, for: .normal)
         self.infoBt.setTitle("INFO".localized, for: .normal)
+        self.getDirectionsBtn.setTitle("Get Directions".localized, for: .normal)
 
         self.clinicNameLb.text = clinic.full_name
         self.ratingView.rating = clinic.rating
@@ -53,7 +55,7 @@ class CustomInfoVIew: UIView {
             self.millLb.text = ""
         }
 
-
+        self.getDirectionsBtn.underlined()
     }
 
 }

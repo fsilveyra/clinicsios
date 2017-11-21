@@ -18,6 +18,9 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var loginBt: UIButton!
     @IBOutlet weak var viewLogin:UIView!
+    @IBOutlet weak var forgotBtn: UIButton!
+    @IBOutlet weak var mobileLbl: UILabel!
+    @IBOutlet weak var passwordLbl: UILabel!
 
     
     let loading = ActivityData()
@@ -86,11 +89,17 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
     //MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        translateStaticInterface()
         CreateGradienBackGround(view: view)
-
     }
 
+    func translateStaticInterface(){
+        loginBt.setTitle("LOGIN".localized, for: .normal)
+        forgotBtn.setTitle("Forgot your password?".localized, for: .normal)
+        mobileLbl.text = "Mobile".localized
+        passwordLbl.text = "Password".localized
+
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

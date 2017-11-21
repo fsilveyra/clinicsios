@@ -11,9 +11,11 @@ import UIKit
 class SliderMillesCell: UITableViewCell {
     @IBOutlet weak var slider:UISlider!
     @IBOutlet weak var millesLb:UILabel!
+    @IBOutlet weak var kmsAwayLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
+        kmsAwayLbl.text = "Kilometers Away".localized
 
     }
 

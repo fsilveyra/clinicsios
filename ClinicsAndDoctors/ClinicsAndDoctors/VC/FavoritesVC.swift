@@ -16,12 +16,23 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     @IBOutlet weak var clinicsBt:UIButton!
     @IBOutlet weak var subView:UIView!
     @IBOutlet weak var myTableView:UITableView!
+    @IBOutlet weak var defaultView: UIView!
+    @IBOutlet weak var defaultText: UILabel!
+
     var doctorsSelected = true
     var clinics = [ClinicModel]()
     var doctors = [DoctorModel]()
-    
+
+    func translateStaticInterface(){
+        self.navigationItem.title = "FAVORITES".localized
+        doctorsBt.setTitle("Doctors".localized, for: .normal)
+        clinicsBt.setTitle("Clinics".localized, for: .normal)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
+
         myTableView.frame.origin.y = doctorsBt.frame.maxY
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
 
@@ -48,6 +59,11 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
 
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.defaultView.frame = self.myTableView.frame
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.reload()
@@ -70,6 +86,9 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             self.subView.frame.size.width = self.doctorsBt.frame.size.width
             self.subView.center.x = self.doctorsBt.center.x
         }
+
+        updateDefaultView()
+
     }
 
     @IBAction func ShowClinics(_ sender: AnyObject){
@@ -79,6 +98,26 @@ class FavoritesVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
             self.subView.frame.size.width = self.clinicsBt.frame.size.width
             self.subView.center.x = self.clinicsBt.center.x
         }
+
+        updateDefaultView()
+    }
+
+    func updateDefaultView(){
+        self.view.bringSubview(toFront: self.defaultView)
+        self.defaultView.isHidden = true
+
+        if self.doctorsSelected {
+            if self.doctors.count == 0 {
+                self.defaultText.text = "You don't have favorite clinics yet.".localized
+                self.defaultView.isHidden = false
+            }
+        }else{
+            if self.clinics.count == 0 {
+                self.defaultText.text = "You don't have favorite doctors yet.".localized
+                self.defaultView.isHidden = false
+            }
+        }
+
     }
 
 }
@@ -100,6 +139,8 @@ extension FavoritesVC {
                 self.doctors = DoctorModel.doctors.filter { (doc) -> Bool in return doc.is_favorite }
                 self.clinics = ClinicModel.clinics.filter { (cli) -> Bool in return cli.is_favorite }
                 self.myTableView.reloadData()
+
+                self.updateDefaultView()
 
             }.always {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()

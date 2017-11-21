@@ -14,6 +14,10 @@ class ForgotPasswordVC: UIViewController {
     @IBOutlet weak var phoneTf: UITextField!
     @IBOutlet weak var recoverBt: UIButton!
     @IBOutlet weak var viewRecover:UIView!
+    @IBOutlet weak var mobileLbl: UILabel!
+    @IBOutlet weak var textLbl: UILabel!
+    @IBOutlet weak var titleLbl: UILabel!
+
     //MARK: Actions
     @IBAction func BackView(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -60,9 +64,16 @@ class ForgotPasswordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
         CreateGradienBackGround(view: view)
     }
 
+    func translateStaticInterface(){
+        mobileLbl.text = "Mobile".localized
+        recoverBt.setTitle("RECOVER PASSWORD".localized, for: .normal)
+        textLbl.text = "We will send you an sms with a new password".localized
+        titleLbl.text = "Forgot Password".localized
+    }
 
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

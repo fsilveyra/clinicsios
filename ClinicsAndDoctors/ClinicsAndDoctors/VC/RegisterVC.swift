@@ -23,7 +23,15 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
     @IBOutlet weak var passwordTf: UITextField!
     @IBOutlet weak var passwordCheckTf: UITextField!
     @IBOutlet weak var viewRegister:UIStackView!
-    
+
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var fullNameLbl: UILabel!
+    @IBOutlet weak var mobileLbl: UILabel!
+    @IBOutlet weak var emailLbl: UILabel!
+    @IBOutlet weak var passwordLbl: UILabel!
+    @IBOutlet weak var retypePasswordLbl: UILabel!
+
+
     let imagePicker = UIImagePickerController()
     var imagePlayer = UIImage()
     let loading = ActivityData()
@@ -146,6 +154,17 @@ class RegisterVC: UIViewController, UITextFieldDelegate, UIImagePickerController
 
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+
+    }
+
+    func translateStaticInterface(){
+        titleLbl.text = "Register".localized
+        registerBt.setTitle("REGISTER".localized, for: .normal)
+        fullNameLbl.text = "Full Name".localized
+        mobileLbl.text = "Mobile".localized
+        emailLbl.text = "Email (optional)".localized
+        passwordLbl.text = "Password".localized
+        retypePasswordLbl.text = "Re-Type Password".localized
 
     }
 

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBt:UIButton!
     @IBOutlet weak var facebookBt:UIButton!
     @IBOutlet weak var registerHereBt:UIButton!
+    @IBOutlet weak var dontAccountLbl: UILabel!
 
     var futureVC = ""
     var futureClinicId:String?
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
 
         CreateGradienBackGround(view:self.view)
 
@@ -44,6 +46,12 @@ class ViewController: UIViewController {
 
     }
 
+    func translateStaticInterface(){
+        loginBt.setTitle("LOGIN WITH MOBILE".localized, for: .normal)
+        loginBt.setTitle("CONTINUE WITH FACEBOOK".localized, for: .normal)
+        dontAccountLbl.text = "Don't have account?".localized
+        registerHereBt.setTitle("Register Here".localized, for: .normal)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
          self.navigationController?.navigationBar.isHidden = true

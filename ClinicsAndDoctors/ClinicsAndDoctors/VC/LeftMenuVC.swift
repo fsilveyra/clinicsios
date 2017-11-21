@@ -18,10 +18,29 @@ class LeftMenuVC: UIViewController {
     @IBOutlet weak var viewProfile:UIView!
     @IBOutlet weak var seeProfileBt:UIButton!
     @IBOutlet weak var logoutBt:UIButton!
+    @IBOutlet weak var homeBtn: UIButton!
+    @IBOutlet weak var favBtn: UIButton!
+    @IBOutlet weak var termsBtn: UIButton!
+    @IBOutlet weak var privacyBtn: UIButton!
+
+
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
+
+
+    func translateStaticInterface(){
+        userName.text = "Login / Register"
+        seeProfileBt.setTitle("See Profile".localized, for: .normal)
+        logoutBt.setTitle("Logout".localized, for: .normal)
+        homeBtn.setTitle("Home".localized, for: .normal)
+        favBtn.setTitle("Favorites".localized, for: .normal)
+        termsBtn.setTitle("Terms of Use".localized, for: .normal)
+        privacyBtn.setTitle("Privacy Policy".localized, for: .normal)
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
         self.navigationController?.navigationBar.isHidden = true
         avatarIm.layer.cornerRadius = avatarIm.frame.width/2
 

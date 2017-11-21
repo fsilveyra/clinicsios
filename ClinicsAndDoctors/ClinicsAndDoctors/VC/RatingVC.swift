@@ -20,6 +20,7 @@ class RatingVC: UIViewController {
     @IBOutlet var faces: [UIButton]!
     @IBOutlet var optionsLb: [UILabel]!
     @IBOutlet var optionsBtns: [UIButton]!
+    @IBOutlet weak var commentLbl: UILabel!
 
     @IBOutlet weak var avatarClinicIm:RoundedImageView!
     @IBOutlet weak var submitBt:UIButton!
@@ -57,8 +58,15 @@ class RatingVC: UIViewController {
          "The waiting was short.".localized]
     ]
 
+    func translateStaticInterface(){
+        submitBt.setTitle("SUBMIT".localized, for: .normal)
+        titleLb.text = "    " + "Rate Your Experience At:".localized
+        commentLbl.text = "Leave a comment:".localized
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
 
         if #available(iOS 11.0, *) {
             scrollView.contentInsetAdjustmentBehavior = .never
@@ -78,7 +86,7 @@ class RatingVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
 
         self.selectRatin(3)
-        self.selectedOption = -1
+        self.selectedOption = 0
     }
 
     func updateWithData(){

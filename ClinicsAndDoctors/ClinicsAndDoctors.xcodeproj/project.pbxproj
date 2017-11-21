@@ -48,6 +48,7 @@
 		FE1F943D1FB0188300193E2D /* TermsPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */; };
 		FE230B861FB9D47900A1F19D /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE230B841FB9D47900A1F19D /* Localizable.swift */; };
 		FE230B891FB9DC6800A1F19D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE230B8B1FB9DC6800A1F19D /* Localizable.strings */; };
+		FE40EECF1FC34CA80045B201 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */; };
 		FE6F0EEC1FB7AD3800F98406 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */; };
 		FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */; };
 		FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */; };
@@ -146,6 +147,7 @@
 		FE230B841FB9D47900A1F19D /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		FE230B8A1FB9DC6800A1F19D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE230B8C1FB9DCF200A1F19D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		FE6D681A1FAAA03F0032CD16 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorTableCell.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				FE0FAAAE1FACC26E00C27C16 /* UIColor+Extensions.swift */,
 				FE0FAAAF1FACC26E00C27C16 /* UIView+Extension.swift */,
 				FBD7A2E71F9262800038DD30 /* ISClient.swift */,
+				FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				FB8004391F84A0050028C62E /* ProfileVC.swift in Sources */,
 				FE0FAAAB1FACBFA700C27C16 /* RoundedView.swift in Sources */,
 				FBD7A2EC1F9266340038DD30 /* DoctorModel.swift in Sources */,
+				FE40EECF1FC34CA80045B201 /* UIButton+Extensions.swift in Sources */,
 				FE6F0EEC1FB7AD3800F98406 /* ReviewModel.swift in Sources */,
 				FB4CE39C1F8B37A500DFC4A9 /* ClinincDetailVC.swift in Sources */,
 				FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */,

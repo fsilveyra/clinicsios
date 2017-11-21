@@ -17,23 +17,37 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var nameLb:UILabel!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var rateView: CosmosView!
+    @IBOutlet weak var rateBtn: RoundedButton!
 
     var reviews = [ReviewModel]()
     var docId = ""
+    var clinicId = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         CreateGradienBackGround(view: self.view)
         
-        if let doctor = DoctorModel.by(id: self.docId){
-            self.updateWith(doctor: doctor)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if self.docId.isEmpty {
+            if let clinic = ClinicModel.by(id: self.clinicId){
+                self.updateWith(clinic: clinic)
+            }
+        }else{
+            if let doctor = DoctorModel.by(id: self.docId){
+                self.updateWith(doctor: doctor)
+            }
         }
+
+        self.loadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        self.loadData()
     }
 
     private func updateWith(doctor: DoctorModel){
@@ -43,13 +57,27 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         self.nameLb.text = doctor.full_name
         self.rateView.rating = doctor.rating
+        self.rateBtn.setTitle("RATE DOCTOR".localized, for: .normal)
+    }
+
+    private func updateWith(clinic: ClinicModel){
+        if let url = URL(string: clinic.profile_picture){
+            self.doctorAvatarIm.url = url
+        }
+
+        self.nameLb.text = clinic.full_name
+        self.rateView.rating = clinic.rating
+        self.rateBtn.setTitle("RATE CLINIC".localized, for: .normal)
     }
 
 
     func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
-        ISClient.sharedInstance.getReviews(clinicOrDoctorId: self.docId, objType: "doctor")
+        let idObj = self.docId.isEmpty ? self.clinicId : self.docId
+        let objType = self.docId.isEmpty ? "clinic" : "doctor"
+
+        ISClient.sharedInstance.getReviews(clinicOrDoctorId: idObj, objType: objType)
             .then { reviews -> Void in
 
                 self.reviews = reviews
@@ -63,7 +91,36 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     }
 
-    
+
+    @IBAction func rateAction(_ sender: Any) {
+
+
+        if UserModel.currentUser != nil {
+            self.performSegue(withIdentifier: "toRating", sender: nil)
+        }
+        else{
+
+            self.SwiftMessageAlert(layout: .cardView, theme: .info, title: "ClinicsAndDoctors", body: "Must be logged in first".localized)
+
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "loginVC") as! ViewController
+                vc.futureVC = "RatingVC"
+
+                if (self?.docId.isEmpty)! {
+                    vc.futureClinicId = self?.clinicId
+                }else{
+                    vc.futureDoctorId = self?.docId
+                }
+
+                self?.navigationController?.pushViewController(vc,
+                                                               animated: true)
+            })
+
+        }
+
+    }
+
     // MARK: - Actions
     
     @IBAction func BackView(_ sender: AnyObject){
@@ -79,15 +136,25 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return reviews.count
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "headerReview")
-        return cell
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewCell", for: indexPath) as! ReviewCell
         cell.updateWithData(self.reviews[indexPath.row])
         return cell
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "toRating" {
+            let vc:RatingVC = segue.destination as! RatingVC
+            if self.docId.isEmpty {
+                vc.clinicId = self.clinicId
+            }else{
+                vc.doctorId = self.docId
+            }
+
+        }
+
     }
 
 }

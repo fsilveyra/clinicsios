@@ -16,82 +16,62 @@ import PromiseKit
 class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var avatarClinicIm:RoundedImageView!
     @IBOutlet weak var nameClinicLb:UILabel!
-    @IBOutlet weak var centerLb:UILabel!
     @IBOutlet weak var addressLb:UILabel!
-    @IBOutlet weak var directionBt:UIButton!
-    @IBOutlet weak var callBt:UIButton!
     @IBOutlet weak var rateView: CosmosView!
-    @IBOutlet weak var rMenuDistance: NSLayoutConstraint!
-    @IBOutlet weak var rateClinicBtn: UIButton!
-    @IBOutlet weak var addToFavBtn: UIButton!
-
-
-    @IBOutlet weak var rMenuView: UIView!
     @IBOutlet weak var specialitiesCollection:UICollectionView!
     @IBOutlet weak var myTableView:UITableView!
     @IBOutlet weak var separetorView:UIView!
+    @IBOutlet weak var addFavoriteBt: RoundedButton!
+    @IBOutlet weak var phoneBt: RoundedButton!
+    @IBOutlet weak var seeReviewsBtn: UIButton!
+    @IBOutlet weak var defaultView: UIView!
 
     var specialitysNames = ["All"]
     var currentSelectedEspec = 0
 
     var clinicId = ""
     var doctors = [DoctorModel]()
-    
+
+    func translateStaticInterface(){
+        seeReviewsBtn.setTitle("See Reviews".localized, for: .normal)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        translateStaticInterface()
         CreateGradienBackGround(view: self.view)
         myTableView.frame.origin.y = specialitiesCollection.frame.maxY
         separetorView.frame.origin.x = specialitiesCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
-        callBt.layer.cornerRadius = callBt.frame.width/2
-        directionBt.layer.cornerRadius = 5
-
 
 
         let classBundle = Bundle(for: DoctorTableCell.self)
         let nibProd = UINib(nibName:"DoctorTableCell", bundle:classBundle)
         self.myTableView.register(nibProd, forCellReuseIdentifier:"DoctorTableCell")
 
-        if let clinic = ClinicModel.by(id: self.clinicId){
-            self.updateWith(clinic: clinic)
-        }
 
+        self.addFavoriteBt.setImage(UIImage(named:"ic_fav_off"), for: .normal)
+        self.addFavoriteBt.setImage(UIImage(named:"ic_favorite_profile"), for: .selected)
+
+        self.seeReviewsBtn.underlined()
 
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        showRMenu(false)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        self.defaultView.frame = self.myTableView.frame
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        self.showRMenu(false, animated:false)
 
-        updateRmenu()
-    }
-
-    func updateRmenu(){
-        var menus = 0
-        if ClinicModel.isRated(cId: self.clinicId) {
-            if self.rateClinicBtn != nil {
-                self.rateClinicBtn.removeFromSuperview()
-            }
-            menus += 1
-        }
-
-        if let clinic = ClinicModel.by(id: self.clinicId), clinic.is_favorite {
-            if self.addToFavBtn != nil {
-                self.addToFavBtn.removeFromSuperview()
-            }
-            menus += 1
-        }
-
-        if menus >= 2 {
-              self.navigationItem.rightBarButtonItem = nil
+        if let clinic = ClinicModel.by(id: self.clinicId){
+            self.updateWith(clinic: clinic)
         }
     }
+
     
     // MARK: - Actions
     @IBAction func SelectEspeciality(_ sender: AnyObject){
@@ -129,6 +109,9 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         self.myTableView.reloadData()
 
 
+        self.myTableView.isHidden = !(self.doctors.count > 0)
+        self.defaultView.isHidden = (self.doctors.count > 0)
+
 
         self.specialitysNames = ["All"]
         for sp in clinic.specialties {
@@ -140,7 +123,8 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
 
         specialitiesCollection.reloadData()
 
-        if clinic.phone_number.isEmpty { self.callBt.isHidden = true }
+        self.phoneBt.isHidden = clinic.phone_number.isEmpty
+        self.addFavoriteBt.isSelected = UserModel.currentUser != nil && clinic.is_favorite
 
     }
 
@@ -171,16 +155,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         }
     }
 
-
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-       if segue.identifier == "toRating" {
-            let vc:RatingVC = segue.destination as! RatingVC
-            vc.clinicId = self.clinicId
-        }
-
-    }
 
 }
 
@@ -235,28 +209,9 @@ extension ClinincDetailVC {
 //================================================
 extension ClinincDetailVC {
 
-    func showRMenu(_ show : Bool, animated: Bool = true){
-        if show {
-            self.view.bringSubview(toFront: self.rMenuView)
-            rMenuView.isHidden = false
-            self.rMenuDistance.constant = self.rMenuView.frame.width
-            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: { [weak self] in
-                self?.view.layoutIfNeeded()
-            })
-        }
-        else{
-            self.rMenuDistance.constant = 0
-            UIView.animate(withDuration: animated ? 0.3 : 0.01, animations: {[weak self] in
-                self?.view.layoutIfNeeded()
-            }, completion: { _ in
-                self.rMenuView.isHidden = true
-            })
-        }
-
-    }
 
     @IBAction func rateMenuAction(_ sender: Any) {
-        self.showRMenu(false)
+
 
         if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "toRating", sender: nil)
@@ -271,19 +226,16 @@ extension ClinincDetailVC {
                 vc.futureClinicId = self?.clinicId
 
                 self?.navigationController?.pushViewController(vc,
-                                                         animated: true)
+                                                               animated: true)
             })
 
         }
     }
 
     @IBAction func addFavMenuAction(_ sender: Any) {
-        self.showRMenu(false)
 
         if UserModel.currentUser != nil {
-
-            addToFav()
-            
+            addOrRemoveFav()
         }
         else{
 
@@ -298,35 +250,74 @@ extension ClinincDetailVC {
         }
     }
 
-    @IBAction func rateBtnAction(_ sender: Any) {
-        showRMenu(rMenuView.isHidden)
-    }
 
+    func addOrRemoveFav(){
 
-    func addToFav(){
+        guard let clinic = ClinicModel.by(id: self.clinicId) else { return }
+
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
-        ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.clinicId, objType: "clinic")
-            .then { ok -> Void in
+        if clinic.is_favorite {
 
-                self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Added to favorites".localized)
+            ISClient.sharedInstance.removeFavorite(clinicOrDoctorId: self.clinicId, objType: "clinic")
+                .then { ok -> Void in
 
-                ClinicModel.by(id: self.clinicId)?.is_favorite = true
+                    if ok {
+                        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Removed from favorites".localized)
 
-                self.updateRmenu()
+                        ClinicModel.by(id: self.clinicId)?.is_favorite = false
+                        self.updateWith(clinic: ClinicModel.by(id: self.clinicId)!)
+                    }
 
-            }.always {
-                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-            }.catch { error in
-                if let e: LPError = error as? LPError { e.show() }
+
+                }.always {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                }.catch { error in
+                    if let e: LPError = error as? LPError { e.show() }
+            }
+
+        }else{
+
+            ISClient.sharedInstance.addFavorite(clinicOrDoctorId: self.clinicId, objType: "clinic")
+                .then { ok -> Void in
+
+                    if ok {
+                        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "ClinicsAndDoctors", body: "Added to favorites".localized)
+
+                        ClinicModel.by(id: self.clinicId)?.is_favorite = true
+                        self.updateWith(clinic: ClinicModel.by(id: self.clinicId)!)
+                    }
+
+                }.always {
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                }.catch { error in
+                    if let e: LPError = error as? LPError { e.show() }
+            }
+
+        }
+
+    }
+
+}
+
+// ==========================================
+// MARK: - Navigation
+// ==========================================
+
+extension ClinincDetailVC {
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "toReviews" {
+            let vc:ReviewsVC = segue.destination as! ReviewsVC
+            vc.clinicId = self.clinicId
+
         }
 
     }
 
 
 }
-
-
 
 //================================================
 // MARK: - TableView
