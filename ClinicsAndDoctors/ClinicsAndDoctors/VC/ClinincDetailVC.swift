@@ -210,6 +210,49 @@ extension ClinincDetailVC {
 extension ClinincDetailVC {
 
 
+    @IBAction func openMapAction(_ sender: Any) {
+
+        guard let clinic = ClinicModel.by(id: self.clinicId) else { return }
+
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(clinic.latitude, clinic.longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = clinic.full_name
+        mapItem.openInMaps(launchOptions: options)
+    }
+
+
+    @IBAction func shareAction(_ sender: Any) {
+        
+        guard let clinic = ClinicModel.by(id: self.clinicId) else { return }
+
+        var text = clinic.full_name ?? ""
+        if !clinic.address.isEmpty {
+            text = text + " - " + clinic.address
+        }
+
+        if !clinic.phone_number.isEmpty {
+            text = text + " - " + clinic.phone_number
+        }
+
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook, UIActivityType.postToTwitter ]
+
+        self.present(activityViewController, animated: true, completion: nil)
+
+    }
+
+
     @IBAction func rateMenuAction(_ sender: Any) {
 
 

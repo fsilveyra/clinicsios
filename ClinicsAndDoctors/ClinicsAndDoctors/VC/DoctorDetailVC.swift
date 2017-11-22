@@ -182,6 +182,59 @@ extension DoctorDetailVC {
 
 extension DoctorDetailVC {
 
+
+
+    @IBAction func openMapAction(_ sender: Any) {
+
+        guard let doctor = DoctorModel.by(id: self.docId) else { return }
+
+        guard let clinic = ClinicModel.by(id: doctor.idClinic) else { return }
+
+
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(clinic.latitude, clinic.longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = doctor.full_name + "\n" + clinic.full_name
+        mapItem.openInMaps(launchOptions: options)
+    }
+
+
+    @IBAction func shareAction(_ sender: Any) {
+
+        guard let doctor = DoctorModel.by(id: self.docId) else { return }
+
+        var speciality = ""
+        if let spec = SpecialityModel.by(id: doctor.idSpecialty ) {
+            speciality = spec.name
+        }
+
+        var text = doctor.full_name ?? ""
+        if !speciality.isEmpty {
+            text = text + " - " + speciality
+        }
+
+        if !doctor.phone_number.isEmpty {
+            text = text + " - " + doctor.phone_number
+        }
+
+        let textToShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook, UIActivityType.postToTwitter ]
+
+        self.present(activityViewController, animated: true, completion: nil)
+
+    }
+
+
     @IBAction func addToFavAction(_ sender: Any) {
 
 

@@ -52,6 +52,7 @@
 		FE6F0EEC1FB7AD3800F98406 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */; };
 		FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */; };
 		FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */; };
+		FEE29A2D1FC506C10012C676 /* Whatsapp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE29A2C1FC506C10012C676 /* Whatsapp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorTableCell.swift; sourceTree = "<group>"; };
 		FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorTableCell.xib; sourceTree = "<group>"; };
+		FEE29A2C1FC506C10012C676 /* Whatsapp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whatsapp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				FE0FAAAF1FACC26E00C27C16 /* UIView+Extension.swift */,
 				FBD7A2E71F9262800038DD30 /* ISClient.swift */,
 				FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */,
+				FEE29A2C1FC506C10012C676 /* Whatsapp.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB4BEBAF1F87599100B4E386 /* DoctorDetailVC.swift in Sources */,
+				FEE29A2D1FC506C10012C676 /* Whatsapp.swift in Sources */,
 				FE0FAAB01FACC26F00C27C16 /* UIColor+Extensions.swift in Sources */,
 				FE1F943D1FB0188300193E2D /* TermsPolicyVC.swift in Sources */,
 				FE0FAAAD1FACBFA700C27C16 /* RoundedImageView.swift in Sources */,
