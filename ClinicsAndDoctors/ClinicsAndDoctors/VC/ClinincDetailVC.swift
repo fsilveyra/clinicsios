@@ -33,7 +33,7 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     var doctors = [DoctorModel]()
 
     func translateStaticInterface(){
-        seeReviewsBtn.setTitle("See Reviews".localized, for: .normal)
+        seeReviewsBtn.setTitle("Reviews".localized, for: .normal)
     }
 
     override func viewDidLoad() {

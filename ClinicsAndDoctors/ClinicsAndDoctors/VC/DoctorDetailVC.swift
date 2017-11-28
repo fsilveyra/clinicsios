@@ -27,7 +27,7 @@ class DoctorDetailVC: UIViewController {
     var docId = ""
 
     func translateStaticInterface(){
-        seeReviewsBtn.setTitle("See Reviews".localized, for: .normal)
+        seeReviewsBtn.setTitle("Reviews".localized, for: .normal)
     }
 
     override func viewDidLoad() {
@@ -50,9 +50,11 @@ class DoctorDetailVC: UIViewController {
         self.nameLb.text = doctor.full_name
         self.rateView.rating = doctor.rating
 
+        let type = doctor.dtype.isEmpty ? "" : "\(doctor.dtype) - "
+
         self.especialityLb.text = ""
         if let esp = SpecialityModel.by(id: doctor.idSpecialty){
-            self.especialityLb.text = esp.name
+            self.especialityLb.text = type + esp.name
         }
 
         if let clinic = ClinicModel.by(id: doctor.idClinic) {

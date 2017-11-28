@@ -735,7 +735,7 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-aX-vAj" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="19" y="12" width="140" height="140"/>
+                                                        <rect key="frame" x="25" y="16" width="130" height="130"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tN5-sm-F91">
@@ -1162,12 +1162,12 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SiI-Uf-4DE">
-                                        <rect key="frame" x="141" y="45" width="93" height="30"/>
+                                        <rect key="frame" x="157" y="45" width="61" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="VPn-xQ-5VB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="See Reviews">
+                                        <state key="normal" title="Reviews">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -2097,7 +2097,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCD-4J-wqr">
                                                         <rect key="frame" x="0.0" y="27" width="75" height="33"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
-                                                        <state key="normal" title="See reviews">
+                                                        <state key="normal" title="Reviews">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
@@ -2543,7 +2543,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="W8d-Dw-BHL"/>
-        <segue reference="Mhn-Og-OoO"/>
+        <segue reference="f02-Q0-d2C"/>
         <segue reference="l4h-aO-Um7"/>
     </inferredMetricsTieBreakers>
 </document>

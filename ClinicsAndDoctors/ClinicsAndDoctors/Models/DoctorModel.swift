@@ -1,4 +1,4 @@
-//
+\//
 //  Doctor.swift
 //  ClinicsAndDoctors
 //
@@ -23,6 +23,7 @@ class DoctorModel: NSObject {
     var id: String!
     var rating: Double!
     var is_favorite:Bool!
+    var dtype:String!
     
     override init() {
     }
@@ -38,6 +39,7 @@ class DoctorModel: NSObject {
         self.idClinic = representationJSON["clinic","id"].stringValue
         self.rating = representationJSON["rating"].doubleValue
         self.is_favorite = representationJSON["is_favorite"].boolValue
+        self.dtype = representationJSON["type"].stringValue
     }
 
     static func by(id:String) ->DoctorModel? {
