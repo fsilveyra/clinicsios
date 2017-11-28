@@ -91,6 +91,10 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         translateStaticInterface()
         CreateGradienBackGround(view: view)
+
+        phoneTf.delegate = self
+        passwordTf.delegate = self
+
     }
 
     func translateStaticInterface(){
@@ -147,6 +151,7 @@ class LoginWithEmailVC: UIViewController, UITextFieldDelegate {
         }
         else {
             textField.resignFirstResponder()
+            self.view.endEditing(true)
         }
         return true
     }

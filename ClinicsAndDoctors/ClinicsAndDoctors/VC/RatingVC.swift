@@ -36,7 +36,7 @@ class RatingVC: UIViewController {
     let selectedFaceColor:UIColor = UIColor(red: 35/255, green: 160/255, blue: 150/255, alpha: 1)
     let unselectedFaceColor:UIColor = UIColor(red: 19/255, green: 41/255, blue: 61/255, alpha: 1)
 
-    var rating = 3 {
+    var rating = 5 {
         didSet{
             selectRatin(rating)
         }
@@ -85,7 +85,7 @@ class RatingVC: UIViewController {
         self.navigationItem.backBarButtonItem?.title = "Back".localized
         self.navigationController?.navigationBar.isHidden = false
 
-        self.selectRatin(3)
+        self.selectRatin(5)
         self.selectedOption = 0
     }
 

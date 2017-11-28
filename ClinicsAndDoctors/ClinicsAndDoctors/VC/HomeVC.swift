@@ -53,6 +53,9 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        UserModel.currentUser = UserModel.loadSession()
+
         translateStaticInterface()
 
         FBSDKLoginManager().logOut()
@@ -91,9 +94,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         configureSideMenu()
 
         initLocation()
-
-
-
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }

@@ -19,7 +19,7 @@ class UserModel: NSObject {
     var profile_picture : String = ""
     var email : String = ""
     var id: String!
-    var access_token: String = ""
+
 
     static var mylocation:CLLocation?
     static var radiusLocationMeters:Int = 100000
@@ -34,14 +34,31 @@ class UserModel: NSObject {
         self.password = representationJSON["password"].stringValue
         self.profile_picture = representationJSON["picture"].stringValue
         self.email = representationJSON["email"].stringValue
-        self.access_token = representationJSON["access_token"].stringValue
+        //self.access_token = representationJSON["access_token"].stringValue
+    }
+
+
+    static func loadSession() -> UserModel? {
+        if let dic = UserDefaults.standard.dictionary(forKey: "sesion_user"){
+            let js = JSON(dic)
+            return UserModel(representationJSON: js)
+        }else{
+            return nil
+        }
     }
 
     static func saveSession(){
         if let user = UserModel.currentUser {
-            UserDefaults.standard.set("\(user.id!)", forKey: "sesion_user_id")
-            UserDefaults.standard.set(user.full_name, forKey: "sesion_full_name")
-            UserDefaults.standard.set(user.password, forKey: "sesion_password")
+
+            var dic:Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+            dic["id"] = user.id as AnyObject
+            dic["full_name"] = user.full_name as AnyObject
+            dic["phone_number"] = user.phone_number as AnyObject
+            dic["password"] = user.password as AnyObject
+            dic["picture"] = user.profile_picture as AnyObject
+            dic["email"] = user.email as AnyObject
+
+            UserDefaults.standard.set(dic, forKey: "sesion_user")
             UserDefaults.standard.synchronize()
         }
     }
