@@ -41,6 +41,8 @@ class ForgotPasswordVC: UIViewController {
             ISClient.sharedInstance.forgotPassword(phone_number: phoneTf.text!)
                 .then { _ -> Void in
                     self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "User recovery was successful, wait for sms...".localized)
+                    self.navigationController?.popViewController(animated: true)
+                    
                 }.always {
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                 }.catch { error in
