@@ -32,7 +32,7 @@ class UserModel: NSObject {
         self.full_name = representationJSON["full_name"].stringValue
         self.phone_number = representationJSON["phone_number"].stringValue
         self.password = representationJSON["password"].stringValue
-        self.profile_picture = representationJSON["profile_picture"].stringValue
+        self.profile_picture = representationJSON["picture"].stringValue
         self.email = representationJSON["email"].stringValue
         self.access_token = representationJSON["access_token"].stringValue
     }
