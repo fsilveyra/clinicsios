@@ -24,4 +24,5 @@ pod 'TPKeyboardAvoiding'
 pod 'GoogleMaps'
 pod 'NVActivityIndicatorView'
 pod 'YYWebImage'
+pod 'ClusterKit'
 end

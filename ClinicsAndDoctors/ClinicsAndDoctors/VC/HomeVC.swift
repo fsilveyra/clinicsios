@@ -54,8 +54,6 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UserModel.currentUser = UserModel.loadSession()
-
         translateStaticInterface()
 
         FBSDKLoginManager().logOut()

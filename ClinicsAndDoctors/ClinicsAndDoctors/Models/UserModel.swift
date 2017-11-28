@@ -12,7 +12,11 @@ import PromiseKit
 import MapKit
 
 class UserModel: NSObject {
-    static var currentUser :UserModel?
+    static var currentUser :UserModel? {
+        didSet{
+            saveSession()
+        }
+    }
     var full_name : String = ""
     var phone_number : String = ""
     var password : String = ""
@@ -59,22 +63,11 @@ class UserModel: NSObject {
             dic["email"] = user.email as AnyObject
 
             UserDefaults.standard.set(dic, forKey: "sesion_user")
-            UserDefaults.standard.synchronize()
+
+        }else{
+            UserDefaults.standard.set(nil, forKey: "sesion_user")
         }
-    }
 
-    static func currentSessionPassword() -> String?{
-        return UserDefaults.standard.string(forKey: "sesion_password")
-    }
-
-    static func currentSessionUserId() -> String?{
-        return UserDefaults.standard.string(forKey: "sesion_user_id")
-    }
-
-    static func removeSessionData(){
-        UserDefaults.standard.set(nil, forKey: "sesion_user_id")
-        UserDefaults.standard.set(nil, forKey: "sesion_full_name")
-        UserDefaults.standard.set(nil, forKey: "sesion_password")
         UserDefaults.standard.synchronize()
     }
 

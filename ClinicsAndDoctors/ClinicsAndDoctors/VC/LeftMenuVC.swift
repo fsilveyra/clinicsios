@@ -36,6 +36,9 @@ class LeftMenuVC: UIViewController {
         termsBtn.setTitle("Terms of Use".localized, for: .normal)
         privacyBtn.setTitle("Privacy Policy".localized, for: .normal)
 
+        underlineBtn(logoutBt)
+        underlineBtn(seeProfileBt)
+        underlineLbl(userName)
     }
 
     override func viewDidLoad() {
@@ -74,13 +77,31 @@ class LeftMenuVC: UIViewController {
     }
 
     @objc func SeeProfile(sender: UITapGestureRecognizer) {
-        print("See Profile")
         if UserModel.currentUser != nil {
             self.performSegue(withIdentifier: "goProfile", sender: nil)
         }
         else{
             pressentLogin()
         }
+    }
+
+
+    func underlineBtn(_ btn:UIButton){
+        let attribRegBut : [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : btn.currentTitleColor,
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
+        let attributeString = NSMutableAttributedString(string: btn.title(for: .normal) ?? "",
+                                                        attributes: attribRegBut)
+        btn.setAttributedTitle(attributeString, for: .normal)
+    }
+
+    func underlineLbl(_ btn:UILabel){
+        let attribRegBut : [NSAttributedStringKey: Any] = [
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : btn.textColor,
+            NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
+        let attributeString = NSMutableAttributedString(string: btn.text ?? "",
+                                                        attributes: attribRegBut)
+        btn.attributedText = attributeString
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -93,7 +114,6 @@ class LeftMenuVC: UIViewController {
         FBSDKLoginManager().logOut()
         
         UserModel.currentUser = nil
-        UserModel.removeSessionData()
 
         self.dismiss(animated: true, completion: nil)
     }

@@ -36,6 +36,7 @@
 		FBE201971F7DF69F00C51A0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE201961F7DF69F00C51A0D /* Assets.xcassets */; };
 		FBE2019A1F7DF69F00C51A0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBE201981F7DF69F00C51A0D /* LaunchScreen.storyboard */; };
 		FBEC68A21F8BDE9400DC304A /* RatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC68A11F8BDE9400DC304A /* RatingVC.swift */; };
+		FE0978F11FCDE9970081F7B8 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0978F01FCDE9920081F7B8 /* StartVC.swift */; };
 		FE0FAAAB1FACBFA700C27C16 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FAAA71FACBFA500C27C16 /* RoundedView.swift */; };
 		FE0FAAAC1FACBFA700C27C16 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FAAA91FACBFA600C27C16 /* RoundedButton.swift */; };
 		FE0FAAAD1FACBFA700C27C16 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0FAAAA1FACBFA600C27C16 /* RoundedImageView.swift */; };
@@ -136,6 +137,7 @@
 		FBE201991F7DF69F00C51A0D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBE2019B1F7DF69F00C51A0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBEC68A11F8BDE9400DC304A /* RatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RatingVC.swift; path = VC/RatingVC.swift; sourceTree = "<group>"; };
+		FE0978F01FCDE9920081F7B8 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		FE0FAA971FAC76AE00C27C16 /* SwiftMessages.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftMessages.xcodeproj; path = Libs/SwiftMessages/SwiftMessages.xcodeproj; sourceTree = "<group>"; };
 		FE0FAAA71FACBFA500C27C16 /* RoundedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedView.swift; path = Helpers/RoundedView.swift; sourceTree = "<group>"; };
 		FE0FAAA91FACBFA600C27C16 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedButton.swift; path = Helpers/RoundedButton.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				FBE2018C1F7DF69F00C51A0D /* AppDelegate.swift */,
 				FBE2018E1F7DF69F00C51A0D /* ViewController.swift */,
 				FBE201901F7DF69F00C51A0D /* Main.storyboard */,
+				FE0978F01FCDE9920081F7B8 /* StartVC.swift */,
 				FBE201981F7DF69F00C51A0D /* LaunchScreen.storyboard */,
 				FBE201961F7DF69F00C51A0D /* Assets.xcassets */,
 				FBE2019B1F7DF69F00C51A0D /* Info.plist */,
@@ -531,6 +534,7 @@
 				FE230B861FB9D47900A1F19D /* Localizable.swift in Sources */,
 				FBD7A2EE1F926B9B0038DD30 /* CategoryModel.swift in Sources */,
 				FB6766BD1F8433790039C122 /* LeftMenuVC.swift in Sources */,
+				FE0978F11FCDE9970081F7B8 /* StartVC.swift in Sources */,
 				FB54694A1F9AE88300B42712 /* SpecialityModel.swift in Sources */,
 				FBD7A2E31F925D710038DD30 /* ClinicModel.swift in Sources */,
 				FB9FD2781F8B025200CDA54C /* ReviewsVC.swift in Sources */,

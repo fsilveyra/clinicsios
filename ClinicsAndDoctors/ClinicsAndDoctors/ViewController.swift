@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var facebookBt:UIButton!
     @IBOutlet weak var registerHereBt:UIButton!
     @IBOutlet weak var dontAccountLbl: UILabel!
+    @IBOutlet weak var skipBtn: UIButton!
+    @IBOutlet weak var titleImage: UIImageView!
 
     var futureVC = ""
     var futureClinicId:String?
@@ -44,6 +46,19 @@ class ViewController: UIViewController {
                                                         attributes: attribRegBut)
         registerHereBt.setAttributedTitle(attributeString, for: .normal)
 
+
+
+
+
+        let attribSkipBut : [NSAttributedStringKey: Any] = [
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont.boldSystemFont(ofSize: 15),
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue) : UIColor.white,
+                NSAttributedStringKey(rawValue: NSAttributedStringKey.underlineStyle.rawValue) : NSUnderlineStyle.styleSingle.rawValue]
+            let skipattributeString = NSMutableAttributedString(string: "SKIP",
+                                                            attributes: attribSkipBut)
+            skipBtn.setAttributedTitle(skipattributeString, for: .normal)
+
+
     }
 
     func translateStaticInterface(){
@@ -51,6 +66,7 @@ class ViewController: UIViewController {
         facebookBt.setTitle("CONTINUE WITH FACEBOOK".localized, for: .normal)
         dontAccountLbl.text = "Don't have account?".localized
         registerHereBt.setTitle("Register Here".localized, for: .normal)
+        titleImage.image = UIImage(named: "titleAppImage".localized)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -155,9 +171,20 @@ class ViewController: UIViewController {
 
 
     @IBAction func goBackAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
 
+        if self.navigationController?.viewControllers.count == 2 {
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: {[weak self] in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+
+            self?.navigationController?.pushViewController(vc, animated: true)
+        })
+
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 
 }
 

@@ -151,7 +151,7 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
                                                 fullName: nameTf.text,
                                                 phone_number: mobileTf.text,
                                                 email: emailTf.text,
-                                                password: UserModel.currentSessionPassword(),
+                                                password: user.password,
                                                 picture: avatarIm.image ?? nil)
                 .then {[weak self] user -> Void in
 
@@ -204,7 +204,7 @@ extension ProfileVC {
 
     func validateDataPassword(_ current:String, _ newPass:String, _ retype:String) -> Bool{
 
-        let currentPass = UserModel.currentSessionPassword()
+        let currentPass = UserModel.currentUser!.password
         if current != currentPass{
             self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "The current password not match".localized)
             return false

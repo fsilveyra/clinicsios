@@ -260,6 +260,8 @@ class ISClient: NSObject {
                             reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
 
+//                            fulfill([SpecialityModel]())
+
                             if js["code"].stringValue == "GET_SPECIALTIES_UNSUCCESSFUL" {
                                 reject(LPError(code: "error", description: "No specialties found".localized))
                             }
