@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 
     func translateStaticInterface(){
         loginBt.setTitle("LOGIN WITH MOBILE".localized, for: .normal)
-        loginBt.setTitle("CONTINUE WITH FACEBOOK".localized, for: .normal)
+        facebookBt.setTitle("CONTINUE WITH FACEBOOK".localized, for: .normal)
         dontAccountLbl.text = "Don't have account?".localized
         registerHereBt.setTitle("Register Here".localized, for: .normal)
     }
