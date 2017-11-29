@@ -23,5 +23,16 @@ class StartVC : UIViewController {
 
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toLogin" {
+            if let vc = segue.destination as? ViewController {
+                vc.futureVC = "HomeVC"
+            }
+
+        }
+    }
+
+
+
 
 }

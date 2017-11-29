@@ -189,7 +189,7 @@ class ISClient: NSObject {
                         if js == JSON.null {
                             reject(LPError(code: "error", description: "Network error ocurred".localized))
                         }else{
-                            if js["code"].stringValue == "REGISTER_WITH_FB_SUCCESSFUL" {
+                            if js["code"].stringValue == "LOGIN_SUCCESSFUL" {
                                 UserModel.currentUser = UserModel(representationJSON: js)
                                 UserModel.currentUser?.password = ""
                                 UserModel.saveSession()

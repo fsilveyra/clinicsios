@@ -124,12 +124,15 @@ class ViewController: UIViewController {
 
 
     func fbRegisterSuccess(){
-        self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration with facebook.")
+        //self.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Successful registration with facebook.")
 
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + 1, execute: {[weak self] in
 
+
                 if let nav = self?.navigationController{
+                    let c = nav.viewControllers.count
+
                     if let fvc = self?.futureVC, fvc.isEmpty == false {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: fvc)
@@ -139,13 +142,16 @@ class ViewController: UIViewController {
                             vcRating.doctorId = self?.futureDoctorId
                         }
 
+
                         let c = nav.viewControllers.count
-                        nav.viewControllers.insert(vc, at: c - 1)
-                        self?.navigationController?.popToViewController(vc, animated: true)
+                        nav.viewControllers.insert(vc, at: c - 2)
+                        nav.popToViewController(vc, animated: true)
                     }else{
-                        nav.popViewController(animated: true)
+                        let backVC = nav.viewControllers[c - 2]
+                        nav.popToViewController(backVC, animated: true)
                     }
                 }
+
 
         })
     }
