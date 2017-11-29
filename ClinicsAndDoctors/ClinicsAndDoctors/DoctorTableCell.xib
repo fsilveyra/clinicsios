@@ -105,6 +105,7 @@
                 <outlet property="avatarImageView" destination="5Si-HT-fIY" id="9CT-KU-Mu4"/>
                 <outlet property="clinicNameLbl" destination="qfS-Pi-8lX" id="6pZ-vk-o4V"/>
                 <outlet property="distanceLbl" destination="rJC-L1-Lso" id="jdv-SM-QEN"/>
+                <outlet property="locIcon" destination="tTw-dF-dBQ" id="iMX-fQ-oEE"/>
                 <outlet property="nameLbl" destination="kUv-vy-zuo" id="xYr-me-xda"/>
                 <outlet property="ratingView" destination="5Fe-Yz-wUK" id="HIz-wY-vcA"/>
             </connections>

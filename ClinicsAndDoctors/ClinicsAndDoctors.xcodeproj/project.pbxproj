@@ -51,6 +51,8 @@
 		FE230B891FB9DC6800A1F19D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE230B8B1FB9DC6800A1F19D /* Localizable.strings */; };
 		FE40EECF1FC34CA80045B201 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */; };
 		FE6F0EEC1FB7AD3800F98406 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */; };
+		FEB6CBC51FCE25F300DD90D4 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEB6CBC41FCE25F300DD90D4 /* SearchView.xib */; };
+		FEB6CBC81FCE263000DD90D4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6CBC71FCE263000DD90D4 /* SearchView.swift */; };
 		FED827231FAF8CA5006473C4 /* DoctorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */; };
 		FED827241FAF8CA5006473C4 /* DoctorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */; };
 		FEE29A2D1FC506C10012C676 /* Whatsapp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE29A2C1FC506C10012C676 /* Whatsapp.swift */; };
@@ -153,6 +155,8 @@
 		FE40EECE1FC34CA00045B201 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		FE6D681A1FAAA03F0032CD16 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		FE6F0EEB1FB7AD3800F98406 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		FEB6CBC41FCE25F300DD90D4 /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
+		FEB6CBC71FCE263000DD90D4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		FED827211FAF8CA5006473C4 /* DoctorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorTableCell.swift; sourceTree = "<group>"; };
 		FED827221FAF8CA5006473C4 /* DoctorTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DoctorTableCell.xib; sourceTree = "<group>"; };
 		FEE29A2C1FC506C10012C676 /* Whatsapp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whatsapp.swift; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 				FB4CE39B1F8B37A500DFC4A9 /* ClinincDetailVC.swift */,
 				FBEC68A11F8BDE9400DC304A /* RatingVC.swift */,
 				FE1F943C1FB0188300193E2D /* TermsPolicyVC.swift */,
+				FEB6CBC41FCE25F300DD90D4 /* SearchView.xib */,
+				FEB6CBC71FCE263000DD90D4 /* SearchView.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -401,6 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEB6CBC51FCE25F300DD90D4 /* SearchView.xib in Resources */,
 				FBE2019A1F7DF69F00C51A0D /* LaunchScreen.storyboard in Resources */,
 				FBE201971F7DF69F00C51A0D /* Assets.xcassets in Resources */,
 				FB02285E1F8676C700853B1B /* CustomInfoVIewX.xib in Resources */,
@@ -527,6 +534,7 @@
 				FE0FAAAC1FACBFA700C27C16 /* RoundedButton.swift in Sources */,
 				FB3E548F1F81B64900DF65BA /* SpecialityButtonCell.swift in Sources */,
 				FB86ABDC1F8B0DA400817B4B /* FavoritesVC.swift in Sources */,
+				FEB6CBC81FCE263000DD90D4 /* SearchView.swift in Sources */,
 				FB4600591F8206CD00C258E5 /* SliderMillesCell.swift in Sources */,
 				FBE201951F7DF69F00C51A0D /* ClinicsAndDoctors.xcdatamodeld in Sources */,
 				FBE2018D1F7DF69F00C51A0D /* AppDelegate.swift in Sources */,

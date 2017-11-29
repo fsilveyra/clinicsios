@@ -59,39 +59,6 @@ class ISClient: NSObject {
         return strBase64
     }
 
-    
-//    // MARK: Alamofire Request
-//    func request(endPoint: String, Params: Parameters, method: HTTPMethod? = .get, encoding: ParameterEncoding? = JSONEncoding.prettyPrinted , completion: @escaping ((_ data: JSON) -> Void)) {
-//
-//        let headers = ["Content-Type" : "application/json"]
-//        // if let token = appDelegate.token{}
-//        //headers["access_token"] = appDelegate.token
-//        print(self.baseURL+endPoint)
-//        let c = Alamofire.request(self.baseURL + endPoint, method: method!, parameters: Params, encoding: encoding!, headers: headers)
-//            .responseJSON() { response in
-//                print("Alamofire Response \(response)")
-//                switch response.result {
-//                case .success(let json):
-//                    print(JSON(json))
-//                    completion(JSON(json))
-//                case .failure:
-//                    let status = ["code": "time_out",
-//                                  "detail": "Secure connection to the server cannot be made."]
-//                    let Json = JSON(status)
-//                    completion(Json)
-//                    print("error en la peticion")
-//                    //if let err = error as? AFError {
-//                        /*if err.isResponseSerializationError {
-//                        } else {
-//                        }*/
-//                    //}
-//                    print("error: \(response.error?.localizedDescription)")
-//                }
-//        }
-//        print(c.debugDescription)
-//    }
-
-
 
     // MARK: Authentication
 
@@ -662,5 +629,74 @@ class ISClient: NSObject {
     }
 
 
+
+
+
+
+
+
+    func search(keyword:String) -> Promise<[SearchResultModel]> {
+        let headers = ["Content-Type" : "application/json"]
+        let parameters : Parameters = ["keyword":keyword]
+        let endPoint = "search"
+
+        return Promise { fulfill, reject in
+            Alamofire.request(self.baseURL + endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+
+                    switch response.result {
+                    case .success(let json):
+                        let js = JSON(json)
+
+                        if js != JSON.null {
+
+                            var list = [SearchResultModel]()
+                            for item in js.arrayValue {
+                                list.append(SearchResultModel(representationJSON: item))
+                            }
+                            fulfill(list)
+
+                        }else{
+                            reject(LPError(code: "error", description: "Server error ocurred".localized))
+                        }
+
+                    case .failure(_):
+                        reject(LPError(code: "error", description: "Network error ocurred".localized))
+                    }
+            }
+        }
+    }
+
 }
+
+
+
+
+class SearchResultModel: NSObject {
+
+    var id : String!
+    var objType: String!
+    var clinicData: ClinicModel? = nil
+    var doctorData: DoctorModel? = nil
+
+    override init() {
+    }
+
+    required init(representationJSON:SwiftyJSON.JSON) {
+        self.id = representationJSON["id"].stringValue
+
+        let cid = representationJSON["clinic","id"].stringValue
+        if cid.isEmpty{
+            objType = "clinic"
+            self.clinicData = ClinicModel(representationJSON:representationJSON)
+        }else{
+            objType = "doctor"
+            self.doctorData = DoctorModel(representationJSON:representationJSON)
+        }
+    }
+
+
+}
+
+
 

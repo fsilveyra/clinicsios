@@ -35,23 +35,3 @@ class ReviewModel: NSObject {
 
 
 }
-
-
-/*
-
- “id” : 1,
- “created_date_time”: “10/20/2016 12:00:00”,
- ​​​​“updated_date_time”: “11/20/2016 12:00:00”,
- "comment" : “lorem impsum”,
- “rating”: 3,
- “user”: ​{
- ​​“id”: 34,
- ​​“full_name” : “John Doe”,
- ​​“phone_number”: “2421313”,
- ​​“email”: “johndoe@infinixsoft.com”,
- ​​“picture”: “http://www.example.com/profile.jpg”
- ​​}
- },
-
- */
-

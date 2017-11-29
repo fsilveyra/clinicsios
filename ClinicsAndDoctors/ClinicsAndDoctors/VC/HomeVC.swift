@@ -28,8 +28,10 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var locationBt:UIButton!
     @IBOutlet weak var defaultView: UIView!
     @IBOutlet weak var defaultLbl: UILabel!
-    
+    @IBOutlet weak var searchBtn: UIButton!
 
+    var searchView : SearchView? = nil
+    var topSearch:CGFloat = 0
 
 
     var myPoint: GMSMarker?
@@ -58,7 +60,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
         FBSDKLoginManager().logOut()
 
-        
+        configureSearch()
+
         self.title = ""
 
         self.navigationController?.navigationBar.isHidden = false
@@ -123,7 +126,12 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         super.viewDidAppear(animated)
 
         //reload!
-        if !self.isFromSideMenuOrigin { self.loadData() }
+        var searchVisible = false
+        if let searchView = searchView, !searchView.isHidden{
+            searchVisible = true
+        }
+        
+        if !self.isFromSideMenuOrigin && !searchVisible { self.loadData() }
         self.isFromSideMenuOrigin = false
     }
 
@@ -576,6 +584,7 @@ extension HomeVC {
 
     }
 
+
 }
 
 
@@ -683,3 +692,101 @@ extension HomeVC {
     }
 
 }
+
+
+
+//==========================================================
+// MARK: - Search
+//==========================================================
+
+extension HomeVC {
+
+    func configureSearch(){
+        self.topSearch = self.searchBtn.frame.origin.y
+        showSearchPanel(false, animated:false)
+
+        self.searchView?.onClose = {[weak self] in
+            self?.showSearchPanel(false)
+            self?.loadData()
+        }
+
+        self.searchView?.onSelectItem = {[weak self] (itemId, itemType) in
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            if itemType == "doctor" {
+                let vc = storyboard.instantiateViewController(withIdentifier: "DoctorDetailVC") as! DoctorDetailVC
+                vc.docId = itemId
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = storyboard.instantiateViewController(withIdentifier: "ClinincDetailVC") as! ClinincDetailVC
+                vc.clinicId = itemId
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+    }
+
+    func showSearchPanel(_ show:Bool, animated:Bool = true){
+
+        let size = self.view.frame.size
+        let topSize = CGSize(width:size.width, height: size.height - topSearch)
+        let topFrame = CGRect(x:0, y:topSearch, width:topSize.width, height: topSize.height)
+        let bottonFrame = CGRect(x:0, y:size.height, width:topSize.width, height: topSize.height)
+
+        if self.searchView == nil {
+            self.searchView = SearchView(frame: bottonFrame)
+            self.view.addSubview(self.searchView!)
+        }
+
+        guard let sview = self.searchView else {return}
+
+        self.view.bringSubview(toFront: sview)
+
+        if show {
+
+            if !sview.isHidden {return}
+
+            sview.isHidden = false
+            sview.frame = bottonFrame
+            sview.setNeedsLayout()
+            UIView.animate(withDuration: animated ? 0.2 : 0.01, delay: 0, options: [.curveEaseOut], animations: {
+                sview.frame = topFrame
+                sview.setNeedsLayout()
+            }, completion: { completed in
+                sview.textField.becomeFirstResponder()
+                
+            })
+
+        }else{
+
+            if sview.isHidden {return}
+            sview.frame = topFrame
+            sview.setNeedsLayout()
+
+            UIView.animate(withDuration: animated ? 0.2 : 0.01, delay: 0, options: [.curveEaseIn], animations: {
+                sview.frame = bottonFrame
+                sview.setNeedsLayout()
+            }, completion: { completed in
+                sview.isHidden = true
+            })
+
+            self.view.endEditing(true)
+
+        }
+
+    }
+
+
+
+    @IBAction func searchAction(_ sender:UIButton){
+
+        showSearchPanel(self.searchView!.isHidden)
+
+
+    }
+
+}
+
+
+
