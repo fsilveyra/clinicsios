@@ -26,6 +26,7 @@ class ClinicModel: NSObject {
     var id: String!
     var rating: Double!
     var is_favorite: Bool!
+    var is_rated: Bool!
 
 
 
@@ -53,6 +54,7 @@ class ClinicModel: NSObject {
         for specialty in specialtysJSON {
             self.specialties.append(SpecialityModel(representationJSON: specialty).id)
         }
+        self.is_rated = representationJSON["is_rated"].boolValue
     }
 
     func getDoctorNumber() ->Int {
@@ -88,18 +90,41 @@ class ClinicModel: NSObject {
     }
 
     static func isRated(cId:String) ->Bool{
-        if let user = UserModel.currentUser {
-            return UserDefaults.standard.bool(forKey: "rate_clin_" + cId + "_" + user.id)
+        if let user = UserModel.currentUser, let clinic = ClinicModel.by(id: cId) {
+            return (UserDefaults.standard.bool(forKey: "rate_clin_id_\(cId)_" + user.id) || clinic.is_rated)
         }
 
         return false
     }
 
-    static func setRated(cId:String){
+    static func setRated(cId:String, value:Int, option:Int, otherComment:String){
+
+        if let clinic = ClinicModel.by(id: cId){
+            clinic.is_rated = true
+            let index = ClinicModel.clinics.index(of: clinic)
+            ClinicModel.clinics.remove(at: index!)
+            ClinicModel.clinics.append(clinic)
+        }
+
         if let user = UserModel.currentUser {
-            UserDefaults.standard.set(true, forKey: "rate_clin_" + cId + "_" + user.id)
+            UserDefaults.standard.set(true, forKey: "rate_clin_id_\(cId)_" + user.id)
+            UserDefaults.standard.set(value, forKey: "rate_clin_value_\(cId)_" + user.id)
+            UserDefaults.standard.set(option, forKey: "rate_clin_option_\(cId)_" + user.id)
+            UserDefaults.standard.set(option, forKey: "rate_clin_comment_\(cId)_" + user.id)
             UserDefaults.standard.synchronize()
         }
+    }
+
+
+    static func getRateValues(cId:String) -> (Int, Int, String) {
+        if let user = UserModel.currentUser {
+            let value = UserDefaults.standard.integer(forKey: "rate_clin_value_\(cId)_" + user.id)
+            let option = UserDefaults.standard.integer(forKey: "rate_clin_option_\(cId)_" + user.id)
+            let comment = UserDefaults.standard.string(forKey: "rate_clin_comment_\(cId)_" + user.id)
+            return (value, option, comment ?? "")
+        }
+
+        return (-1, -1, "")
     }
 
 }

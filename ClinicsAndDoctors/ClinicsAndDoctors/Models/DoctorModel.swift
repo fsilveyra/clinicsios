@@ -24,6 +24,7 @@ class DoctorModel: NSObject {
     var rating: Double!
     var is_favorite:Bool!
     var dtype:String!
+    var is_rated:Bool!
     
     override init() {
     }
@@ -40,6 +41,7 @@ class DoctorModel: NSObject {
         self.rating = representationJSON["rating"].doubleValue
         self.is_favorite = representationJSON["is_favorite"].boolValue
         self.dtype = representationJSON["type"].stringValue
+        self.is_rated = representationJSON["is_rated"].boolValue
     }
 
     static func by(id:String) ->DoctorModel? {
@@ -49,19 +51,43 @@ class DoctorModel: NSObject {
     }
 
     static func isRated(docId:String) ->Bool{
-        if let user = UserModel.currentUser {
-            return UserDefaults.standard.bool(forKey: "rate_doc_" + docId + "_" + user.id)
+        if let user = UserModel.currentUser, let doctor = DoctorModel.by(id: docId) {
+            return (UserDefaults.standard.bool(forKey: "rate_doc_id_\(docId)_" + user.id) || doctor.is_rated)
         }
 
         return false
     }
 
-    static func setRated(docId:String){
+    static func setRated(docId:String, value:Int, option:Int, otherComment:String){
+
+        if let doctor = DoctorModel.by(id: docId){
+            doctor.is_rated = true
+            let index = DoctorModel.doctors.index(of: doctor)
+            DoctorModel.doctors.remove(at: index!)
+            DoctorModel.doctors.append(doctor)
+        }
+
         if let user = UserModel.currentUser {
-            UserDefaults.standard.set(true, forKey: "rate_doc_" + docId + "_" + user.id)
+            UserDefaults.standard.set(true, forKey: "rate_doc_id_\(docId)_" + user.id)
+            UserDefaults.standard.set(value, forKey: "rate_doc_value_\(docId)_" + user.id)
+            UserDefaults.standard.set(option, forKey: "rate_doc_option_\(docId)_" + user.id)
+            UserDefaults.standard.set(otherComment, forKey: "rate_doc_comment_\(docId)_" + user.id)
             UserDefaults.standard.synchronize()
         }
+
     }
+
+    static func getRateValues(docId:String) -> (Int, Int, String) {
+        if let user = UserModel.currentUser {
+            let value = UserDefaults.standard.integer(forKey: "rate_doc_value_\(docId)_" + user.id)
+            let option = UserDefaults.standard.integer(forKey: "rate_doc_option_\(docId)_" + user.id)
+            let comment = UserDefaults.standard.string(forKey: "rate_doc_comment_\(docId)_" + user.id)
+            return (value, option, comment ?? "")
+        }
+
+        return (-1, -1, "")
+    }
+
 
 
 }
