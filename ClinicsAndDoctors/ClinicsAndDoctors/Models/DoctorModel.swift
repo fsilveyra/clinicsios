@@ -50,9 +50,9 @@ class DoctorModel: NSObject {
             }.first
     }
 
-    static func isRated(docId:String) ->Bool{
-        if let user = UserModel.currentUser, let doctor = DoctorModel.by(id: docId) {
-            return (UserDefaults.standard.bool(forKey: "rate_doc_id_\(docId)_" + user.id) || doctor.is_rated)
+    static func isLocalRated(docId:String) ->Bool{
+        if let user = UserModel.currentUser {
+            return (UserDefaults.standard.bool(forKey: "rate_doc_id_\(docId)_" + user.id))
         }
 
         return false
@@ -85,7 +85,7 @@ class DoctorModel: NSObject {
             return (value, option, comment ?? "")
         }
 
-        return (-1, -1, "")
+        return (5, 0, "")
     }
 
 

@@ -258,10 +258,12 @@ class ISClient: NSObject {
 
         let user = UserModel.currentUser
 
+        let conv = radius //Double(radius) //* 0.000621
+
         var parameters : Parameters = [
             "latitude": latitude,
             "longitude": longitude,
-            "radius": radius,
+            "radius": conv,
             "user_id":user != nil ? user!.id : "-1"
         ]
         if let esp = specialty_id, esp.isEmpty == false {

@@ -89,9 +89,10 @@ class ClinicModel: NSObject {
         return result
     }
 
-    static func isRated(cId:String) ->Bool{
-        if let user = UserModel.currentUser, let clinic = ClinicModel.by(id: cId) {
-            return (UserDefaults.standard.bool(forKey: "rate_clin_id_\(cId)_" + user.id) || clinic.is_rated)
+
+    static func isLocalRated(cId:String) ->Bool{
+        if let user = UserModel.currentUser {
+            return (UserDefaults.standard.bool(forKey: "rate_clin_id_\(cId)_" + user.id))
         }
 
         return false
@@ -110,7 +111,7 @@ class ClinicModel: NSObject {
             UserDefaults.standard.set(true, forKey: "rate_clin_id_\(cId)_" + user.id)
             UserDefaults.standard.set(value, forKey: "rate_clin_value_\(cId)_" + user.id)
             UserDefaults.standard.set(option, forKey: "rate_clin_option_\(cId)_" + user.id)
-            UserDefaults.standard.set(option, forKey: "rate_clin_comment_\(cId)_" + user.id)
+            UserDefaults.standard.set(otherComment, forKey: "rate_clin_comment_\(cId)_" + user.id)
             UserDefaults.standard.synchronize()
         }
     }
@@ -124,7 +125,7 @@ class ClinicModel: NSObject {
             return (value, option, comment ?? "")
         }
 
-        return (-1, -1, "")
+        return (5, 0, "")
     }
 
 }

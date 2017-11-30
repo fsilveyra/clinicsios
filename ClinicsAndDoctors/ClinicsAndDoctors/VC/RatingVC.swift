@@ -166,7 +166,7 @@ class RatingVC: UIViewController {
         var rated = false
 
         if isClinic {
-            if ClinicModel.isRated(cId: id) {
+            if ClinicModel.isLocalRated(cId: id) {
                 let (value, option, comment) =  ClinicModel.getRateValues(cId: id)
                 self.selectRatin(value)
                 self.selectedOption = option
@@ -175,7 +175,7 @@ class RatingVC: UIViewController {
             }
 
         }else{
-            if DoctorModel.isRated(docId: id) {
+            if DoctorModel.isLocalRated(docId: id) {
                 let (value, option, comment) =  DoctorModel.getRateValues(docId: id)
                 self.selectRatin(value)
                 self.selectedOption = option
