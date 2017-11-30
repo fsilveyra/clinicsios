@@ -28,4 +28,5 @@ pod 'GoogleMaps'
 pod 'NVActivityIndicatorView'
 pod 'YYWebImage'
 pod 'ClusterKit'
+pod 'RealmSwift'
 end
