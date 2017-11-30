@@ -18,9 +18,15 @@ import YYWebImage
 import FBSDKCoreKit
 import FBSDKLoginKit
 import SwiftyJSON
+import ClusterKit
 
 
-class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISideMenuNavigationControllerDelegate {
+class CustomAnnotation : MKPointAnnotation{
+    var clinicId:String = ""
+}
+
+
+class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GMSMapViewDelegate,CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UISideMenuNavigationControllerDelegate, GMSMapViewDataSource {
     
     @IBOutlet weak var especialitysCollection:UICollectionView!
     @IBOutlet weak var myMap:GMSMapView!
@@ -91,6 +97,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         myTableView.contentInset = UIEdgeInsetsMake(0,0,0,0);
 
+        self.view.bringSubview(toFront: self.locationBt)
+        
 
         configureSideMenu()
 
@@ -159,31 +167,36 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         if myMap.alpha==0 {
             self.navigationItem.rightBarButtonItem?.image = UIImage(named: "menuRigth")
 
+            self.myMap.isUserInteractionEnabled = true
+            self.myTableView.isUserInteractionEnabled = false
+            self.view.sendSubview(toBack: self.myTableView)
+            self.view.bringSubview(toFront: self.defaultView)
+            self.view.bringSubview(toFront: self.myMap)
+            self.view.bringSubview(toFront: self.locationBt)
+
+
             UIView.animate(withDuration: 0.3, animations: {
                 self.myMap.alpha = 1
                 self.locationBt.alpha = 1
-                self.myMap.isUserInteractionEnabled = true
                 self.myTableView.alpha = 0
-                self.myTableView.isUserInteractionEnabled = false
-                self.view.sendSubview(toBack: self.myTableView)
-                self.view.bringSubview(toFront: self.defaultView)
-                self.view.bringSubview(toFront: self.myMap)
-                self.view.bringSubview(toFront: self.locationBt)
             })
+
+
         }
         else {
             self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
+
+            self.myTableView.isUserInteractionEnabled = true
+            self.view.sendSubview(toBack: self.myMap)
+            self.view.sendSubview(toBack: self.locationBt)
+            self.view.bringSubview(toFront: self.myTableView)
+            self.view.bringSubview(toFront: self.defaultView)
 
             UIView.animate(withDuration: 0.3, animations: {
                 self.myMap.alpha = 0
                 self.locationBt.alpha = 0
                 self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
-                self.myTableView.isUserInteractionEnabled = true
-                self.view.sendSubview(toBack: self.myMap)
-                self.view.sendSubview(toBack: self.locationBt)
-                self.view.bringSubview(toFront: self.myTableView)
-                self.view.bringSubview(toFront: self.defaultView)
             })
         }
     }
@@ -380,6 +393,15 @@ extension HomeVC {
         DispatchQueue.main.async {
             self.locationManager.startUpdatingLocation()
         }
+
+
+        let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
+        algorithm.cellSize = 200
+
+        myMap.clusterManager.algorithm = algorithm
+        myMap.clusterManager.marginFactor = 1
+        myMap.dataSource = self
+
     }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -389,55 +411,68 @@ extension HomeVC {
         return nil
     }
 
+
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if marker != self.myPoint {
-            tappedMarker = marker
-            self.infoView.removeFromSuperview()
 
-
-            guard let clinic = ClinicModel.by(id: marker.userData as! String) else { return false }
-
-            self.infoView.mylocation = self.locationManager.location
-            self.infoView.updateWith(clinic: clinic)
-
-            self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
-            self.infoView.callBt.addTarget(self, action: #selector(GoMap(_:)), for: .touchUpInside)
-            self.infoView.getDirectionsBtn.addTarget(self, action: #selector(getDirectionsAction(_:)), for: .touchUpInside)
-            if let image = (marker.iconView as! UIImageView).image {
-                self.infoView.imageView.image = image
-            }
-
-            self.infoView.contentView.layer.cornerRadius = 10
-            self.infoView.internalContentView.layer.cornerRadius = 10
-
-            var markPos = myMap.projection.point(for: marker.position)
-            markPos.x -= 28
-            markPos.y += (self.infoView.frame.height / 2 - 3)
-
-            self.infoView.frame.origin = markPos
-            self.view.addSubview(self.infoView)
-            self.view.bringSubview(toFront: especialitysCollection)
-            self.view.bringSubview(toFront: locationBt)
-
-
-            let point = marker.position
-            var pixelpoint = myMap.projection.point(for: point)
-            pixelpoint.x += (self.infoView.frame.width / 2) - 28
-            let newpoint = myMap.projection.coordinate(for: pixelpoint)
-
-
-            let camera = GMSCameraPosition.camera(withLatitude: newpoint.latitude, longitude: newpoint.longitude, zoom: myMap.camera.zoom)
-            myMap.animate(to: camera)
-
+        if let cluster = marker.cluster, cluster.count > 1 {
+            let padding = UIEdgeInsetsMake(40, 20, 44, 20)
+            let cameraUpdate = GMSCameraUpdate.fit(cluster, with: padding)
+            mapView.animate(with: cameraUpdate)
             return true
+        }else{
 
+
+            if marker != self.myPoint {
+                tappedMarker = marker
+                self.infoView.removeFromSuperview()
+
+
+                guard let clinic = ClinicModel.by(id: marker.userData as! String) else { return false }
+
+                self.infoView.mylocation = self.locationManager.location
+                self.infoView.updateWith(clinic: clinic)
+
+                self.infoView.infoBt.addTarget(self, action: #selector(GoClinicDetails(_:)), for: .touchUpInside)
+                self.infoView.callBt.addTarget(self, action: #selector(GoMap(_:)), for: .touchUpInside)
+                self.infoView.getDirectionsBtn.addTarget(self, action: #selector(getDirectionsAction(_:)), for: .touchUpInside)
+                if let image = (marker.iconView as! UIImageView).image {
+                    self.infoView.imageView.image = image
+                }
+
+                self.infoView.contentView.layer.cornerRadius = 10
+                self.infoView.internalContentView.layer.cornerRadius = 10
+
+                var markPos = myMap.projection.point(for: marker.position)
+                markPos.x -= 28
+                markPos.y += (self.infoView.frame.height / 2 - 3)
+
+                self.infoView.frame.origin = markPos
+                self.view.addSubview(self.infoView)
+                self.view.bringSubview(toFront: especialitysCollection)
+                self.view.bringSubview(toFront: locationBt)
+
+
+                let point = marker.position
+                var pixelpoint = myMap.projection.point(for: point)
+                pixelpoint.x += (self.infoView.frame.width / 2) - 28
+                let newpoint = myMap.projection.coordinate(for: pixelpoint)
+
+
+                let camera = GMSCameraPosition.camera(withLatitude: newpoint.latitude, longitude: newpoint.longitude, zoom: myMap.camera.zoom)
+                myMap.animate(to: camera)
+
+                return true
+
+            }
         }
+
+
         return false
     }
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         var markPos = myMap.projection.point(for: tappedMarker.position)
-        markPos.y += (self.infoView.frame.height / 2 - 3)
+        markPos.y += (self.infoView.frame.height / 2 - 8)
         markPos.x -= 28
 
         self.infoView.frame.origin = markPos
@@ -481,25 +516,59 @@ extension HomeVC {
         }
     }
 
-    func ShowClinicsMarkerInMap(){
-        myMap.clear()
-        for clinic in ClinicModel.clinics {
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
-            imageView.layer.cornerRadius = imageView.frame.width/2
-            imageView.contentMode = .scaleAspectFill
-            imageView.clipsToBounds = true
-            imageView.backgroundColor = .white
-            imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
-            })
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        mapView.clusterManager.updateClustersIfNeeded()
+    }
 
-            let pinClinic = GMSMarker(position: CLLocationCoordinate2D(latitude: clinic.latitude,longitude: clinic.longitude))
 
-            pinClinic.iconView = imageView
-            pinClinic.title = clinic.full_name
-            pinClinic.map = self.myMap
-            pinClinic.userData = clinic.id
+    // MARK: GMSMapViewDataSource
+
+    func mapView(_ mapView: GMSMapView, markerFor cluster: CKCluster) -> GMSMarker {
+
+        let pinClinic = GMSMarker(position: cluster.coordinate)
+
+        if cluster.count > 1 {
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+
+            pinClinic.icon = iconGenerator.icon(forSize: cluster.count)
+
+        } else {
+
+            if let annot = cluster.firstAnnotation as? CustomAnnotation{
+
+                let clinic = ClinicModel.by(id: annot.clinicId)!
+
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
+                imageView.layer.cornerRadius = imageView.frame.width/2
+                imageView.contentMode = .scaleAspectFill
+                imageView.clipsToBounds = true
+                imageView.backgroundColor = .white
+                imageView.yy_setImage(with: URL(string: clinic.profile_picture)!, placeholder: #imageLiteral(resourceName: "pinInfinix"), options: .setImageWithFadeAnimation, completion: { (image, _, _, _, error) in
+                })
+
+                pinClinic.iconView = imageView
+                pinClinic.title = clinic.full_name
+                pinClinic.map = self.myMap
+                pinClinic.userData = clinic.id
+            }
 
         }
+
+        return pinClinic;
+    }
+
+
+    func ShowClinicsMarkerInMap(){
+        myMap.clear()
+        self.myMap.clusterManager.annotations.removeAll()
+
+        for clinic in ClinicModel.clinics {
+            let anot = CustomAnnotation()
+            anot.clinicId = clinic.id
+            anot.coordinate = CLLocationCoordinate2D(latitude: clinic.latitude,longitude: clinic.longitude)
+            self.myMap.clusterManager.annotations.append(anot)
+        }
+
     }
 
     @IBAction func ShowMyLocation(_ sende: AnyObject){
@@ -780,10 +849,7 @@ extension HomeVC {
 
 
     @IBAction func searchAction(_ sender:UIButton){
-
         showSearchPanel(self.searchView!.isHidden)
-
-
     }
 
 }

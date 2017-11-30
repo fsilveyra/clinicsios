@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import PromiseKit
 import MapKit
 
-class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
+class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate {
 
     private var view: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -46,7 +46,7 @@ class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollV
         let nibProd2 = UINib(nibName:"ClinicTableCell", bundle:classBundle2)
         self.tableView.register(nibProd2, forCellReuseIdentifier:"ClinicTableCell")
 
-
+        textField.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
@@ -69,6 +69,18 @@ class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollV
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        self.search(text: self.textField.text ?? "")
+        return true
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.clinics = [ClinicModel]()
+        self.doctors = [DoctorModel]()
+        self.tableView.reloadData()
     }
 
 }
