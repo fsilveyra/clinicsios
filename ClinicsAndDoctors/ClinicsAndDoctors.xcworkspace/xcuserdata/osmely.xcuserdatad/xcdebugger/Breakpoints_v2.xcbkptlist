@@ -35,5 +35,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClinicsAndDoctors/Models/ClinicModel.swift"
+            timestampString = "533761278.849119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "getRateValues(cId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ClinicsAndDoctors.ClinicModel.getRateValues(cId: Swift.String) -&gt; (Swift.Int, Swift.Int, Swift.String)"
+                  moduleName = "ClinicsAndDoctors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATOS/DESARROLLO/PROYECTOS/INFINIXSOFTT/Clinics/Git/infinixsoft_clinicsanddoctors/ClinicsAndDoctors/ClinicsAndDoctors/Models/ClinicModel.swift"
+                  timestampString = "533761279.761466"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "2236">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 : @autoclosure () throws -&gt; Swift.String in static ClinicsAndDoctors.ClinicModel.getRateValues(cId: Swift.String) -&gt; (Swift.Int, Swift.Int, Swift.String)"
+                  moduleName = "ClinicsAndDoctors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/DATOS/DESARROLLO/PROYECTOS/INFINIXSOFTT/Clinics/Git/infinixsoft_clinicsanddoctors/ClinicsAndDoctors/ClinicsAndDoctors/Models/ClinicModel.swift"
+                  timestampString = "533761279.76517"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

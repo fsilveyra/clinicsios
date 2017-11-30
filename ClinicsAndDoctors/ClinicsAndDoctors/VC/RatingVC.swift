@@ -85,8 +85,7 @@ class RatingVC: UIViewController {
         self.navigationItem.backBarButtonItem?.title = "Back".localized
         self.navigationController?.navigationBar.isHidden = false
 
-        self.selectRatin(5)
-        self.selectedOption = 0
+        tryLoadRate()
     }
 
     func updateWithData(){
@@ -158,6 +157,40 @@ class RatingVC: UIViewController {
         self.rating = sender.tag + 1
     }
 
+
+
+    func tryLoadRate(){
+
+        let id = (self.clinicId ?? self.doctorId)!
+        let isClinic = (self.clinicId != nil)
+        var rated = false
+
+        if isClinic {
+            if ClinicModel.isLocalRated(cId: id) {
+                let (value, option, comment) =  ClinicModel.getRateValues(cId: id)
+                self.selectRatin(value)
+                self.selectedOption = option
+                commentText.text = comment
+                rated = true
+            }
+
+        }else{
+            if DoctorModel.isLocalRated(docId: id) {
+                let (value, option, comment) =  DoctorModel.getRateValues(docId: id)
+                self.selectRatin(value)
+                self.selectedOption = option
+                commentText.text = comment
+                rated = true
+            }
+        }
+
+        if rated == false {
+            self.selectRatin(5)
+            self.selectedOption = 0
+            commentText.text = ""
+        }
+    }
+
     @IBAction func SubmitRating(_ sender: AnyObject){
 
 
@@ -173,9 +206,16 @@ class RatingVC: UIViewController {
             .then {[weak self] user -> Void in
 
                 if isClinic {
-                    ClinicModel.setRated(cId: (self?.clinicId)!)
+                    ClinicModel.setRated(cId: (self?.clinicId)!,
+                                         value: (self?.rating)!,
+                                         option: (self?.selectedOption)!,
+                                         otherComment: content!)
                 }else{
-                    DoctorModel.setRated(docId: (self?.doctorId)!)
+                    DoctorModel.setRated(docId: (self?.doctorId)!,
+                                         value: (self?.rating)!,
+                                         option: (self?.selectedOption)!,
+                                         otherComment: content!)
+
                 }
 
                 self?.SwiftMessageAlert(layout: .cardView, theme: .success, title: "", body: "Rating Successful".localized)

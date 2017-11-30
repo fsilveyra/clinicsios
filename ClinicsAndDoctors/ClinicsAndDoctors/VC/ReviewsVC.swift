@@ -57,7 +57,12 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         self.nameLb.text = doctor.full_name
         self.rateView.rating = doctor.rating
-        self.rateBtn.setTitle("RATE DOCTOR".localized, for: .normal)
+        if doctor.is_rated {
+            self.rateBtn.setTitle("UPDATE RATING".localized, for: .normal)
+        }else{
+            self.rateBtn.setTitle("RATE DOCTOR".localized, for: .normal)
+        }
+
     }
 
     private func updateWith(clinic: ClinicModel){
@@ -67,7 +72,13 @@ class ReviewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         self.nameLb.text = clinic.full_name
         self.rateView.rating = clinic.rating
-        self.rateBtn.setTitle("RATE CLINIC".localized, for: .normal)
+
+        if clinic.is_rated {
+            self.rateBtn.setTitle("UPDATE RATING".localized, for: .normal)
+        }else{
+            self.rateBtn.setTitle("RATE CLINIC".localized, for: .normal)
+        }
+
     }
 
 
