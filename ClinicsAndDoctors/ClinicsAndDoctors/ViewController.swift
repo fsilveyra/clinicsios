@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         facebookBt.setTitle("CONTINUE WITH FACEBOOK".localized, for: .normal)
         dontAccountLbl.text = "Don't have account?".localized
         registerHereBt.setTitle("Register Here".localized, for: .normal)
-        titleImage.image = UIImage(named: "titleAppImage".localized)
+        //titleImage.image = UIImage(named: "titleAppImage".localized)
     }
 
     override func viewWillAppear(_ animated: Bool) {
