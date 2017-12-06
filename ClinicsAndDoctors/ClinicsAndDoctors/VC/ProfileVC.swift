@@ -135,7 +135,7 @@ class ProfileVC: UIViewController , UINavigationControllerDelegate, UIImagePicke
         }
         else if !isValidPhone(testStr: mobileTf.text!){
             self.mobileTf.textColor = .red
-            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Movile, it should only be between 6 and 14 numbers".localized)
+            self.SwiftMessageAlert(layout: .cardView, theme: .error, title: "", body: "Wrong Mobile, it should only be between 6 and 14 numbers".localized)
         }
         else if nameTf.text == nil || nameTf.text!.isEmpty {
             self.nameTf.textColor = .red
