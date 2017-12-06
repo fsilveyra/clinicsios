@@ -639,7 +639,15 @@ class ISClient: NSObject {
 
     func search(keyword:String) -> Promise<[SearchResultModel]> {
         let headers = ["Content-Type" : "application/json"]
-        let parameters : Parameters = ["keyword":keyword]
+
+        var user_id = "-1"
+        if let user = UserModel.currentUser {
+            user_id = user.id
+        }
+
+
+
+        let parameters : Parameters = ["keyword":keyword, "user_id":user_id]
         let endPoint = "search"
 
         return Promise { fulfill, reject in
