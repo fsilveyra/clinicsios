@@ -1254,11 +1254,11 @@
                                         <rect key="frame" x="0.0" y="80" width="375" height="271"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle_line_progress" translatesAutoresizingMaskIntoConstraints="NO" id="RI7-UI-QSh">
-                                                <rect key="frame" x="112" y="56" width="151" height="159"/>
+                                                <rect key="frame" x="112" y="55" width="151" height="160"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="emptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="hzu-5K-SWn" customClass="RoundedImageView" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                <rect key="frame" x="127" y="66" width="120" height="143"/>
+                                                <rect key="frame" x="127" y="66" width="120" height="142"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -1304,11 +1304,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYN-c7-g3v">
                                         <rect key="frame" x="0.0" y="497" width="375" height="140"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="VAQ-GD-ffZ">
-                                                <rect key="frame" x="57.5" y="45" width="260" height="50"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="VAQ-GD-ffZ">
+                                                <rect key="frame" x="0.0" y="45" width="375" height="50"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DnX-wP-lQU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="ynV-1u-DH6"/>
+                                                        </constraints>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nba-rJ-l8K" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="35.5" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490196078433" green="0.62745098039215685" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="MvP-Jg-iWv"/>
@@ -1327,7 +1334,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzt-mq-tjP" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="70" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="120" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="9JL-oL-FOE"/>
@@ -1346,7 +1353,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQy-1y-5Mv" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="140" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="205" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="37m-o1-w12"/>
@@ -1365,7 +1372,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oqj-bf-Pvm" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="210" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="289.5" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="q72-mj-lob"/>
@@ -1383,6 +1390,13 @@
                                                             <action selector="shareAction:" destination="Uj0-yo-EwR" eventType="touchUpInside" id="gg6-Db-2ec"/>
                                                         </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XLh-nm-qLw">
+                                                        <rect key="frame" x="374" y="0.0" width="1" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="Ry6-qD-SyV"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="VIh-vV-PYX"/>
@@ -1391,8 +1405,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="VAQ-GD-ffZ" secondAttribute="trailing" id="E2S-ot-97E"/>
                                             <constraint firstItem="VAQ-GD-ffZ" firstAttribute="centerY" secondItem="UYN-c7-g3v" secondAttribute="centerY" id="P0D-DE-vl1"/>
-                                            <constraint firstItem="VAQ-GD-ffZ" firstAttribute="centerX" secondItem="UYN-c7-g3v" secondAttribute="centerX" id="baI-Mp-30X"/>
+                                            <constraint firstItem="VAQ-GD-ffZ" firstAttribute="leading" secondItem="UYN-c7-g3v" secondAttribute="leading" id="h6l-1V-G4N"/>
                                             <constraint firstAttribute="height" constant="140" id="oM1-k1-gX5"/>
                                         </constraints>
                                     </view>
@@ -2193,11 +2208,18 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIh-Zq-u6o">
                                         <rect key="frame" x="0.0" y="60" width="368" height="90"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8OI-Ed-ELj">
-                                                <rect key="frame" x="54" y="20" width="260" height="50"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="8OI-Ed-ELj">
+                                                <rect key="frame" x="0.0" y="20" width="368" height="50"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ca8-Xz-ctE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="4Pj-C8-tr4"/>
+                                                        </constraints>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhA-dh-w1C" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="34" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="0kn-RC-YjF"/>
@@ -2216,7 +2238,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfG-PH-5rM" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="70" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="117.5" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="Gvs-ha-BsI"/>
@@ -2235,7 +2257,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLZ-Hd-UE8" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="140" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="200.5" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="RXf-P7-dTQ"/>
@@ -2254,7 +2276,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrn-Tn-q9E" customClass="RoundedButton" customModule="ClinicsAndDoctors" customModuleProvider="target">
-                                                        <rect key="frame" x="210" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="284" y="0.0" width="50" height="50"/>
                                                         <color key="backgroundColor" red="0.13725490200000001" green="0.62745098040000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="7Fd-c5-vGg"/>
@@ -2272,6 +2294,13 @@
                                                             <action selector="shareAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="FUQ-rK-MTA"/>
                                                         </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3g-rv-uOR">
+                                                        <rect key="frame" x="367" y="0.0" width="1" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="LtZ-9F-Jwb"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="v53-A8-N0D"/>
@@ -2280,7 +2309,8 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="8OI-Ed-ELj" firstAttribute="centerX" secondItem="GIh-Zq-u6o" secondAttribute="centerX" id="ef3-M5-yjs"/>
+                                            <constraint firstItem="8OI-Ed-ELj" firstAttribute="leading" secondItem="GIh-Zq-u6o" secondAttribute="leading" id="5kZ-ht-RLb"/>
+                                            <constraint firstAttribute="trailing" secondItem="8OI-Ed-ELj" secondAttribute="trailing" id="cCb-eq-RIO"/>
                                             <constraint firstItem="8OI-Ed-ELj" firstAttribute="centerY" secondItem="GIh-Zq-u6o" secondAttribute="centerY" id="mXT-g5-2ho"/>
                                         </constraints>
                                     </view>
