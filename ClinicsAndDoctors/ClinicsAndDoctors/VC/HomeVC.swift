@@ -444,7 +444,7 @@ extension HomeVC {
 
                 var markPos = myMap.projection.point(for: marker.position)
                 markPos.x -= 28
-                markPos.y += (self.infoView.frame.height / 2 - 3)
+                markPos.y += (self.infoView.frame.height / 2) - 20
 
                 self.infoView.frame.origin = markPos
                 self.view.addSubview(self.infoView)
@@ -472,7 +472,7 @@ extension HomeVC {
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         var markPos = myMap.projection.point(for: tappedMarker.position)
-        markPos.y += (self.infoView.frame.height / 2 - 8)
+        markPos.y += (self.infoView.frame.height / 2) - 20
         markPos.x -= 28
 
         self.infoView.frame.origin = markPos
