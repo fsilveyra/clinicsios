@@ -238,7 +238,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     @IBAction func getDirectionsAction(_ sender: AnyObject){
         self.infoView.removeFromSuperview()
-        drawPath()
+        openMapAction()
     }
 
     @IBAction func GoClinicDetails(_ sender: AnyObject){
@@ -727,38 +727,57 @@ extension HomeVC {
 
 extension HomeVC {
 
-    func drawPath() {
 
-        for pl in polylines {
-            pl.map = nil
-        }
-        polylines = [GMSPolyline]()
+    func openMapAction() {
 
-
-        guard let currentLocation = UserModel.mylocation else { return }
         guard let clinic = ClinicModel.by(id: tappedMarker.userData as! String) else { return }
-        let finalLoc:CLLocation = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
-        guard let key = UserDefaults.standard.string(forKey: "google_key") else { return }
+        let pos = tappedMarker.position
 
-        let origin = "\(currentLocation.coordinate.latitude ),\(currentLocation.coordinate.longitude)"
-        let destination = "\(finalLoc.coordinate.latitude ),\(finalLoc.coordinate.longitude)"
-
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(key)"
-
-        Alamofire.request(url).responseJSON {[weak self] response in
-            let json = try! JSON(data: response.data!)
-            let routes = json["routes"].arrayValue
-
-            for route in routes {
-                let routeOverviewPolyline = route["overview_polyline"].dictionary
-                let points = routeOverviewPolyline?["points"]?.stringValue
-                let path = GMSPath.init(fromEncodedPath: points!)
-                let polyline = GMSPolyline.init(path: path)
-                polyline.map = self?.myMap
-                self?.polylines.append(polyline)
-            }
-        }
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(pos.latitude, pos.longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = clinic.full_name
+        mapItem.openInMaps(launchOptions: options)
     }
+
+//    func drawPath() {
+//
+//        for pl in polylines {
+//            pl.map = nil
+//        }
+//        polylines = [GMSPolyline]()
+//
+//
+//        guard let currentLocation = UserModel.mylocation else { return }
+//        guard let clinic = ClinicModel.by(id: tappedMarker.userData as! String) else { return }
+//        let finalLoc:CLLocation = CLLocation(latitude: clinic.latitude, longitude: clinic.longitude)
+//        guard let key = UserDefaults.standard.string(forKey: "google_key") else { return }
+//
+//        let origin = "\(currentLocation.coordinate.latitude ),\(currentLocation.coordinate.longitude)"
+//        let destination = "\(finalLoc.coordinate.latitude ),\(finalLoc.coordinate.longitude)"
+//
+//        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(key)"
+//
+//        Alamofire.request(url).responseJSON {[weak self] response in
+//            let json = try! JSON(data: response.data!)
+//            let routes = json["routes"].arrayValue
+//
+//            for route in routes {
+//                let routeOverviewPolyline = route["overview_polyline"].dictionary
+//                let points = routeOverviewPolyline?["points"]?.stringValue
+//                let path = GMSPath.init(fromEncodedPath: points!)
+//                let polyline = GMSPolyline.init(path: path)
+//                polyline.map = self?.myMap
+//                self?.polylines.append(polyline)
+//            }
+//        }
+//    }
 
 }
 
