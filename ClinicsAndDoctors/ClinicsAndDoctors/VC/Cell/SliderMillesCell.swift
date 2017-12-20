@@ -16,10 +16,10 @@ class SliderMillesCell: UITableViewCell {
         super.awakeFromNib()
 
         kmsAwayLbl.text = "Kilometers Away".localized
-
+        self.kms = 50
     }
 
-    var kms:Float = 100.0 {
+    var kms:Float = 50.0 {
         didSet{
             self.slider.value = kms
             self.updateLabelValue()

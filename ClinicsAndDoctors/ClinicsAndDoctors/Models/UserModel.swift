@@ -26,7 +26,7 @@ class UserModel: NSObject {
 
 
     static var mylocation:CLLocation?
-    static var radiusLocationMeters:Int = 100000
+    static var radiusLocationMeters:Int = 50
 
     override init() {
     }

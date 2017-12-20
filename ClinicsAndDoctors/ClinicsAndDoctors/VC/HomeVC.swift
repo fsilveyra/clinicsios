@@ -103,6 +103,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         configureSideMenu()
 
         initLocation()
+        
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -187,6 +188,8 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             self.navigationItem.rightBarButtonItem?.image = UIImage(named: "icon_navbar_world")
 
             self.myTableView.isUserInteractionEnabled = true
+            self.myMap.isUserInteractionEnabled = false
+
             self.view.sendSubview(toBack: self.myMap)
             self.view.sendSubview(toBack: self.locationBt)
             self.view.bringSubview(toFront: self.myTableView)
@@ -195,17 +198,18 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             UIView.animate(withDuration: 0.3, animations: {
                 self.myMap.alpha = 0
                 self.locationBt.alpha = 0
-                self.myMap.isUserInteractionEnabled = false
                 self.myTableView.alpha = 1
             })
         }
+
+        updateDefaultView()
     }
     
     @IBAction func SliderMoved(_ slider: UISlider, event:UIEvent){
         if let touchEvent = event.allTouches?.first{
             switch touchEvent.phase{
             case .ended:
-                let newval = lroundf(slider.value) * 1000
+                let newval = lroundf(slider.value) //* 1000
                 if newval != UserModel.radiusLocationMeters {
                     UserModel.radiusLocationMeters = newval
                     print("Current Meters: \(UserModel.radiusLocationMeters)")
@@ -274,6 +278,14 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         //self.drawPath()
     }
 
+    func updateDefaultView(){
+        if self.doctorInClinics.count == 0 && self.myMap.alpha == 0{
+            self.defaultView.isHidden = false
+        }else{
+            self.defaultView.isHidden = true
+        }
+    }
+
     func loadData(){
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
 
@@ -290,11 +302,7 @@ class HomeVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 self.myTableView.reloadData()
 
                 self.view.bringSubview(toFront: self.defaultView)
-                if self.doctorInClinics.count == 0 && self.myMap.alpha == 0{
-                    self.defaultView.isHidden = false
-                }else{
-                    self.defaultView.isHidden = true
-                }
+                self.updateDefaultView()
 
             }.always {
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
@@ -613,7 +621,7 @@ extension HomeVC {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SliderMillesCell") as! SliderMillesCell
-        cell.kms = Float(UserModel.radiusLocationMeters / 1000)
+        cell.kms = Float(UserModel.radiusLocationMeters)
         return cell
     }
 
