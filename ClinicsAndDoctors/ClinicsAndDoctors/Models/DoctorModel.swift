@@ -31,6 +31,12 @@ class DoctorModel: NSObject {
     
     required init(representationJSON:SwiftyJSON.JSON) {
         self.full_name = representationJSON["full_name"].stringValue
+
+        //AAAAHHHH!
+        if self.full_name.isEmpty{
+            self.full_name = representationJSON["name"].stringValue
+        }
+
         self.phone_number = representationJSON["phone_number"].stringValue
         self.profile_picture = representationJSON["picture"].stringValue.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
         self.email = representationJSON["email"].stringValue

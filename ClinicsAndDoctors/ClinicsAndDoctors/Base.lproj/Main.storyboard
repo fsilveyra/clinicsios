@@ -2320,7 +2320,7 @@
                                 </constraints>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eah-Qd-3O1">
-                                <rect key="frame" x="0.0" y="161" width="375" height="46"/>
+                                <rect key="frame" x="54" y="161" width="321" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.090552590789999998" green="0.21393170950000001" blue="0.305600971" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9ym-FA-qQk">
@@ -2363,11 +2363,6 @@
                                     <outlet property="delegate" destination="blR-Qa-TLo" id="aEC-yB-sqK"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67q-DP-VTd" userLabel="separetor View">
-                                <rect key="frame" x="65" y="167" width="1" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgM-Gi-eOn">
                                 <rect key="frame" x="8" y="286" width="367" height="381"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -2396,6 +2391,15 @@
                                     <outlet property="delegate" destination="blR-Qa-TLo" id="4sq-wq-nNT"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKZ-hN-t2n">
+                                <rect key="frame" x="-1" y="161" width="55" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.088578738269999999" green="0.2155143917" blue="0.30462777610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="icons8-Search-100"/>
+                                <connections>
+                                    <action selector="searchAction:" destination="blR-Qa-TLo" eventType="touchUpInside" id="8od-ux-cgX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.14452835917472839" green="0.50385886430740356" blue="0.48592811822891235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -2421,8 +2425,8 @@
                         <outlet property="nameClinicLb" destination="71F-rx-tal" id="dU1-OP-4uK"/>
                         <outlet property="phoneBt" destination="aLZ-Hd-UE8" id="pDK-sW-1pi"/>
                         <outlet property="rateView" destination="QDz-z8-18a" id="dBY-cB-10Y"/>
+                        <outlet property="searchBtn" destination="sKZ-hN-t2n" id="s6G-zH-nbd"/>
                         <outlet property="seeReviewsBtn" destination="oCD-4J-wqr" id="rh2-Ft-r41"/>
-                        <outlet property="separetorView" destination="67q-DP-VTd" id="O9h-wD-ROk"/>
                         <outlet property="specialitiesCollection" destination="eah-Qd-3O1" id="PFY-jj-lRS"/>
                     </connections>
                 </viewController>
@@ -2651,7 +2655,7 @@
         <image name="whiteFillPhone" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="W8d-Dw-BHL"/>
+        <segue reference="XoE-Cp-Hgl"/>
         <segue reference="Mhn-Og-OoO"/>
         <segue reference="l4h-aO-Um7"/>
     </inferredMetricsTieBreakers>

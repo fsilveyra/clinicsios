@@ -637,7 +637,7 @@ class ISClient: NSObject {
 
 
 
-    func search(keyword:String) -> Promise<[SearchResultModel]> {
+    func search(keyword:String, clinicId:String? = nil) -> Promise<[SearchResultModel]> {
         let headers = ["Content-Type" : "application/json"]
 
         var user_id = "-1"
@@ -647,7 +647,12 @@ class ISClient: NSObject {
 
 
 
-        let parameters : Parameters = ["keyword":keyword, "user_id":user_id]
+        var parameters : Parameters = ["keyword":keyword, "user_id":user_id]
+
+        if let clinic = clinicId{
+            parameters.updateValue(clinic, forKey: "clinic_id")
+        }
+
         let endPoint = "search"
 
         return Promise { fulfill, reject in
@@ -662,7 +667,11 @@ class ISClient: NSObject {
 
                             var list = [SearchResultModel]()
                             for item in js.arrayValue {
-                                list.append(SearchResultModel(representationJSON: item))
+
+
+                                let obj = SearchResultModel(representationJSON: item, clinicId:clinicId)
+
+                                list.append(obj)
                             }
                             fulfill(list)
 
@@ -692,16 +701,24 @@ class SearchResultModel: NSObject {
     override init() {
     }
 
-    required init(representationJSON:SwiftyJSON.JSON) {
+    required init(representationJSON:SwiftyJSON.JSON, clinicId:String?) {
         self.id = representationJSON["id"].stringValue
 
-        let cid = representationJSON["clinic","id"].stringValue
-        if cid.isEmpty{
-            objType = "clinic"
-            self.clinicData = ClinicModel(representationJSON:representationJSON)
-        }else{
+        if let clinic = clinicId {
             objType = "doctor"
             self.doctorData = DoctorModel(representationJSON:representationJSON)
+            self.doctorData?.idClinic = clinic
+
+        }else{
+
+            let cid = representationJSON["clinic","id"].stringValue
+            if cid.isEmpty{
+                objType = "clinic"
+                self.clinicData = ClinicModel(representationJSON:representationJSON)
+            }else{
+                objType = "doctor"
+                self.doctorData = DoctorModel(representationJSON:representationJSON)
+            }
         }
     }
 
@@ -709,4 +726,29 @@ class SearchResultModel: NSObject {
 }
 
 
+
+extension JSON {
+    mutating func merge(other: JSON) {
+        if self.type == other.type {
+            switch self.type {
+            case .dictionary:
+                for (key, _) in other {
+                    self[key].merge(other: other[key])
+                }
+            case .array:
+                self = JSON(self.arrayValue + other.arrayValue)
+            default:
+                self = other
+            }
+        } else {
+            self = other
+        }
+    }
+
+    func mergedd(other: JSON) -> JSON {
+        var merged = self
+        merged.merge(other: other)
+        return merged
+    }
+}
 

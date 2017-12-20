@@ -20,11 +20,14 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var rateView: CosmosView!
     @IBOutlet weak var specialitiesCollection:UICollectionView!
     @IBOutlet weak var myTableView:UITableView!
-    @IBOutlet weak var separetorView:UIView!
     @IBOutlet weak var addFavoriteBt: RoundedButton!
     @IBOutlet weak var phoneBt: RoundedButton!
     @IBOutlet weak var seeReviewsBtn: UIButton!
     @IBOutlet weak var defaultView: UIView!
+    @IBOutlet weak var searchBtn: UIButton!
+
+    var searchView : SearchView? = nil
+    var topSearch:CGFloat = 0
 
     var specialitysNames = ["All"]
     var currentSelectedEspec = 0
@@ -41,7 +44,6 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
         translateStaticInterface()
         CreateGradienBackGround(view: self.view)
         myTableView.frame.origin.y = specialitiesCollection.frame.maxY
-        separetorView.frame.origin.x = specialitiesCollection.frame.minX-1
         myTableView.frame.size.height = view.frame.maxY - myTableView.frame.minY
 
 
@@ -55,6 +57,8 @@ class ClinincDetailVC: UIViewController, UICollectionViewDataSource, UICollectio
 
         self.seeReviewsBtn.underlined()
 
+
+        configureSearch()
     }
 
     override func viewDidLayoutSubviews() {
@@ -397,3 +401,98 @@ extension ClinincDetailVC {
     }
 
 }
+
+
+
+
+//==========================================================
+// MARK: - Search
+//==========================================================
+
+extension ClinincDetailVC {
+
+    func configureSearch(){
+        self.topSearch = self.searchBtn.frame.origin.y
+        showSearchPanel(false, animated:false)
+
+        self.searchView?.onClose = {[weak self] in
+            self?.showSearchPanel(false)
+            //self?.loadData()
+        }
+
+        self.searchView?.onSelectItem = {[weak self] (itemId, itemType) in
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            if itemType == "doctor" {
+                let vc = storyboard.instantiateViewController(withIdentifier: "DoctorDetailVC") as! DoctorDetailVC
+                vc.docId = itemId
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = storyboard.instantiateViewController(withIdentifier: "ClinincDetailVC") as! ClinincDetailVC
+                vc.clinicId = itemId
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+    }
+
+    func showSearchPanel(_ show:Bool, animated:Bool = true){
+
+        let size = self.view.frame.size
+        let topSize = CGSize(width:size.width, height: size.height - topSearch)
+        let topFrame = CGRect(x:0, y:topSearch, width:topSize.width, height: topSize.height)
+        let bottonFrame = CGRect(x:0, y:size.height, width:topSize.width, height: topSize.height)
+
+        if self.searchView == nil {
+            self.searchView = SearchView(frame: bottonFrame)
+            self.searchView?.clinicId = self.clinicId
+            self.view.addSubview(self.searchView!)
+        }
+
+        guard let sview = self.searchView else {return}
+
+        self.view.bringSubview(toFront: sview)
+
+        if show {
+
+            if !sview.isHidden {return}
+
+            sview.isHidden = false
+            sview.frame = bottonFrame
+            sview.setNeedsLayout()
+            UIView.animate(withDuration: animated ? 0.2 : 0.01, delay: 0, options: [.curveEaseOut], animations: {
+                sview.frame = topFrame
+                sview.setNeedsLayout()
+            }, completion: { completed in
+                sview.textField.becomeFirstResponder()
+
+            })
+
+        }else{
+
+            if sview.isHidden {return}
+            sview.frame = topFrame
+            sview.setNeedsLayout()
+
+            UIView.animate(withDuration: animated ? 0.2 : 0.01, delay: 0, options: [.curveEaseIn], animations: {
+                sview.frame = bottonFrame
+                sview.setNeedsLayout()
+            }, completion: { completed in
+                sview.isHidden = true
+            })
+
+            self.view.endEditing(true)
+
+        }
+
+    }
+
+
+
+    @IBAction func searchAction(_ sender:UIButton){
+        showSearchPanel(self.searchView!.isHidden)
+    }
+
+}
+

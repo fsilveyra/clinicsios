@@ -13,6 +13,7 @@ import MapKit
 
 class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate {
 
+    var clinicId:String? = nil
     private var view: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -49,6 +50,10 @@ class SearchView: UIView , UITableViewDataSource, UITableViewDelegate, UIScrollV
         textField.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+
+        if let _ = self.clinicId{
+            localDoctorSearch(text: "")
+        }
     }
 
     override func layoutSubviews() {
@@ -111,8 +116,34 @@ extension SearchView {
         }
     }
 
-    
+
+    func localDoctorSearch(text:String){
+        self.clinics = [ClinicModel]()
+        self.doctors = [DoctorModel]()
+
+        self.tableView.reloadData()
+
+        guard let clincId = self.clinicId else {return}
+
+        if let clinic = ClinicModel.by(id: clincId){
+             let doctors = clinic.getDoctors()
+
+            if text.isEmpty {
+                self.doctors = doctors
+            }else{
+                self.doctors = doctors.filter({ (doc) -> Bool in
+                    return (doc.full_name.lowercased().range(of:text) != nil)
+                })
+            }
+
+            self.tableView.reloadData()
+
+        }
+    }
+
+
     func search(text:String){
+        
         if text.isEmpty {return}
 
 
@@ -121,9 +152,47 @@ extension SearchView {
             self.loadClinics(radius: 100000000, specialityId: nil)
             .then {
                 self.loadDoctors(specialityId:nil, clinicId: nil)
+                }.then {
+
+                    ISClient.sharedInstance.search(keyword: text, clinicId: self.clinicId)
+            }.then {[weak self] items -> Void in
+
+                self?.clinics = [ClinicModel]()
+                self?.doctors = [DoctorModel]()
+
+                for item in items {
+                    
+                    if let clinic = item.clinicData {
+                        self?.clinics.append(clinic)
+                    }
+                    if let doctor = item.doctorData {
+                        self?.doctors.append(doctor)
+                    }
+                }
+
+                self?.tableView.reloadData()
+
+            }.always {
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            }.catch { error in
+                if let e: LPError = error as? LPError { e.show() }
+        }
+    }
+
+
+
+    func searchInDoctorOfClinic(clinicId:String, text:String){
+        if text.isEmpty {return}
+
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(loading)
+
+        self.loadClinics(radius: UserModel.radiusLocationMeters, specialityId: nil)
+            .then {
+                self.loadDoctors(specialityId:nil, clinicId: nil)
             }.then {
 
-             ISClient.sharedInstance.search(keyword: text)
+                ISClient.sharedInstance.search(keyword: text)
             }.then {[weak self] items -> Void in
 
                 self?.clinics = [ClinicModel]()
@@ -144,11 +213,7 @@ extension SearchView {
             }.catch { error in
                 if let e: LPError = error as? LPError { e.show() }
         }
-
-
-
     }
-
 }
 
 //====================================================

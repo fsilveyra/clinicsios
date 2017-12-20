@@ -575,7 +575,7 @@
 				TargetAttributes = {
 					FBE201881F7DF69F00C51A0D = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = EUARY92ECY;
+						DevelopmentTeam = Q2WEC266KZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -956,7 +956,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				DEVELOPMENT_TEAM = Q2WEC266KZ;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -976,7 +976,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = EUARY92ECY;
+				DEVELOPMENT_TEAM = Q2WEC266KZ;
 				INFOPLIST_FILE = ClinicsAndDoctors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

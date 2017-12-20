@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClinicsAndDoctors/Models/ClinicModel.swift"
-            timestampString = "533761278.849119"
+            timestampString = "535496966.282598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
@@ -58,7 +58,7 @@
                   moduleName = "ClinicsAndDoctors"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/DATOS/DESARROLLO/PROYECTOS/INFINIXSOFTT/Clinics/Git/infinixsoft_clinicsanddoctors/ClinicsAndDoctors/ClinicsAndDoctors/Models/ClinicModel.swift"
-                  timestampString = "535482025.992773"
+                  timestampString = "535501162.528916"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "125"
@@ -73,7 +73,7 @@
                   moduleName = "ClinicsAndDoctors"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/DATOS/DESARROLLO/PROYECTOS/INFINIXSOFTT/Clinics/Git/infinixsoft_clinicsanddoctors/ClinicsAndDoctors/ClinicsAndDoctors/Models/ClinicModel.swift"
-                  timestampString = "535482025.996679"
+                  timestampString = "535501162.53457"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "125"
@@ -81,6 +81,54 @@
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClinicsAndDoctors/Helpers/ISClient.swift"
+            timestampString = "535501161.374583"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
+            landmarkName = "merge(other:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClinicsAndDoctors/Models/DoctorModel.swift"
+            timestampString = "535501161.375254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "init(representationJSON:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClinicsAndDoctors/Helpers/ISClient.swift"
+            timestampString = "535501161.375372"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "init(representationJSON:clinicId:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
