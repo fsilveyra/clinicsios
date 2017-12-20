@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var userAvatarURL = ""
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let apikey = "AIzaSyD4YJgOX4NjtGwJDJpLtSwIYpy13ykGxOg"
+        let apikey = "AIzaSyChXsHFeoF6VDUAZCtFzl1CjJEz6UL2HyA"
         GMSServices.provideAPIKey(apikey)
         UserDefaults.standard.set(apikey, forKey: "google_key")
         UserDefaults.standard.synchronize()
